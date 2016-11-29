@@ -22,5 +22,11 @@ namespace PasswordManager.App
             Dashboard dashboard = new Dashboard();
             dashboard.ShowDialog();
         }
+
+        private void lblCreateAccount_Click(object sender, EventArgs e)
+        {
+            Register register = new Register();
+            register.ShowDialog();
+        }
     }
 }

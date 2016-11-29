@@ -12,7 +12,7 @@ namespace PasswordManager.Entities
         public string Username { get; set; }
         public string Email { get; set; }
         public string LoginPassword { get; set; }
-        public string Master { get; set; }
+        public string MasterPassword { get; set; }
 
         public List<Password> Password { get; set; }
     }

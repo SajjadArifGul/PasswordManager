@@ -1,9 +1,4 @@
 ﻿///////////////////////////////////////////////////////////////////////////////
-// SAMPLE: Symmetric key encryption and decryption using Rijndael algorithm.
-// 
-// To run this sample, create a new Visual C# project using the Console
-// Application template and replace the contents of the Class1.cs file with
-// the code below.
 //
 // THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, 
 // EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED 
@@ -11,6 +6,14 @@
 // 
 // Copyright (C) 2002-2013 Obviex(TM). All rights reserved.
 // 
+///////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+// I customized this code for my personal use.
+// Original Link : http://www.obviex.com/samples/encryption.aspx
+// Sajjad - 29-11-2016
+///////////////////////////////////////////////////////////////////////////////
+
 using System;
 using System.IO;
 using System.Text;
