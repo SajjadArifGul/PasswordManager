@@ -32,17 +32,19 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblCreateAccount = new System.Windows.Forms.Label();
             this.lblForgotPassword = new System.Windows.Forms.Label();
-            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.btnLogin = new System.Windows.Forms.Button();
+            this.txtLoginPass = new System.Windows.Forms.TextBox();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.btnLogin = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lblMassege = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -64,7 +66,7 @@
             this.panel3.Controls.Add(this.lblCreateAccount);
             this.panel3.Controls.Add(this.lblForgotPassword);
             this.panel3.Controls.Add(this.btnLogin);
-            this.panel3.Controls.Add(this.txtPassword);
+            this.panel3.Controls.Add(this.txtLoginPass);
             this.panel3.Controls.Add(this.txtEmail);
             this.panel3.Controls.Add(this.label3);
             this.panel3.Controls.Add(this.label2);
@@ -97,15 +99,33 @@
             this.lblForgotPassword.TabIndex = 7;
             this.lblForgotPassword.Text = "Forgot Password?";
             // 
-            // txtPassword
+            // btnLogin
             // 
-            this.txtPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(234)))), ((int)(((byte)(246)))));
-            this.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(140)))), ((int)(((byte)(235)))));
-            this.txtPassword.Location = new System.Drawing.Point(123, 145);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(225, 29);
-            this.txtPassword.TabIndex = 5;
+            this.btnLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(140)))), ((int)(((byte)(235)))));
+            this.btnLogin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnLogin.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLogin.FlatAppearance.BorderSize = 0;
+            this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLogin.ForeColor = System.Drawing.Color.White;
+            this.btnLogin.Image = global::PasswordManager.App.Properties.Resources.arrow_right;
+            this.btnLogin.Location = new System.Drawing.Point(283, 188);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(65, 42);
+            this.btnLogin.TabIndex = 6;
+            this.btnLogin.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLogin.UseVisualStyleBackColor = false;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
+            // txtLoginPass
+            // 
+            this.txtLoginPass.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(234)))), ((int)(((byte)(246)))));
+            this.txtLoginPass.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtLoginPass.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(140)))), ((int)(((byte)(235)))));
+            this.txtLoginPass.Location = new System.Drawing.Point(123, 145);
+            this.txtLoginPass.Name = "txtLoginPass";
+            this.txtLoginPass.Size = new System.Drawing.Size(225, 29);
+            this.txtLoginPass.TabIndex = 5;
+            this.txtLoginPass.UseSystemPasswordChar = true;
             // 
             // txtEmail
             // 
@@ -145,33 +165,6 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Login";
             // 
-            // panel2
-            // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(239)))), ((int)(((byte)(241)))));
-            this.panel2.Location = new System.Drawing.Point(0, 262);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(584, 199);
-            this.panel2.TabIndex = 0;
-            // 
-            // btnLogin
-            // 
-            this.btnLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(140)))), ((int)(((byte)(235)))));
-            this.btnLogin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnLogin.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLogin.FlatAppearance.BorderSize = 0;
-            this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLogin.ForeColor = System.Drawing.Color.White;
-            this.btnLogin.Image = global::PasswordManager.App.Properties.Resources.arrow_right;
-            this.btnLogin.Location = new System.Drawing.Point(283, 188);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(65, 42);
-            this.btnLogin.TabIndex = 6;
-            this.btnLogin.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLogin.UseVisualStyleBackColor = false;
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::PasswordManager.App.Properties.Resources.user_blue;
@@ -181,6 +174,29 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(239)))), ((int)(((byte)(241)))));
+            this.panel2.Controls.Add(this.lblMassege);
+            this.panel2.Location = new System.Drawing.Point(0, 262);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(584, 199);
+            this.panel2.TabIndex = 0;
+            // 
+            // lblMassege
+            // 
+            this.lblMassege.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblMassege.Image = global::PasswordManager.App.Properties.Resources.icon_blue;
+            this.lblMassege.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblMassege.Location = new System.Drawing.Point(0, 135);
+            this.lblMassege.Name = "lblMassege";
+            this.lblMassege.Size = new System.Drawing.Size(584, 64);
+            this.lblMassege.TabIndex = 15;
+            this.lblMassege.Text = " ";
+            this.lblMassege.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Login
             // 
@@ -194,10 +210,12 @@
             this.Name = "Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Login_FormClosed);
             this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -209,12 +227,13 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtPassword;
+        private System.Windows.Forms.TextBox txtLoginPass;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Label lblCreateAccount;
         private System.Windows.Forms.Label lblForgotPassword;
+        private System.Windows.Forms.Label lblMassege;
     }
 }

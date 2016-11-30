@@ -7,9 +7,33 @@ using System.Threading.Tasks;
 
 namespace PasswordManager.DAL
 {
+    //we have to make this class a Singleton so only one object can be created 
+    //during the entire lifecycle.
     public class Database
     {
-        public List<User> Users { get; set; }
+        private static Database _instance;
+
+        public List<User> Users;
+
+        // Constructor is 'protected'
+        protected Database()
+        {
+            //instead of new List of Users, we will get it from Filer
+            //but for now on continue
+            Users = new List<User>();
+        }
+
+        public static Database Instance()
+        {
+            // Uses lazy initialization.
+            // Note: this is not thread safe.
+            if (_instance == null)
+            {
+                _instance = new Database();
+            }
+
+            return _instance;
+        }
 
         public bool AddUser(User user)
         {
@@ -24,6 +48,25 @@ namespace PasswordManager.DAL
 
             Users.Add(user);
             return true;
+        }
+
+
+        public User FindUser(User user)
+        {
+            User UserToBeReturned = null;
+
+            foreach (User ExistingUser in Users)
+            {
+                if (ExistingUser.Email == user.Email)
+                {
+                    if (ExistingUser.LoginPassword == user.LoginPassword)
+                    {
+                        UserToBeReturned = ExistingUser;
+                    }
+                }
+            }
+
+            return UserToBeReturned;
         }
     }
 }

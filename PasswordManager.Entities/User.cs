@@ -14,6 +14,6 @@ namespace PasswordManager.Entities
         public string LoginPassword { get; set; }
         public string MasterPassword { get; set; }
 
-        public List<Password> Password { get; set; }
+        public List<Password> Passwords { get; set; }
     }
 }

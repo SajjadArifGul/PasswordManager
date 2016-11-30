@@ -10,11 +10,16 @@ namespace PasswordManager.BLL
 {
     public class Users
     {
-        Database db = new Database();
+        Database db = Database.Instance();
 
         public bool Register(User user)
         {
             return db.AddUser(user);
+        }
+
+        public User Exist(User user)
+        {
+            return db.FindUser(user);
         }
     }
 }

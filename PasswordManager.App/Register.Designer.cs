@@ -30,8 +30,6 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.txtMasterPass = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.txtLoginPass = new System.Windows.Forms.TextBox();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -44,9 +42,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lblMassege = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -57,15 +57,13 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(584, 511);
+            this.panel1.Size = new System.Drawing.Size(584, 461);
             this.panel1.TabIndex = 1;
             // 
             // panel3
             // 
             this.panel3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel3.BackColor = System.Drawing.Color.White;
-            this.panel3.Controls.Add(this.txtMasterPass);
-            this.panel3.Controls.Add(this.label6);
             this.panel3.Controls.Add(this.txtLoginPass);
             this.panel3.Controls.Add(this.txtEmail);
             this.panel3.Controls.Add(this.label4);
@@ -77,30 +75,11 @@
             this.panel3.Controls.Add(this.label2);
             this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.pictureBox1);
-            this.panel3.Location = new System.Drawing.Point(93, 65);
+            this.panel3.Location = new System.Drawing.Point(93, 40);
             this.panel3.Margin = new System.Windows.Forms.Padding(0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(400, 366);
+            this.panel3.Size = new System.Drawing.Size(400, 330);
             this.panel3.TabIndex = 1;
-            // 
-            // txtMasterPass
-            // 
-            this.txtMasterPass.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(234)))), ((int)(((byte)(246)))));
-            this.txtMasterPass.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMasterPass.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(140)))), ((int)(((byte)(235)))));
-            this.txtMasterPass.Location = new System.Drawing.Point(123, 250);
-            this.txtMasterPass.Name = "txtMasterPass";
-            this.txtMasterPass.Size = new System.Drawing.Size(225, 29);
-            this.txtMasterPass.TabIndex = 14;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(18, 252);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(99, 21);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "Master Pass :";
             // 
             // txtLoginPass
             // 
@@ -149,7 +128,7 @@
             this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRegister.ForeColor = System.Drawing.Color.White;
             this.btnRegister.Image = global::PasswordManager.App.Properties.Resources.arrow_right;
-            this.btnRegister.Location = new System.Drawing.Point(283, 294);
+            this.btnRegister.Location = new System.Drawing.Point(283, 255);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(65, 42);
             this.btnRegister.TabIndex = 6;
@@ -220,25 +199,43 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(239)))), ((int)(((byte)(241)))));
-            this.panel2.Location = new System.Drawing.Point(0, 312);
+            this.panel2.Controls.Add(this.lblMassege);
+            this.panel2.Location = new System.Drawing.Point(0, 262);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(584, 199);
             this.panel2.TabIndex = 0;
             // 
+            // lblMassege
+            // 
+            this.lblMassege.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblMassege.Image = global::PasswordManager.App.Properties.Resources.icon_blue;
+            this.lblMassege.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblMassege.Location = new System.Drawing.Point(0, 135);
+            this.lblMassege.Name = "lblMassege";
+            this.lblMassege.Size = new System.Drawing.Size(584, 64);
+            this.lblMassege.TabIndex = 14;
+            this.lblMassege.Text = " ";
+            this.lblMassege.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Register
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(584, 511);
+            this.ClientSize = new System.Drawing.Size(584, 461);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(140)))), ((int)(((byte)(235)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(600, 500);
             this.Name = "Register";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Register";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Register_FormClosed);
             this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -255,11 +252,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TextBox txtMasterPass;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtLoginPass;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblMassege;
     }
 }
