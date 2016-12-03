@@ -39,7 +39,7 @@ namespace PasswordManager.Globals
             {
                 return @"My Name is Sajjad Arif Gul and I am the developer of " + AppName 
                         + @". Why did I develop this software when I could just used other brilliant password managers available on the internet?"
-                        + @" Sure, the reason is I wanted to know and control the process that goes behind the app interface."
+                        + @" Sure, the reason is I wanted to know and control the process that goes behind the app interface. "
                         + AppName + @" keeps all passwords in encrypted format in a file stored on the user computer unlike"
                         + @" most other password managers on the cloud. "
                         + AppName + @" is free to use software and provided as is without any warranty.";
