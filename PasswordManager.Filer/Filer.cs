@@ -10,9 +10,9 @@ using System.Xml.Linq;
 
 namespace PasswordManager.Filer
 {
-    public class Filer
+    public static class Filer
     {
-        public bool Save(List<User> Users)
+        public static bool Save(List<User> Users)
         {
             string FilePath = Globals.Settings.DatabaseFilePath;
 
@@ -27,7 +27,7 @@ namespace PasswordManager.Filer
             return false;
         }
 
-        public List<User> Read()
+        public static List<User> Read()
         {
             //return type should be a list of users with their password details
             string FilePath = Globals.Settings.DatabaseFilePath;
@@ -44,106 +44,141 @@ namespace PasswordManager.Filer
                     // Only detect start elements.
                     if (xReader.IsStartElement())
                     {
-                        // Get element name and switch on it.
                         switch (xReader.Name)
                         {
                             case "User":
                                 if (newUser == null)
                                     newUser = new User();
-                                else
-                                {
-                                    Users.Add(newUser);
-                                    newUser = new User();
-                                }
-                                break;
 
-                            case "Name":
-                                newUser.Name = xReader.ReadSubtree
-                            case "Password":
+                                XmlReader userreader = xReader.ReadSubtree();
 
-                            case "Password":
+                                while (userreader.Read())
+                                {
+                                    switch (userreader.Name)
+                                    {
+                                        case "Name":
+                                            if (userreader.Read())
+                                            {
+                                                string Name = userreader.Value.Trim();
+                                                if (!string.IsNullOrEmpty(Name) && !string.IsNullOrWhiteSpace(Name) && Name != string.Empty && Name != " ")
+                                                    newUser.Name = Name;
+                                            }
+                                            break;
+                                        case "Username":
+                                            if (userreader.Read())
+                                            {
+                                                string Username = userreader.Value.Trim();
+                                                if (!string.IsNullOrEmpty(Username) && !string.IsNullOrWhiteSpace(Username) && Username != string.Empty && Username != " ")
+                                                    newUser.Username = Username;
+                                            }
+                                            break;
+                                        case "Email":
+                                            if (userreader.Read())
+                                            {
+                                                string Email = userreader.Value.Trim();
+                                                if (!string.IsNullOrEmpty(Email) && !string.IsNullOrWhiteSpace(Email) && Email != string.Empty && Email != " ")
+                                                    newUser.Email = Email;
+                                            }
+                                            break;
+                                        case "Login":
+                                            if (userreader.Read())
+                                            {
+                                                string Login = userreader.Value.Trim();
+                                                if (!string.IsNullOrEmpty(Login) && !string.IsNullOrWhiteSpace(Login) && Login != string.Empty && Login != " ")
+                                                    newUser.LoginPassword = Login;
+                                            }
+                                            break;
+                                        case "Passwords":
+                                            List<Password> PasswordsList = new List<Password>();
 
-                            case "Password":
-                                // Detect this article element.
-                                Console.WriteLine("Start <article> element.");
-                                // Search for the attribute name on this current node.
-                                string attribute = reader["name"];
-                                if (attribute != null)
-                                {
-                                    Console.WriteLine("  Has attribute name: " + attribute);
+                                            XmlReader PasswordsReader = userreader.ReadSubtree();
+
+                                            Password newPassword = null;
+
+                                            while (PasswordsReader.Read())
+                                            {
+                                                switch (PasswordsReader.Name)
+                                                {
+                                                    case "Password":
+                                                        if (newPassword == null)
+                                                            newPassword = new Password();
+                                                        else
+                                                        {
+                                                            PasswordsList.Add(newPassword);
+                                                            newPassword = null;
+                                                        }
+                                                        break;
+
+                                                    case "ID":
+                                                        if (PasswordsReader.Read())
+                                                        {
+                                                            string ID = PasswordsReader.Value.Trim();
+                                                            if (!string.IsNullOrEmpty(ID) && !string.IsNullOrWhiteSpace(ID) && ID != string.Empty && ID != " ")
+                                                                newPassword.ID = Convert.ToInt32(ID);
+                                                        }
+                                                        break;
+                                                    case "Name":
+                                                        if (PasswordsReader.Read())
+                                                        {
+                                                            string Name = PasswordsReader.Value.Trim();
+                                                            if (!string.IsNullOrEmpty(Name) && !string.IsNullOrWhiteSpace(Name) && Name != string.Empty && Name != " ")
+                                                                newPassword.Name = Name;
+                                                        }
+                                                        break;
+                                                    case "Email":
+                                                        if (PasswordsReader.Read())
+                                                        {
+                                                            string Email = PasswordsReader.Value.Trim();
+                                                            if (!string.IsNullOrEmpty(Email) && !string.IsNullOrWhiteSpace(Email) && Email != string.Empty && Email != " ")
+                                                                newPassword.Email = Email;
+                                                        }
+                                                        break;
+                                                    case "Username":
+                                                        if (PasswordsReader.Read())
+                                                        {
+                                                            string Username = PasswordsReader.Value.Trim();
+                                                            if (!string.IsNullOrEmpty(Username) && !string.IsNullOrWhiteSpace(Username) && Username != string.Empty && Username != " ")
+                                                                newPassword.Username = Username;
+                                                        }
+                                                        break;
+                                                    case "Text":
+                                                        if (PasswordsReader.Read())
+                                                        {
+                                                            string Text = PasswordsReader.Value.Trim();
+                                                            if (!string.IsNullOrEmpty(Text) && !string.IsNullOrWhiteSpace(Text) && Text != string.Empty && Text != " ")
+                                                                newPassword.Text = Text;
+                                                        }
+                                                        break;
+                                                    case "DateCreated":
+                                                        if (PasswordsReader.Read())
+                                                        {
+                                                            string DateCreated = PasswordsReader.Value.Trim();
+                                                            if (!string.IsNullOrEmpty(DateCreated) && !string.IsNullOrWhiteSpace(DateCreated) && DateCreated != string.Empty && DateCreated != " ")
+                                                                newPassword.DateCreated = Convert.ToDateTime(DateCreated);
+                                                        }
+                                                        break;
+                                                    case "DateModified":
+                                                        if (PasswordsReader.Read())
+                                                        {
+                                                            string DateModified = PasswordsReader.Value.Trim();
+                                                            if (!string.IsNullOrEmpty(DateModified) && !string.IsNullOrWhiteSpace(DateModified) && DateModified != string.Empty && DateModified != " ")
+                                                                newPassword.DateModified = Convert.ToDateTime(DateModified);
+                                                        }
+                                                        break;
+                                                }
+                                            }
+                                            newUser.Passwords = PasswordsList;
+                                            break;
+                                    }
                                 }
-                                // Next read will contain text.
-                                if (reader.Read())
-                                {
-                                    Console.WriteLine("  Text node: " + reader.Value.Trim());
-                                }
+                                Users.Add(newUser);
+                                newUser = null;
                                 break;
                         }
                     }
                 }
+                return Users;
             }
-
-
-
-
-            // Loading from a file, you can also load from a stream
-            var xml = XDocument.Load(FilePath);
-            
-            // Query the data and write out a subset of contacts
-            var query = from User in xml.Root.Descendants("User")
-                        where (int)User.Attribute("Password") < 4
-                        select User.Element("firstName").Value + " " +
-                               User.Element("lastName").Value;
-
-
-            XmlTextReader reader = new XmlTextReader(FilePath);
-
-            while (reader.Read())
-            {
-                User user;
-
-                if (reader.NodeType == XmlNodeType.Element)
-                {
-                    if (reader.LocalName == "User")
-                    {
-                        user = new User();
-
-
-                    }
-
-                    if (reader.LocalName == "Name")
-                    {
-                        contact.Name = reader.ReadString();
-                    }
-
-                    if (reader.LocalName == "Email")
-                    {
-                        contact.Email = reader.ReadString();
-                    }
-
-                    if (reader.LocalName == "Phone")
-                    {
-                        contact.Phone = reader.ReadString();
-                    }
-
-                    if (reader.LocalName == "FacebookID")
-                    {
-                        contact.FacebookID = reader.ReadString();
-                    }
-
-                    if (reader.LocalName == "Address")
-                    {
-                        contact.Address = reader.ReadString();
-                    }
-
-                }
-
-                myContactsList.Add(contact);
-
-            }
-            reader.Close();
-
-            return new List<User>();
         }
     }
 }

@@ -30,6 +30,11 @@ namespace PasswordManager.App
             //PasswordsGridView.Rows.Add("4", "13-09-2016", "Twitter", "sajjadarifgul@gmail.com", "SajjadArifGul", "123456");
             //PasswordsGridView.Rows.Add("5", "18-08-2016", "Microsoft", "sajjadarifgul@gmail.com", "SajjadArifGul", "123456");
             //PasswordsGridView.Rows.Add("6", "20-07-2016", "LinkedIn", "sajjadarifgul@gmail.com", "SajjadArifGul", "123456");
+
+            foreach (Password password in user.Passwords)
+            {
+                PasswordsGridView.Rows.Add(password.ID, password.DateCreated, password.Name, password.Email, password.Username, password.Text);
+            }
         }
 
         private void Dashboard_FormClosed(object sender, FormClosedEventArgs e)

@@ -1,4 +1,5 @@
 ﻿using PasswordManager.Entities;
+using PasswordManager.Filer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,8 @@ namespace PasswordManager.DAL
         // Constructor is 'protected'
         protected Database()
         {
-            //instead of new List of Users, we will get it from Filer
-            //but for now on continue
-            Users = new List<User>();
+            //Get Users from Filer
+            Users = Filer.Filer.Read();
         }
 
         public static Database Instance()
