@@ -69,7 +69,8 @@ namespace PasswordManager.App
 
         private void btnAbout_Click(object sender, EventArgs e)
         {
-
+            About aboutForm = new About();
+            aboutForm.ShowDialog();
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
