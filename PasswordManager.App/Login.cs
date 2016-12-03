@@ -27,7 +27,7 @@ namespace PasswordManager.App
             lblMassege.ForeColor = Color.FromArgb(67, 140, 235);
             lblMassege.Text = string.Empty;
 
-            if (!Verifier.Text(txtEmail.Text))
+            if (!Verifier.Email(txtEmail.Text))
             {
                 lblMassege.Text = "Please Enter a Valid Email Address.";
                 lblMassege.ForeColor = Color.Red;

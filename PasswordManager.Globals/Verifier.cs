@@ -21,7 +21,7 @@ namespace PasswordManager.Globals
 
         public static bool Text(string Text)
         {
-            if (string.IsNullOrEmpty(Text) && string.IsNullOrWhiteSpace(Text))
+            if (string.IsNullOrEmpty(Text) || string.IsNullOrWhiteSpace(Text) || Text == string.Empty || Text == " ")
             {
                 return false;
             }

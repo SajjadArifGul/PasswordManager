@@ -1,4 +1,5 @@
 ﻿using PasswordManager.Entities;
+using PasswordManager.Globals;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -60,7 +61,7 @@ namespace PasswordManager.Filer
                                             if (userreader.Read())
                                             {
                                                 string Name = userreader.Value.Trim();
-                                                if (!string.IsNullOrEmpty(Name) && !string.IsNullOrWhiteSpace(Name) && Name != string.Empty && Name != " ")
+                                                if (Verifier.Text(Name))
                                                     newUser.Name = Name;
                                             }
                                             break;
@@ -68,7 +69,7 @@ namespace PasswordManager.Filer
                                             if (userreader.Read())
                                             {
                                                 string Username = userreader.Value.Trim();
-                                                if (!string.IsNullOrEmpty(Username) && !string.IsNullOrWhiteSpace(Username) && Username != string.Empty && Username != " ")
+                                                if (Verifier.Text(Username))
                                                     newUser.Username = Username;
                                             }
                                             break;
@@ -76,7 +77,7 @@ namespace PasswordManager.Filer
                                             if (userreader.Read())
                                             {
                                                 string Email = userreader.Value.Trim();
-                                                if (!string.IsNullOrEmpty(Email) && !string.IsNullOrWhiteSpace(Email) && Email != string.Empty && Email != " ")
+                                                if (Verifier.Text(Email)) // well i am not validating email here for now. Although i can
                                                     newUser.Email = Email;
                                             }
                                             break;
@@ -84,7 +85,7 @@ namespace PasswordManager.Filer
                                             if (userreader.Read())
                                             {
                                                 string Login = userreader.Value.Trim();
-                                                if (!string.IsNullOrEmpty(Login) && !string.IsNullOrWhiteSpace(Login) && Login != string.Empty && Login != " ")
+                                                if (Verifier.Text(Login))
                                                     newUser.LoginPassword = Login;
                                             }
                                             break;
@@ -113,7 +114,7 @@ namespace PasswordManager.Filer
                                                         if (PasswordsReader.Read())
                                                         {
                                                             string ID = PasswordsReader.Value.Trim();
-                                                            if (!string.IsNullOrEmpty(ID) && !string.IsNullOrWhiteSpace(ID) && ID != string.Empty && ID != " ")
+                                                            if (Verifier.Text(ID))
                                                                 newPassword.ID = Convert.ToInt32(ID);
                                                         }
                                                         break;
@@ -121,7 +122,7 @@ namespace PasswordManager.Filer
                                                         if (PasswordsReader.Read())
                                                         {
                                                             string Name = PasswordsReader.Value.Trim();
-                                                            if (!string.IsNullOrEmpty(Name) && !string.IsNullOrWhiteSpace(Name) && Name != string.Empty && Name != " ")
+                                                            if (Verifier.Text(Name))
                                                                 newPassword.Name = Name;
                                                         }
                                                         break;
@@ -129,7 +130,7 @@ namespace PasswordManager.Filer
                                                         if (PasswordsReader.Read())
                                                         {
                                                             string Email = PasswordsReader.Value.Trim();
-                                                            if (!string.IsNullOrEmpty(Email) && !string.IsNullOrWhiteSpace(Email) && Email != string.Empty && Email != " ")
+                                                            if (Verifier.Text(Email))
                                                                 newPassword.Email = Email;
                                                         }
                                                         break;
@@ -137,7 +138,7 @@ namespace PasswordManager.Filer
                                                         if (PasswordsReader.Read())
                                                         {
                                                             string Username = PasswordsReader.Value.Trim();
-                                                            if (!string.IsNullOrEmpty(Username) && !string.IsNullOrWhiteSpace(Username) && Username != string.Empty && Username != " ")
+                                                            if (Verifier.Text(Username))
                                                                 newPassword.Username = Username;
                                                         }
                                                         break;
@@ -145,7 +146,7 @@ namespace PasswordManager.Filer
                                                         if (PasswordsReader.Read())
                                                         {
                                                             string Text = PasswordsReader.Value.Trim();
-                                                            if (!string.IsNullOrEmpty(Text) && !string.IsNullOrWhiteSpace(Text) && Text != string.Empty && Text != " ")
+                                                            if (Verifier.Text(Text))
                                                                 newPassword.Text = Text;
                                                         }
                                                         break;
@@ -153,7 +154,7 @@ namespace PasswordManager.Filer
                                                         if (PasswordsReader.Read())
                                                         {
                                                             string DateCreated = PasswordsReader.Value.Trim();
-                                                            if (!string.IsNullOrEmpty(DateCreated) && !string.IsNullOrWhiteSpace(DateCreated) && DateCreated != string.Empty && DateCreated != " ")
+                                                            if (Verifier.Text(DateCreated))
                                                                 newPassword.DateCreated = Convert.ToDateTime(DateCreated);
                                                         }
                                                         break;
@@ -161,7 +162,7 @@ namespace PasswordManager.Filer
                                                         if (PasswordsReader.Read())
                                                         {
                                                             string DateModified = PasswordsReader.Value.Trim();
-                                                            if (!string.IsNullOrEmpty(DateModified) && !string.IsNullOrWhiteSpace(DateModified) && DateModified != string.Empty && DateModified != " ")
+                                                            if (Verifier.Text(DateModified))
                                                                 newPassword.DateModified = Convert.ToDateTime(DateModified);
                                                         }
                                                         break;

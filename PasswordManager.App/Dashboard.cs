@@ -24,17 +24,59 @@ namespace PasswordManager.App
 
         private void Dashboard_Load(object sender, EventArgs e)
         {
-            //PasswordsGridView.Rows.Add("1", "12-12-2016", "Google", "sajjadarifgul@gmail.com", "SajjadArifGul", "123456");
-            //PasswordsGridView.Rows.Add("2", "01-11-2016", "Facebook", "sajjadarifgul@gmail.com", "SajjadArifGul", "123456");
-            //PasswordsGridView.Rows.Add("3", "23-10-2016", "Yahoo", "sajjadarifgul@gmail.com", "SajjadArifGul", "123456");
-            //PasswordsGridView.Rows.Add("4", "13-09-2016", "Twitter", "sajjadarifgul@gmail.com", "SajjadArifGul", "123456");
-            //PasswordsGridView.Rows.Add("5", "18-08-2016", "Microsoft", "sajjadarifgul@gmail.com", "SajjadArifGul", "123456");
-            //PasswordsGridView.Rows.Add("6", "20-07-2016", "LinkedIn", "sajjadarifgul@gmail.com", "SajjadArifGul", "123456");
+            this.Text = user.Name + " - " + Globals.Settings.AppName + " Dashboard";
 
             foreach (Password password in user.Passwords)
             {
                 PasswordsGridView.Rows.Add(password.ID, password.DateCreated, password.Name, password.Email, password.Username, password.Text);
             }
+        }
+
+        private void btnSearchPassword_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnNewPassword_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnMasterPassword_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnImportPasswords_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnExportPasswords_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnGuide_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAbout_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Login login = new Login();
+            login.Show();
         }
 
         private void Dashboard_FormClosed(object sender, FormClosedEventArgs e)
