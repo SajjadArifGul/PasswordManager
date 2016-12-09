@@ -28,7 +28,7 @@ namespace PasswordManager.App
 
         private void Dashboard_Load(object sender, EventArgs e)
         {
-            this.Text = user.Name + " - " + Globals.Settings.AppName + " Dashboard";
+            this.Text = user.Name + " - " + Globals.Information.AppName + " Dashboard";
 
             ShowPasswords(user.Passwords);
         }
@@ -72,7 +72,7 @@ namespace PasswordManager.App
 
         private void btnNewPassword_Click(object sender, EventArgs e)
         {
-            NewPassword newPasswordForm = new NewPassword(user.passwordOptions);
+            NewPassword newPasswordForm = new NewPassword(user.Settings.passwordOptions);
 
             if (newPasswordForm.ShowDialog() == DialogResult.OK)
             {

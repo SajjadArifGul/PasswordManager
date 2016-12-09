@@ -15,7 +15,7 @@ namespace PasswordManager.Filer
     {
         public static bool Save(List<User> Users)
         {
-            string FilePath = Globals.Settings.DatabaseFilePath;
+            string FilePath = Globals.Variables.DatabaseFilePath;
 
             foreach (User user in Users)
             {
@@ -31,7 +31,7 @@ namespace PasswordManager.Filer
         public static List<User> Read()
         {
             //return type should be a list of users with their password details
-            string FilePath = Globals.Settings.DatabaseFilePath;
+            string FilePath = Globals.Variables.DatabaseFilePath;
 
             List<User> Users = new List<User>();
 

@@ -1,5 +1,4 @@
-﻿using PasswordManager.Globals;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +16,6 @@ namespace PasswordManager.Entities
 
         public List<Password> Passwords { get; set; }
 
-        public PasswordOptions passwordOptions { get; set; }
+        public Settings Settings { get; set; }
     }
 }
