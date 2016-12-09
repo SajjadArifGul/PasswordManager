@@ -30,49 +30,104 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.lblAppMotto = new System.Windows.Forms.Label();
-            this.TitlePanel = new System.Windows.Forms.Panel();
-            this.lblDetails1 = new System.Windows.Forms.Label();
-            this.lblPictureCopyRightsLink = new System.Windows.Forms.Label();
-            this.lblDetails2 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.lblDeveloperName = new System.Windows.Forms.Label();
-            this.lblDesignation = new System.Windows.Forms.Label();
+            this.lblPictureCopyRightsLink = new System.Windows.Forms.Label();
             this.BearPictureBox = new System.Windows.Forms.PictureBox();
-            this.btnLogin = new System.Windows.Forms.Button();
+            this.lblDetails1 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lblSource = new System.Windows.Forms.Label();
+            this.lblWebsiteLink = new System.Windows.Forms.LinkLabel();
+            this.lblDesignation = new System.Windows.Forms.Label();
+            this.lblDeveloperName = new System.Windows.Forms.Label();
             this.picboxLinkedIn = new System.Windows.Forms.PictureBox();
             this.picboxGooglePlus = new System.Windows.Forms.PictureBox();
             this.picboxTwitter = new System.Windows.Forms.PictureBox();
             this.picboxFacebook = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.lblWebsiteLink = new System.Windows.Forms.LinkLabel();
-            this.lblSource = new System.Windows.Forms.Label();
+            this.lblDetails2 = new System.Windows.Forms.Label();
+            this.TitlePanel = new System.Windows.Forms.Panel();
+            this.lblFormTitle = new System.Windows.Forms.Label();
+            this.TitlePictureBox = new System.Windows.Forms.PictureBox();
+            this.lblAppMotto = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.TitlePanel.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BearPictureBox)).BeginInit();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picboxLinkedIn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxGooglePlus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxTwitter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxFacebook)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.TitlePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TitlePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(140)))), ((int)(((byte)(235)))));
+            this.panel1.Controls.Add(this.TitlePanel);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.lblDetails1);
-            this.panel1.Controls.Add(this.TitlePanel);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(239)))), ((int)(((byte)(241)))));
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(584, 661);
+            this.panel1.Size = new System.Drawing.Size(584, 641);
             this.panel1.TabIndex = 0;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.Transparent;
+            this.panel3.Controls.Add(this.lblPictureCopyRightsLink);
+            this.panel3.Controls.Add(this.BearPictureBox);
+            this.panel3.Location = new System.Drawing.Point(13, 80);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(258, 436);
+            this.panel3.TabIndex = 17;
+            // 
+            // lblPictureCopyRightsLink
+            // 
+            this.lblPictureCopyRightsLink.AutoSize = true;
+            this.lblPictureCopyRightsLink.BackColor = System.Drawing.Color.DarkGray;
+            this.lblPictureCopyRightsLink.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblPictureCopyRightsLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lblPictureCopyRightsLink.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lblPictureCopyRightsLink.Location = new System.Drawing.Point(3, 420);
+            this.lblPictureCopyRightsLink.Name = "lblPictureCopyRightsLink";
+            this.lblPictureCopyRightsLink.Size = new System.Drawing.Size(192, 13);
+            this.lblPictureCopyRightsLink.TabIndex = 10;
+            this.lblPictureCopyRightsLink.Text = "© Nature Images | Alaskan Grizzly Bear";
+            this.lblPictureCopyRightsLink.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblPictureCopyRightsLink.Click += new System.EventHandler(this.lblPictureCopyRightsLink_Click);
+            // 
+            // BearPictureBox
+            // 
+            this.BearPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BearPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BearPictureBox.Image = global::PasswordManager.App.Properties.Resources.StandingBear;
+            this.BearPictureBox.Location = new System.Drawing.Point(0, 0);
+            this.BearPictureBox.Name = "BearPictureBox";
+            this.BearPictureBox.Size = new System.Drawing.Size(258, 436);
+            this.BearPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BearPictureBox.TabIndex = 1;
+            this.BearPictureBox.TabStop = false;
+            this.BearPictureBox.Click += new System.EventHandler(this.lblPictureCopyRightsLink_Click);
+            // 
+            // lblDetails1
+            // 
+            this.lblDetails1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblDetails1.BackColor = System.Drawing.Color.Transparent;
+            this.lblDetails1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.lblDetails1.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDetails1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblDetails1.Location = new System.Drawing.Point(278, 77);
+            this.lblDetails1.Name = "lblDetails1";
+            this.lblDetails1.Size = new System.Drawing.Size(296, 276);
+            this.lblDetails1.TabIndex = 16;
+            this.lblDetails1.Text = " ";
             // 
             // panel2
             // 
@@ -90,96 +145,34 @@
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Controls.Add(this.lblDetails2);
             this.panel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(140)))), ((int)(((byte)(235)))));
-            this.panel2.Location = new System.Drawing.Point(0, 376);
+            this.panel2.Location = new System.Drawing.Point(0, 356);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(584, 285);
             this.panel2.TabIndex = 0;
             // 
-            // lblAppMotto
+            // lblSource
             // 
-            this.lblAppMotto.AutoSize = true;
-            this.lblAppMotto.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.lblAppMotto.Location = new System.Drawing.Point(79, 48);
-            this.lblAppMotto.Name = "lblAppMotto";
-            this.lblAppMotto.Size = new System.Drawing.Size(180, 17);
-            this.lblAppMotto.TabIndex = 9;
-            this.lblAppMotto.Text = "Personal Password Manager";
+            this.lblSource.AutoSize = true;
+            this.lblSource.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblSource.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSource.Location = new System.Drawing.Point(280, 258);
+            this.lblSource.Name = "lblSource";
+            this.lblSource.Size = new System.Drawing.Size(170, 15);
+            this.lblSource.TabIndex = 27;
+            this.lblSource.Text = "Check Source Code on GitHub.";
+            this.lblSource.Click += new System.EventHandler(this.lblSource_Click);
             // 
-            // TitlePanel
+            // lblWebsiteLink
             // 
-            this.TitlePanel.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.TitlePanel.Controls.Add(this.lblAppMotto);
-            this.TitlePanel.Controls.Add(this.btnLogin);
-            this.TitlePanel.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.TitlePanel.Location = new System.Drawing.Point(143, 12);
-            this.TitlePanel.Name = "TitlePanel";
-            this.TitlePanel.Size = new System.Drawing.Size(282, 81);
-            this.TitlePanel.TabIndex = 10;
-            // 
-            // lblDetails1
-            // 
-            this.lblDetails1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblDetails1.BackColor = System.Drawing.Color.Transparent;
-            this.lblDetails1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.lblDetails1.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDetails1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblDetails1.Location = new System.Drawing.Point(278, 103);
-            this.lblDetails1.Name = "lblDetails1";
-            this.lblDetails1.Size = new System.Drawing.Size(296, 270);
-            this.lblDetails1.TabIndex = 16;
-            this.lblDetails1.Text = " ";
-            // 
-            // lblPictureCopyRightsLink
-            // 
-            this.lblPictureCopyRightsLink.AutoSize = true;
-            this.lblPictureCopyRightsLink.BackColor = System.Drawing.Color.DarkGray;
-            this.lblPictureCopyRightsLink.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblPictureCopyRightsLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblPictureCopyRightsLink.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblPictureCopyRightsLink.Location = new System.Drawing.Point(3, 420);
-            this.lblPictureCopyRightsLink.Name = "lblPictureCopyRightsLink";
-            this.lblPictureCopyRightsLink.Size = new System.Drawing.Size(192, 13);
-            this.lblPictureCopyRightsLink.TabIndex = 10;
-            this.lblPictureCopyRightsLink.Text = "© Nature Images | Alaskan Grizzly Bear";
-            this.lblPictureCopyRightsLink.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblPictureCopyRightsLink.Click += new System.EventHandler(this.lblPictureCopyRightsLink_Click);
-            // 
-            // lblDetails2
-            // 
-            this.lblDetails2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblDetails2.BackColor = System.Drawing.Color.Transparent;
-            this.lblDetails2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.lblDetails2.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDetails2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblDetails2.Location = new System.Drawing.Point(279, 10);
-            this.lblDetails2.Name = "lblDetails2";
-            this.lblDetails2.Size = new System.Drawing.Size(295, 250);
-            this.lblDetails2.TabIndex = 17;
-            this.lblDetails2.Text = " ";
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.Transparent;
-            this.panel3.Controls.Add(this.lblPictureCopyRightsLink);
-            this.panel3.Controls.Add(this.BearPictureBox);
-            this.panel3.Location = new System.Drawing.Point(13, 106);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(258, 436);
-            this.panel3.TabIndex = 17;
-            // 
-            // lblDeveloperName
-            // 
-            this.lblDeveloperName.AutoSize = true;
-            this.lblDeveloperName.Font = new System.Drawing.Font("Segoe UI Semibold", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDeveloperName.Location = new System.Drawing.Point(122, 171);
-            this.lblDeveloperName.Name = "lblDeveloperName";
-            this.lblDeveloperName.Size = new System.Drawing.Size(140, 28);
-            this.lblDeveloperName.TabIndex = 23;
-            this.lblDeveloperName.Text = "Sajjad Arif Gul";
+            this.lblWebsiteLink.AutoSize = true;
+            this.lblWebsiteLink.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblWebsiteLink.Location = new System.Drawing.Point(124, 219);
+            this.lblWebsiteLink.Name = "lblWebsiteLink";
+            this.lblWebsiteLink.Size = new System.Drawing.Size(122, 17);
+            this.lblWebsiteLink.TabIndex = 26;
+            this.lblWebsiteLink.TabStop = true;
+            this.lblWebsiteLink.Text = "www.sajjadgul.com";
+            this.lblWebsiteLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblWebsiteLink_LinkClicked);
             // 
             // lblDesignation
             // 
@@ -191,39 +184,15 @@
             this.lblDesignation.TabIndex = 25;
             this.lblDesignation.Text = "Software Engineer";
             // 
-            // BearPictureBox
+            // lblDeveloperName
             // 
-            this.BearPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BearPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BearPictureBox.Image = global::PasswordManager.App.Properties.Resources.StandingBear;
-            this.BearPictureBox.Location = new System.Drawing.Point(0, 0);
-            this.BearPictureBox.Name = "BearPictureBox";
-            this.BearPictureBox.Size = new System.Drawing.Size(258, 436);
-            this.BearPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.BearPictureBox.TabIndex = 1;
-            this.BearPictureBox.TabStop = false;
-            this.BearPictureBox.Click += new System.EventHandler(this.lblPictureCopyRightsLink_Click);
-            // 
-            // btnLogin
-            // 
-            this.btnLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(140)))), ((int)(((byte)(235)))));
-            this.btnLogin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnLogin.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.btnLogin.FlatAppearance.BorderSize = 0;
-            this.btnLogin.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(140)))), ((int)(((byte)(235)))));
-            this.btnLogin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(140)))), ((int)(((byte)(235)))));
-            this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLogin.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLogin.ForeColor = System.Drawing.Color.White;
-            this.btnLogin.Image = global::PasswordManager.App.Properties.Resources.flag_bear;
-            this.btnLogin.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.btnLogin.Location = new System.Drawing.Point(5, 3);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(260, 70);
-            this.btnLogin.TabIndex = 8;
-            this.btnLogin.Text = "About BearPass";
-            this.btnLogin.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnLogin.UseVisualStyleBackColor = false;
+            this.lblDeveloperName.AutoSize = true;
+            this.lblDeveloperName.Font = new System.Drawing.Font("Segoe UI Semibold", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDeveloperName.Location = new System.Drawing.Point(122, 171);
+            this.lblDeveloperName.Name = "lblDeveloperName";
+            this.lblDeveloperName.Size = new System.Drawing.Size(140, 28);
+            this.lblDeveloperName.TabIndex = 23;
+            this.lblDeveloperName.Text = "Sajjad Arif Gul";
             // 
             // picboxLinkedIn
             // 
@@ -283,34 +252,67 @@
             this.pictureBox1.TabIndex = 18;
             this.pictureBox1.TabStop = false;
             // 
-            // lblWebsiteLink
+            // lblDetails2
             // 
-            this.lblWebsiteLink.AutoSize = true;
-            this.lblWebsiteLink.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblWebsiteLink.Location = new System.Drawing.Point(124, 219);
-            this.lblWebsiteLink.Name = "lblWebsiteLink";
-            this.lblWebsiteLink.Size = new System.Drawing.Size(122, 17);
-            this.lblWebsiteLink.TabIndex = 26;
-            this.lblWebsiteLink.TabStop = true;
-            this.lblWebsiteLink.Text = "www.sajjadgul.com";
-            this.lblWebsiteLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblWebsiteLink_LinkClicked);
+            this.lblDetails2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblDetails2.BackColor = System.Drawing.Color.Transparent;
+            this.lblDetails2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.lblDetails2.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDetails2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblDetails2.Location = new System.Drawing.Point(279, 10);
+            this.lblDetails2.Name = "lblDetails2";
+            this.lblDetails2.Size = new System.Drawing.Size(295, 250);
+            this.lblDetails2.TabIndex = 17;
+            this.lblDetails2.Text = " ";
             // 
-            // lblSource
+            // TitlePanel
             // 
-            this.lblSource.AutoSize = true;
-            this.lblSource.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblSource.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSource.Location = new System.Drawing.Point(280, 258);
-            this.lblSource.Name = "lblSource";
-            this.lblSource.Size = new System.Drawing.Size(170, 15);
-            this.lblSource.TabIndex = 27;
-            this.lblSource.Text = "Check Source Code on GitHub.";
-            this.lblSource.Click += new System.EventHandler(this.lblSource_Click);
+            this.TitlePanel.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.TitlePanel.Controls.Add(this.lblFormTitle);
+            this.TitlePanel.Controls.Add(this.TitlePictureBox);
+            this.TitlePanel.Controls.Add(this.lblAppMotto);
+            this.TitlePanel.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.TitlePanel.Location = new System.Drawing.Point(150, 2);
+            this.TitlePanel.Name = "TitlePanel";
+            this.TitlePanel.Size = new System.Drawing.Size(321, 70);
+            this.TitlePanel.TabIndex = 12;
+            // 
+            // lblFormTitle
+            // 
+            this.lblFormTitle.AutoSize = true;
+            this.lblFormTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold);
+            this.lblFormTitle.Location = new System.Drawing.Point(63, 8);
+            this.lblFormTitle.Name = "lblFormTitle";
+            this.lblFormTitle.Size = new System.Drawing.Size(185, 32);
+            this.lblFormTitle.TabIndex = 11;
+            this.lblFormTitle.Text = "About BearPass";
+            // 
+            // TitlePictureBox
+            // 
+            this.TitlePictureBox.Image = global::PasswordManager.App.Properties.Resources.flag_bear;
+            this.TitlePictureBox.Location = new System.Drawing.Point(3, 5);
+            this.TitlePictureBox.Name = "TitlePictureBox";
+            this.TitlePictureBox.Size = new System.Drawing.Size(60, 60);
+            this.TitlePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.TitlePictureBox.TabIndex = 10;
+            this.TitlePictureBox.TabStop = false;
+            // 
+            // lblAppMotto
+            // 
+            this.lblAppMotto.AutoSize = true;
+            this.lblAppMotto.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.lblAppMotto.Location = new System.Drawing.Point(67, 38);
+            this.lblAppMotto.Name = "lblAppMotto";
+            this.lblAppMotto.Size = new System.Drawing.Size(247, 17);
+            this.lblAppMotto.TabIndex = 9;
+            this.lblAppMotto.Text = "BearPass - Personal Password Manager";
             // 
             // About
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(584, 661);
+            this.ClientSize = new System.Drawing.Size(584, 641);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -322,18 +324,19 @@
             this.Text = "About";
             this.Load += new System.EventHandler(this.About_Load);
             this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.TitlePanel.ResumeLayout(false);
-            this.TitlePanel.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BearPictureBox)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picboxLinkedIn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxGooglePlus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxTwitter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxFacebook)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.TitlePanel.ResumeLayout(false);
+            this.TitlePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TitlePictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -343,9 +346,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox BearPictureBox;
-        private System.Windows.Forms.Button btnLogin;
-        private System.Windows.Forms.Label lblAppMotto;
-        private System.Windows.Forms.Panel TitlePanel;
         private System.Windows.Forms.Label lblDetails1;
         private System.Windows.Forms.Label lblPictureCopyRightsLink;
         private System.Windows.Forms.Label lblDetails2;
@@ -359,5 +359,9 @@
         private System.Windows.Forms.Label lblDesignation;
         private System.Windows.Forms.LinkLabel lblWebsiteLink;
         private System.Windows.Forms.Label lblSource;
+        private System.Windows.Forms.Panel TitlePanel;
+        private System.Windows.Forms.Label lblFormTitle;
+        private System.Windows.Forms.PictureBox TitlePictureBox;
+        private System.Windows.Forms.Label lblAppMotto;
     }
 }

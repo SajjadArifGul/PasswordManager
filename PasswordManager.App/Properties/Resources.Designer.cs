@@ -203,6 +203,16 @@ namespace PasswordManager.App.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap login_40 {
+            get {
+                object obj = ResourceManager.GetObject("login.40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap login_btn_light {
             get {
                 object obj = ResourceManager.GetObject("login-btn-light", resourceCulture);
@@ -263,6 +273,16 @@ namespace PasswordManager.App.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap password_generate {
+            get {
+                object obj = ResourceManager.GetObject("password.generate", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap password_guide {
             get {
                 object obj = ResourceManager.GetObject("password.guide", resourceCulture);
@@ -296,6 +316,26 @@ namespace PasswordManager.App.Properties {
         internal static System.Drawing.Bitmap password_new {
             get {
                 object obj = ResourceManager.GetObject("password.new", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap password_new_40 {
+            get {
+                object obj = ResourceManager.GetObject("password.new.40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap password_options {
+            get {
+                object obj = ResourceManager.GetObject("password.options", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
