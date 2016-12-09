@@ -68,5 +68,11 @@ namespace PasswordManager.DAL
 
             return UserToBeReturned;
         }
+
+        public Password AddPassword(User user, Password password)
+        {
+            Users.Where(u=>u.Email == user.Email).FirstOrDefault().Passwords.Add(password);
+            return password;
+        }
     }
 }

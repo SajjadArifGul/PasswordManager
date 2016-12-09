@@ -12,10 +12,10 @@ namespace PasswordManager.Globals
             get {
                 return "Bear Pass";
             }
-            }
+        }
+
         public static string DatabaseFilePath = @"SampleData.xml";
         public static DateTime DateTimeFormat { get; set; }
         public static string Master { get; set; }
-
     }
 }

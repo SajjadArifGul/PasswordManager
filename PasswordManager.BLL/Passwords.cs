@@ -1,4 +1,5 @@
-﻿using PasswordManager.Entities;
+﻿using PasswordManager.DAL;
+using PasswordManager.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace PasswordManager.BLL
 {
     public class Passwords
     {
+        Database db = Database.Instance();
+
         /// <summary>
         /// Generates a new Random Password.
         /// </summary>
@@ -16,6 +19,8 @@ namespace PasswordManager.BLL
         /// <returns></returns>
         public string New(PasswordOptions options)
         {
+            //maybe we dont have any pasword options for current user.
+            if (options == null) options = new PasswordOptions(); 
 
             // Make a list of allowed characters.
             string allowed = "";
@@ -91,11 +96,12 @@ namespace PasswordManager.BLL
         /// <summary>
         /// Save Password.
         /// </summary>
+        /// <param name="user">User to Save Password to.</param>
         /// <param name="password">Password to be Saved.</param>
-        /// <returns></returns>
-        public bool Save(Password password)
+        /// <returns>The new Password</returns>
+        public Password Save(User user, Password password)
         {
-            return true;
+            return db.AddPassword(user, password);
         }
     }
 }

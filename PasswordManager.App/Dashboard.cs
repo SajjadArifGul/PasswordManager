@@ -1,4 +1,5 @@
-﻿using PasswordManager.Entities;
+﻿using PasswordManager.BLL;
+using PasswordManager.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,12 +14,15 @@ namespace PasswordManager.App
 {
     public partial class Dashboard : Form
     {
+        Passwords passwords;
+
         User user;
 
         public Dashboard(User user)
         {
             InitializeComponent();
 
+            passwords = new Passwords();
             this.user = user;
         }
 
@@ -68,7 +72,14 @@ namespace PasswordManager.App
 
         private void btnNewPassword_Click(object sender, EventArgs e)
         {
+            NewPassword newPasswordForm = new NewPassword(user.passwordOptions);
 
+            if (newPasswordForm.ShowDialog() == DialogResult.OK)
+            {
+                Password password = passwords.Save(user, newPasswordForm.newPassword);
+
+                PasswordsGridView.Rows.Add(password.ID, password.DateCreated, password.Name, password.Email, password.Username, password.Text);
+            }
         }
 
         private void btnMasterPassword_Click(object sender, EventArgs e)

@@ -46,110 +46,62 @@ namespace PasswordManager.App
 
         private void AllowLowercaseCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if(AllowLowercaseCheckBox.Checked)
-            {
-                passwordOptions.AllowLowercaseCharacters = true;
-            }
-            else passwordOptions.AllowLowercaseCharacters = false;
+            passwordOptions.AllowLowercaseCharacters = AllowLowercaseCheckBox.Checked;
         }
 
         private void AllowUppercaseCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (AllowUppercaseCheckBox.Checked)
-            {
-                passwordOptions.AllowUppercaseCharacters = true;
-            }
-            else passwordOptions.AllowUppercaseCharacters = false;
+            passwordOptions.AllowUppercaseCharacters = AllowUppercaseCheckBox.Checked;
         }
 
         private void AllowNumberCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (AllowNumberCheckBox.Checked)
-            {
-                passwordOptions.AllowNumberCharacters = true;
-            }
-            else passwordOptions.AllowNumberCharacters = false;
+            passwordOptions.AllowNumberCharacters = AllowNumberCheckBox.Checked;
         }
 
         private void AllowSpecialCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (AllowSpecialCheckBox.Checked)
-            {
-                passwordOptions.AllowSpecialCharacters = true;
-            }
-            else passwordOptions.AllowSpecialCharacters = false;
+            passwordOptions.AllowSpecialCharacters = AllowSpecialCheckBox.Checked;
         }
 
         private void AllowUnderscoreCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (AllowUnderscoreCheckBox.Checked)
-            {
-                passwordOptions.AllowUnderscoreCharacters = true;
-            }
-            else passwordOptions.AllowUnderscoreCharacters = false;
+            passwordOptions.AllowUnderscoreCharacters = AllowUnderscoreCheckBox.Checked;
         }
 
         private void AllowSpaceCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (AllowSpaceCheckBox.Checked)
-            {
-                passwordOptions.AllowSpaceCharacters = true;
-            }
-            else passwordOptions.AllowSpaceCharacters = false;
+            passwordOptions.AllowSpaceCharacters = AllowSpecialCheckBox.Checked;
         }
 
         private void RequireLowercaseCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (RequireLowercaseCheckBox.Checked)
-            {
-                passwordOptions.RequireLowercaseCharacters = true;
-            }
-            else passwordOptions.RequireLowercaseCharacters = false;
+            passwordOptions.RequireLowercaseCharacters = RequireLowercaseCheckBox.Checked;
         }
 
         private void RequireUppercaseCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (RequireUppercaseCheckBox.Checked)
-            {
-                passwordOptions.RequireUppercaseCharacters = true;
-            }
-            else passwordOptions.RequireUppercaseCharacters = false;
+            passwordOptions.RequireUppercaseCharacters = RequireUppercaseCheckBox.Checked;
         }
 
         private void RequireNumberCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (RequireNumberCheckBox.Checked)
-            {
-                passwordOptions.RequireNumberCharacters = true;
-            }
-            else passwordOptions.RequireNumberCharacters = false;
+            passwordOptions.RequireNumberCharacters = RequireNumberCheckBox.Checked;
         }
 
         private void RequireSpecialCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (RequireSpecialCheckBox.Checked)
-            {
-                passwordOptions.RequireSpecialCharacters = true;
-            }
-            else passwordOptions.RequireSpecialCharacters = false;
+            passwordOptions.RequireSpecialCharacters = RequireSpecialCheckBox.Checked;
         }
 
         private void RequireUnderscoreCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (RequireUnderscoreCheckBox.Checked)
-            {
-                passwordOptions.RequireUnderscoreCharacters = true;
-            }
-            else passwordOptions.RequireUnderscoreCharacters = false;
+            passwordOptions.RequireUnderscoreCharacters = RequireUnderscoreCheckBox.Checked;
         }
 
         private void RequireSpaceCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (RequireSpaceCheckBox.Checked)
-            {
-                passwordOptions.RequireSpaceCharacters = true;
-            }
-            else passwordOptions.RequireSpaceCharacters = false;
+            passwordOptions.RequireSpaceCharacters = RequireSpaceCheckBox.Checked;
         }
 
         private void txtOtherCharacters_TextChanged(object sender, EventArgs e)

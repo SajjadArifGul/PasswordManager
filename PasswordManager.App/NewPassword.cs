@@ -16,6 +16,8 @@ namespace PasswordManager.App
     {
         Passwords passwords;
 
+        public Password newPassword;
+
         PasswordOptions passwordOptions;
 
         public NewPassword(PasswordOptions passwordOptions)
@@ -23,7 +25,9 @@ namespace PasswordManager.App
             InitializeComponent();
 
             passwords = new Passwords();
-            this.passwordOptions = passwordOptions;
+
+            if (passwordOptions != null) this.passwordOptions = passwordOptions;
+            else passwordOptions = new PasswordOptions();
         }
 
         private void btnOptions_Click(object sender, EventArgs e)
@@ -45,17 +49,18 @@ namespace PasswordManager.App
         
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Password password = new Password()
+            newPassword = new Password()
             {
                 Name = txtName.Text,
                 Email = txtEmail.Text,
                 Username = txtUsername.Text,
                 Website = txtWebsite.Text,
                 Text = txtPassword.Text,
-                Notes = rtxtNotes.Text
-            };
+                Notes = rtxtNotes.Text,
 
-            passwords.Save(password);
+                DateCreated = DateTime.Now,
+                DateModified = DateTime.Now
+            };
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
