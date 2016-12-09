@@ -16,7 +16,7 @@ namespace PasswordManager.App
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new NewPassword());
+            Application.Run(new NewPassword(new Entities.PasswordOptions()));
         }
     }
 }

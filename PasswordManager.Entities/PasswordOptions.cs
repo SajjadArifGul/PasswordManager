@@ -8,21 +8,32 @@ namespace PasswordManager.Entities
 {
     public class PasswordOptions
     {
-        bool AllowLowercaseCharacters =true,
+        public bool AllowLowercaseCharacters =true,
             AllowUppercaseCharacters=true,
             AllowNumberCharacters=true,
             AllowSpecialCharacters=true,
             AllowUnderscoreCharacters=false,
             AllowSpaceCharacters=false,
             AllowOtherCharacters=false;
-        
-        // Pick the number of characters.
-        int min_chars=8, max_chars=10;
 
-        const string LowercaseCharacters = "abcdefghijklmnopqrstuvwxyz";
-        const string UppercaseCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        const string NumberCharacters = "0123456789";
-        const string SpecialCharacters = @"~!@#$%^&*():;[]{}<>,.?/\|";
-        string OtherCharacters;
+
+        public bool RequireLowercaseCharacters = true,
+            RequireUppercaseCharacters = true,
+            RequireNumberCharacters = true,
+            RequireSpecialCharacters = true,
+            RequireUnderscoreCharacters = false,
+            RequireSpaceCharacters = false,
+            RequireOtherCharacters = false;
+
+        // Pick the number of characters.
+        public int MinimumCharacters=10, MaximumCharacters = 12;
+
+        public string LowercaseCharacters = "abcdefghijklmnopqrstuvwxyz";
+        public string UppercaseCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        public string NumberCharacters = "0123456789";
+        public string SpecialCharacters = @"~!@#$%^&*():;[]{}<>,.?/\|";
+        public string UnderscoreCharacters = "_";
+        public string SpaceCharacters = " ";
+        public string OtherCharacters;
     }
 }

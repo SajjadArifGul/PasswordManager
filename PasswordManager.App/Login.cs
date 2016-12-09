@@ -31,11 +31,15 @@ namespace PasswordManager.App
             {
                 lblMassege.Text = "Please Enter a Valid Email Address.";
                 lblMassege.ForeColor = Color.Red;
+
+                txtEmail.Focus();
             }
             else if (!Verifier.Text(txtLoginPass.Text))
             {
                 lblMassege.Text = "Enter Your Password.";
                 lblMassege.ForeColor = Color.Red;
+                
+                txtLoginPass.Focus();
             }
             else
             {
@@ -59,6 +63,8 @@ namespace PasswordManager.App
                 {
                     lblMassege.Text = "No user found with the supplied credentials.";
                     lblMassege.ForeColor = Color.Red;
+
+                    txtEmail.Focus();
                 }
             }
         }
