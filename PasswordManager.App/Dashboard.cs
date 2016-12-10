@@ -110,7 +110,9 @@ namespace PasswordManager.App
 
         private void btnMasterPassword_Click(object sender, EventArgs e)
         {
+            MasterPasswordForm masterPasswordForm = new MasterPasswordForm(user);
 
+            masterPasswordForm.ShowDialog();
         }
 
         private void btnImportPasswords_Click(object sender, EventArgs e)
@@ -130,7 +132,14 @@ namespace PasswordManager.App
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
+            SettingsForm settingsForm = new SettingsForm(user);
 
+            if (settingsForm.ShowDialog() == DialogResult.OK)
+            {
+                user = settingsForm.user;
+
+                LoadSettings(user.Settings);
+            }
         }
 
         private void btnAbout_Click(object sender, EventArgs e)

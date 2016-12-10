@@ -176,7 +176,7 @@ namespace PasswordManager.Filer
                                 //temporary - 10122016
                                 newUser.Settings = new Settings()
                                 {
-                                    dateTimeFormat = new DateTime(),
+                                    dateTimeFormat = "d",
                                     passwordOptions = new PasswordOptions(),
                                     differentMaster = false,
                                     ShowEmailColumn = true,

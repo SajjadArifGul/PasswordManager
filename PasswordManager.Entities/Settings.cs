@@ -8,7 +8,7 @@ namespace PasswordManager.Entities
 {
     public class Settings
     {
-        public DateTime dateTimeFormat { get; set; }
+        public string dateTimeFormat { get; set; }
         public PasswordOptions passwordOptions { get; set; }
         public bool differentMaster { get; set; }
         public string Master { get; set; }

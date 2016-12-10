@@ -116,5 +116,15 @@ namespace PasswordManager.Globals
                 return "https://github.com/SajjadArifGul/PasswordManager";
             }
         }
+
+        public static string MasterPasswordNote
+        {
+            get
+            {
+                return AppName + @" uses Master Password to encrypt all your passwords. By default your login password is set as Master Password but if you enable Master Password, your login password will only be used for login purposes and the new Master Password will be used for encryption. "
+                       + AppName + " does not save your Master Password. If you forgot your Master Password, you will NOT be able to recover your Passwords.";
+
+            }
+        }
     }
 }
