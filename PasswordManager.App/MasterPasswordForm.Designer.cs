@@ -132,7 +132,7 @@
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Image = global::PasswordManager.App.Properties.Resources.settings_save_40;
+            this.btnSave.Image = global::PasswordManager.App.Properties.Resources.password_master_save_40;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSave.Location = new System.Drawing.Point(280, 146);
             this.btnSave.Name = "btnSave";
@@ -153,7 +153,7 @@
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.Image = global::PasswordManager.App.Properties.Resources.settings_cancel_40;
+            this.btnCancel.Image = global::PasswordManager.App.Properties.Resources.password_cancel_40;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCancel.Location = new System.Drawing.Point(164, 146);
             this.btnCancel.Name = "btnCancel";
