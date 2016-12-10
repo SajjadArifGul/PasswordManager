@@ -53,7 +53,7 @@
             this.txtSearchPassword.Location = new System.Drawing.Point(88, 16);
             this.txtSearchPassword.Name = "txtSearchPassword";
             this.txtSearchPassword.Size = new System.Drawing.Size(167, 25);
-            this.txtSearchPassword.TabIndex = 18;
+            this.txtSearchPassword.TabIndex = 1;
             // 
             // label2
             // 
@@ -80,7 +80,7 @@
             this.rdbOptionEquals.Location = new System.Drawing.Point(5, 5);
             this.rdbOptionEquals.Name = "rdbOptionEquals";
             this.rdbOptionEquals.Size = new System.Drawing.Size(64, 21);
-            this.rdbOptionEquals.TabIndex = 24;
+            this.rdbOptionEquals.TabIndex = 6;
             this.rdbOptionEquals.Text = "Equals";
             this.rdbOptionEquals.UseVisualStyleBackColor = true;
             // 
@@ -92,7 +92,7 @@
             this.rdbOptionContains.Location = new System.Drawing.Point(81, 5);
             this.rdbOptionContains.Name = "rdbOptionContains";
             this.rdbOptionContains.Size = new System.Drawing.Size(78, 21);
-            this.rdbOptionContains.TabIndex = 25;
+            this.rdbOptionContains.TabIndex = 7;
             this.rdbOptionContains.TabStop = true;
             this.rdbOptionContains.Text = "Contains";
             this.rdbOptionContains.UseVisualStyleBackColor = true;
@@ -114,7 +114,7 @@
             this.rdbLookUsername.Location = new System.Drawing.Point(81, 5);
             this.rdbLookUsername.Name = "rdbLookUsername";
             this.rdbLookUsername.Size = new System.Drawing.Size(86, 21);
-            this.rdbLookUsername.TabIndex = 20;
+            this.rdbLookUsername.TabIndex = 4;
             this.rdbLookUsername.Text = "Username";
             this.rdbLookUsername.UseVisualStyleBackColor = true;
             // 
@@ -126,7 +126,7 @@
             this.rdbLookName.Location = new System.Drawing.Point(5, 5);
             this.rdbLookName.Name = "rdbLookName";
             this.rdbLookName.Size = new System.Drawing.Size(61, 21);
-            this.rdbLookName.TabIndex = 19;
+            this.rdbLookName.TabIndex = 3;
             this.rdbLookName.TabStop = true;
             this.rdbLookName.Text = "Name";
             this.rdbLookName.UseVisualStyleBackColor = true;
@@ -138,7 +138,7 @@
             this.rdbLookEmail.Location = new System.Drawing.Point(186, 5);
             this.rdbLookEmail.Name = "rdbLookEmail";
             this.rdbLookEmail.Size = new System.Drawing.Size(57, 21);
-            this.rdbLookEmail.TabIndex = 21;
+            this.rdbLookEmail.TabIndex = 5;
             this.rdbLookEmail.Text = "Email";
             this.rdbLookEmail.UseVisualStyleBackColor = true;
             // 
@@ -175,7 +175,7 @@
             this.btnSearchPassword.Location = new System.Drawing.Point(261, 12);
             this.btnSearchPassword.Name = "btnSearchPassword";
             this.btnSearchPassword.Size = new System.Drawing.Size(110, 36);
-            this.btnSearchPassword.TabIndex = 43;
+            this.btnSearchPassword.TabIndex = 2;
             this.btnSearchPassword.Text = "Search";
             this.btnSearchPassword.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSearchPassword.UseVisualStyleBackColor = false;

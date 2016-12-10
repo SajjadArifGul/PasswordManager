@@ -24,6 +24,32 @@ namespace PasswordManager.App
 
             passwords = new Passwords();
             this.user = user;
+
+            LoadSettings(user.Settings);
+        }
+
+        public void LoadSettings(Settings settings)
+        {
+            if (settings != null)
+            {
+                if (!settings.ShowEmailColumn)
+                {
+                    PasswordsGridView.Columns["ColEmail"].Visible = false;
+                }
+                else PasswordsGridView.Columns["ColEmail"].Visible = true;
+
+                if (!settings.ShowUsernameColumn)
+                {
+                    PasswordsGridView.Columns["ColUsername"].Visible = false;
+                }
+                else PasswordsGridView.Columns["ColUsername"].Visible = true;
+
+                if (!settings.ShowPasswordColumn)
+                {
+                    PasswordsGridView.Columns["ColPassword"].Visible = false;
+                }
+                else PasswordsGridView.Columns["ColPassword"].Visible = true;
+            }
         }
 
         private void Dashboard_Load(object sender, EventArgs e)

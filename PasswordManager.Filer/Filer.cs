@@ -174,7 +174,15 @@ namespace PasswordManager.Filer
                                 }
 
                                 //temporary - 10122016
-                                newUser.Settings = new Settings(new DateTime(), new PasswordOptions(), false, null);
+                                newUser.Settings = new Settings()
+                                {
+                                    dateTimeFormat = new DateTime(),
+                                    passwordOptions = new PasswordOptions(),
+                                    differentMaster = false,
+                                    ShowEmailColumn = true,
+                                    ShowUsernameColumn = true,
+                                    ShowPasswordColumn = false
+                                };
 
                                 Users.Add(newUser);
                                 newUser = null;

@@ -28,6 +28,8 @@ namespace PasswordManager.App
 
             if (passwordOptions != null) this.passwordOptions = passwordOptions;
             else passwordOptions = new PasswordOptions();
+            
+            txtName.Focus();
         }
 
         private void btnOptions_Click(object sender, EventArgs e)
@@ -66,6 +68,10 @@ namespace PasswordManager.App
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void NewPassword_Load(object sender, EventArgs e)
+        {
         }
     }
 }

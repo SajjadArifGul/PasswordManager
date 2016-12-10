@@ -76,7 +76,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(484, 461);
-            this.panel1.TabIndex = 1;
+            this.panel1.TabIndex = 50;
             // 
             // label5
             // 
@@ -95,8 +95,7 @@
             this.txtWebsite.Location = new System.Drawing.Point(164, 179);
             this.txtWebsite.Name = "txtWebsite";
             this.txtWebsite.Size = new System.Drawing.Size(225, 29);
-            this.txtWebsite.TabIndex = 18;
-            this.txtWebsite.UseSystemPasswordChar = true;
+            this.txtWebsite.TabIndex = 4;
             // 
             // txtUsername
             // 
@@ -106,7 +105,7 @@
             this.txtUsername.Location = new System.Drawing.Point(164, 144);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(225, 29);
-            this.txtUsername.TabIndex = 17;
+            this.txtUsername.TabIndex = 3;
             // 
             // label1
             // 
@@ -125,18 +124,19 @@
             this.txtEmail.Location = new System.Drawing.Point(164, 109);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(225, 29);
-            this.txtEmail.TabIndex = 15;
-            this.txtEmail.UseSystemPasswordChar = true;
+            this.txtEmail.TabIndex = 2;
             // 
             // txtName
             // 
+            this.txtName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.HistoryList;
             this.txtName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(234)))), ((int)(((byte)(246)))));
             this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(140)))), ((int)(((byte)(235)))));
             this.txtName.Location = new System.Drawing.Point(164, 74);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(225, 29);
-            this.txtName.TabIndex = 14;
+            this.txtName.TabIndex = 1;
             // 
             // label3
             // 
@@ -167,7 +167,7 @@
             this.TitlePanel.Location = new System.Drawing.Point(95, 2);
             this.TitlePanel.Name = "TitlePanel";
             this.TitlePanel.Size = new System.Drawing.Size(321, 70);
-            this.TitlePanel.TabIndex = 11;
+            this.TitlePanel.TabIndex = 77;
             // 
             // lblFormTitle
             // 
@@ -176,7 +176,7 @@
             this.lblFormTitle.Location = new System.Drawing.Point(63, 8);
             this.lblFormTitle.Name = "lblFormTitle";
             this.lblFormTitle.Size = new System.Drawing.Size(172, 32);
-            this.lblFormTitle.TabIndex = 11;
+            this.lblFormTitle.TabIndex = 34;
             this.lblFormTitle.Text = "New Password";
             // 
             // TitlePictureBox
@@ -196,7 +196,7 @@
             this.lblAppMotto.Location = new System.Drawing.Point(67, 38);
             this.lblAppMotto.Name = "lblAppMotto";
             this.lblAppMotto.Size = new System.Drawing.Size(247, 17);
-            this.lblAppMotto.TabIndex = 9;
+            this.lblAppMotto.TabIndex = 89;
             this.lblAppMotto.Text = "BearPass - Personal Password Manager";
             // 
             // panel2
@@ -216,7 +216,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 215);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(484, 246);
-            this.panel2.TabIndex = 0;
+            this.panel2.TabIndex = 60;
             // 
             // btnCancel
             // 
@@ -232,7 +232,7 @@
             this.btnCancel.Location = new System.Drawing.Point(163, 196);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(110, 42);
-            this.btnCancel.TabIndex = 42;
+            this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancel.UseVisualStyleBackColor = false;
@@ -245,7 +245,7 @@
             this.rtxtNotes.Location = new System.Drawing.Point(164, 90);
             this.rtxtNotes.Name = "rtxtNotes";
             this.rtxtNotes.Size = new System.Drawing.Size(224, 100);
-            this.rtxtNotes.TabIndex = 41;
+            this.rtxtNotes.TabIndex = 6;
             this.rtxtNotes.Text = "";
             // 
             // btnOptions
@@ -262,7 +262,7 @@
             this.btnOptions.Location = new System.Drawing.Point(164, 42);
             this.btnOptions.Name = "btnOptions";
             this.btnOptions.Size = new System.Drawing.Size(110, 42);
-            this.btnOptions.TabIndex = 40;
+            this.btnOptions.TabIndex = 9;
             this.btnOptions.Text = "Options";
             this.btnOptions.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnOptions.UseVisualStyleBackColor = false;
@@ -302,7 +302,7 @@
             this.btnSave.Location = new System.Drawing.Point(279, 196);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(110, 42);
-            this.btnSave.TabIndex = 24;
+            this.btnSave.TabIndex = 7;
             this.btnSave.Text = "Save";
             this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSave.UseVisualStyleBackColor = false;
@@ -322,7 +322,7 @@
             this.btnGenerate.Location = new System.Drawing.Point(279, 42);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(110, 42);
-            this.btnGenerate.TabIndex = 24;
+            this.btnGenerate.TabIndex = 5;
             this.btnGenerate.Text = "Generate";
             this.btnGenerate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnGenerate.UseVisualStyleBackColor = false;
@@ -351,6 +351,7 @@
             this.Name = "NewPassword";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "New Password";
+            this.Load += new System.EventHandler(this.NewPassword_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.TitlePanel.ResumeLayout(false);
