@@ -15,11 +15,18 @@ namespace PasswordManager.App
 {
     public partial class Login : Form
     {
-        Users users = new Users();
+        Users users;
 
         public Login()
         {
             InitializeComponent();
+
+            users = new Users();
+        }
+        
+        private void Login_Load(object sender, EventArgs e)
+        {
+
         }
 
         private void btnLogin_Click(object sender, EventArgs e)

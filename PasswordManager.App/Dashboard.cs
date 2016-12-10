@@ -77,8 +77,8 @@ namespace PasswordManager.App
             if (newPasswordForm.ShowDialog() == DialogResult.OK)
             {
                 Password password = passwords.Save(user, newPasswordForm.newPassword);
-
                 PasswordsGridView.Rows.Add(password.ID, password.DateCreated, password.Name, password.Email, password.Username, password.Text);
+                
             }
         }
 

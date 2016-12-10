@@ -172,6 +172,10 @@ namespace PasswordManager.Filer
                                             break;
                                     }
                                 }
+
+                                //temporary - 10122016
+                                newUser.Settings = new Settings(new DateTime(), new PasswordOptions(), false, null);
+
                                 Users.Add(newUser);
                                 newUser = null;
                                 break;
