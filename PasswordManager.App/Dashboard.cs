@@ -117,6 +117,8 @@ namespace PasswordManager.App
 
         private void btnImportPasswords_Click(object sender, EventArgs e)
         {
+            ImportPasswords importPasswords = new ImportPasswords(user);
+
 
         }
 

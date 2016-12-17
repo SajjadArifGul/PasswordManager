@@ -103,5 +103,10 @@ namespace PasswordManager.BLL
         {
             return db.AddPassword(user, password);
         }
+
+        public bool Same(string oldPass, string newPass)
+        {
+            return string.Equals(oldPass, newPass);
+        }
     }
 }

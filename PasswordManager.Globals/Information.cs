@@ -126,5 +126,24 @@ namespace PasswordManager.Globals
 
             }
         }
+
+        public static string MasterPasswordEnabled
+        {
+            get
+            {
+                return AppName + @" uses Master Password to encrypt all your passwords. By default your login password is set as Master Password but if you enable Master Password, your login password will only be used for login purposes and the new Master Password will be used for encryption. "
+                       + AppName + " does not save your Master Password. If you forgot your Master Password, you will NOT be able to Recover your Passwords.";
+
+            }
+        }
+
+        public static string MasterPasswordDisabled
+        {
+            get
+            {
+                return AppName + @" uses Master Password to encrypt all your passwords. If you disable your Master Password, "
+                       + AppName + "will use your Login Password for Encryption. If you forgot your Login Password, you will NOT be able to Login or Recover your Passwords.";
+            }
+        }
     }
 }
