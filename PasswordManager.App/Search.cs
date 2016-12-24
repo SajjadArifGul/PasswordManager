@@ -1,4 +1,5 @@
-﻿using PasswordManager.Entities;
+﻿using PasswordManager.BLL;
+using PasswordManager.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,13 +14,9 @@ namespace PasswordManager.App
 {
     public partial class Search : Form
     {
-        public List<Password> passwords;
-
-        public Search(List<Password> passwords)
+        public Search()
         {
             InitializeComponent();
-
-            this.passwords = passwords;
         }
 
         private void Search_Load(object sender, EventArgs e)

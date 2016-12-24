@@ -96,6 +96,7 @@
             this.txtWebsite.Name = "txtWebsite";
             this.txtWebsite.Size = new System.Drawing.Size(225, 29);
             this.txtWebsite.TabIndex = 4;
+            this.txtWebsite.TextChanged += new System.EventHandler(this.ForSaveBtnEnable);
             // 
             // txtUsername
             // 
@@ -106,6 +107,7 @@
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(225, 29);
             this.txtUsername.TabIndex = 3;
+            this.txtUsername.TextChanged += new System.EventHandler(this.ForSaveBtnEnable);
             // 
             // label1
             // 
@@ -125,6 +127,7 @@
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(225, 29);
             this.txtEmail.TabIndex = 2;
+            this.txtEmail.TextChanged += new System.EventHandler(this.ForSaveBtnEnable);
             // 
             // txtName
             // 
@@ -137,6 +140,7 @@
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(225, 29);
             this.txtName.TabIndex = 1;
+            this.txtName.TextChanged += new System.EventHandler(this.ForSaveBtnEnable);
             // 
             // label3
             // 
@@ -247,6 +251,7 @@
             this.rtxtNotes.Size = new System.Drawing.Size(224, 100);
             this.rtxtNotes.TabIndex = 6;
             this.rtxtNotes.Text = "";
+            this.rtxtNotes.TextChanged += new System.EventHandler(this.ForSaveBtnEnable);
             // 
             // btnOptions
             // 
@@ -277,6 +282,7 @@
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(225, 29);
             this.txtPassword.TabIndex = 23;
+            this.txtPassword.TextChanged += new System.EventHandler(this.ForSaveBtnEnable);
             // 
             // label4
             // 

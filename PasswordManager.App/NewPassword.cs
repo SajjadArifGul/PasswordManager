@@ -1,5 +1,6 @@
 ﻿using PasswordManager.BLL;
 using PasswordManager.Entities;
+using PasswordManager.Globals;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -48,6 +49,7 @@ namespace PasswordManager.App
         {
             newPassword = new Password()
             {
+                UserID = user.ID,
                 Name = txtName.Text,
                 Email = txtEmail.Text,
                 Username = txtUsername.Text,
@@ -67,6 +69,20 @@ namespace PasswordManager.App
 
         private void NewPassword_Load(object sender, EventArgs e)
         {
+            btnSave.Enabled = IsEnable();
         }
+
+        private void ForSaveBtnEnable(object sender, EventArgs e)
+        {
+            btnSave.Enabled = IsEnable();
+        }
+
+        private bool IsEnable()
+        {
+            if (Verifier.Text(txtName.Text) && Verifier.Text(txtPassword.Text))
+                return true;
+            return false;
+        }
+
     }
 }

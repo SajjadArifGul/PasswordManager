@@ -33,7 +33,7 @@ namespace PasswordManager.Database
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand(
-                "Insert into Password (UserID, Name, Email, Username, Website, Text, Notes, DateCreated, DateModified) values (@UserID, @Name, @Email, @Username, @Website, @Text, @Notes, @DateCreated, @DateModified)", connection))
+                "Insert into Passwords (UserID, Name, Email, Username, Website, Text, Notes, DateCreated, DateModified) values (@UserID, @Name, @Email, @Username, @Website, @Text, @Notes, @DateCreated, @DateModified)", connection))
                 {
                     command.Parameters.Add(new SqlParameter("UserID", user.ID));
                     command.Parameters.Add(new SqlParameter("Name", password.Name));
@@ -119,10 +119,10 @@ namespace PasswordManager.Database
 
                     SqlDataReader reader = command.ExecuteReader();
 
-                    Password password = new Password();
-
                     while (reader.Read())
                     {
+                        Password password = new Password();
+
                         password.ID = Convert.ToInt32(reader["ID"]);
                         password.UserID = user.ID;
                         password.Name = reader["Name"].ToString();

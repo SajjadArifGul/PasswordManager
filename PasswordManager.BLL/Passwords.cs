@@ -135,5 +135,51 @@ namespace PasswordManager.BLL
         {
             return string.Equals(oldPass, newPass);
         }
+
+        public List<Password> Search(User user, string Search, string LooksFor, string Options)
+        {
+            List<Password> AllPasswords = Get(user);
+            List<Password> searchedPasswords = null;
+
+            if (string.IsNullOrEmpty(Search))
+            {
+                return AllPasswords;
+            }
+            else
+            {
+                switch (Options)
+                {
+                    case "Contains":
+                        if (LooksFor == "Username")
+                        {
+                            searchedPasswords = AllPasswords.Where(p => p.Username.ToLower().Contains(Search.ToLower())).ToList();
+                        }
+                        else if (LooksFor == "Email")
+                        {
+                            searchedPasswords = AllPasswords.Where(p => p.Email.ToLower().Contains(Search.ToLower())).ToList();
+                        }
+                        else
+                        {
+                            searchedPasswords = AllPasswords.Where(p => p.Name.ToLower().Contains(Search.ToLower())).ToList();
+                        }
+                        break;
+                    case "Equals":
+                        if (LooksFor == "Username")
+                        {
+                            searchedPasswords = AllPasswords.Where(p => p.Username.ToLower().Equals(Search.ToLower())).ToList();
+                        }
+                        else if (LooksFor == "Email")
+                        {
+                            searchedPasswords = AllPasswords.Where(p => p.Email.ToLower().Equals(Search.ToLower())).ToList();
+                        }
+                        else
+                        {
+                            searchedPasswords = AllPasswords.Where(p => p.Name.ToLower().Equals(Search.ToLower())).ToList();
+                        }
+                        break;
+                }
+                return searchedPasswords;
+            }
+        }
     }
 }
