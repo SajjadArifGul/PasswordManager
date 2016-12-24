@@ -100,7 +100,7 @@
             // txtMaximumCharacters
             // 
             this.txtMaximumCharacters.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(140)))), ((int)(((byte)(235)))));
-            this.txtMaximumCharacters.Location = new System.Drawing.Point(157, 236);
+            this.txtMaximumCharacters.Location = new System.Drawing.Point(157, 209);
             this.txtMaximumCharacters.Name = "txtMaximumCharacters";
             this.txtMaximumCharacters.Size = new System.Drawing.Size(79, 25);
             this.txtMaximumCharacters.TabIndex = 17;
@@ -109,7 +109,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 239);
+            this.label3.Location = new System.Drawing.Point(15, 212);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(137, 17);
             this.label3.TabIndex = 16;
@@ -118,7 +118,7 @@
             // txtMinimumCharacters
             // 
             this.txtMinimumCharacters.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(140)))), ((int)(((byte)(235)))));
-            this.txtMinimumCharacters.Location = new System.Drawing.Point(157, 208);
+            this.txtMinimumCharacters.Location = new System.Drawing.Point(157, 238);
             this.txtMinimumCharacters.Name = "txtMinimumCharacters";
             this.txtMinimumCharacters.Size = new System.Drawing.Size(79, 25);
             this.txtMinimumCharacters.TabIndex = 15;
@@ -127,7 +127,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 211);
+            this.label2.Location = new System.Drawing.Point(15, 241);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(134, 17);
             this.label2.TabIndex = 14;
@@ -392,6 +392,7 @@
             this.btnConfirm.Text = "Confirm";
             this.btnConfirm.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnConfirm.UseVisualStyleBackColor = false;
+            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
             // btnCancel
             // 

@@ -19,10 +19,46 @@ namespace PasswordManager.BLL
 
         public User Register(User user)
         {
-            if(db.User_Add(user))
+            if (db.User_Add(user))
             {
-                return db.Settings_Add(user);
+                //its a new user. Add default settings and password options for it.
+                db.Settings_Add(new Settings()
+                {
+                    UserID = user.ID, //a small blunder leads to a fuckin headache
+                    DateTimeFormat = Globals.Defaults.DateTimeFormat,
+                    ShowEmailColumn = Globals.Defaults.ShowEmailColumn,
+                    ShowUsernameColumn = Globals.Defaults.ShowUsernameColumn,
+                    ShowPasswordColumn = Globals.Defaults.ShowPasswordColumn,
+                    PasswordOptions = new Entities.PasswordOptions()
+                    {
+                        AllowLowercaseCharacters = Globals.Defaults.AllowLowercaseCharacters,
+                        AllowUppercaseCharacters = Globals.Defaults.AllowUppercaseCharacters,
+                        AllowNumberCharacters = Globals.Defaults.AllowNumberCharacters,
+                        AllowSpecialCharacters = Globals.Defaults.AllowSpecialCharacters,
+                        AllowUnderscoreCharacters = Globals.Defaults.AllowUnderscoreCharacters,
+                        AllowSpaceCharacters = Globals.Defaults.AllowSpaceCharacters,
+                        AllowOtherCharacters = Globals.Defaults.AllowOtherCharacters,
+                        RequireLowercaseCharacters = Globals.Defaults.RequireLowercaseCharacters,
+                        RequireUppercaseCharacters = Globals.Defaults.RequireUppercaseCharacters,
+                        RequireNumberCharacters = Globals.Defaults.RequireNumberCharacters,
+                        RequireSpecialCharacters = Globals.Defaults.RequireSpecialCharacters,
+                        RequireUnderscoreCharacters = Globals.Defaults.RequireUnderscoreCharacters,
+                        RequireSpaceCharacters = Globals.Defaults.RequireSpaceCharacters,
+                        RequireOtherCharacters = Globals.Defaults.RequireOtherCharacters,
+                        MinimumCharacters = Globals.Defaults.MinimumCharacters,
+                        MaximumCharacters = Globals.Defaults.MaximumCharacters
+                    }
+                }, user);
+
+                //get these settings for user.
+                user.Settings = db.Settings_Select(user);
+
+                //initilze a default empty list of passwords for this user.
+                user.Passwords = new List<Password>();
+
+                return user;
             }
+            else return null;
         }
 
         public User Exist(User user)
@@ -43,11 +79,8 @@ namespace PasswordManager.BLL
                 //now populate the user with passwords and settings and related stuff
                 Passwords passwords = new Passwords();
                 returnedUser.Passwords = passwords.Get(returnedUser);
-
-                //for now
-                returnedUser.Settings = new Settings() { PasswordOptions = new PasswordOptions()};
-
-
+                
+                returnedUser.Settings = db.Settings_Select(returnedUser);
 
                 return returnedUser;
             }

@@ -17,10 +17,28 @@ namespace PasswordManager.BLL
         /// </summary>
         /// <param name="options">Password Options for Generation.</param>
         /// <returns></returns>
-        public string New(PasswordOptions options)
+        public string New(Entities.PasswordOptions options)
         {
             //maybe we dont have any pasword options for current user.
-            if (options == null) options = new PasswordOptions(); 
+            if (options == null) options = new Entities.PasswordOptions()
+            {
+                AllowLowercaseCharacters = Globals.Defaults.AllowLowercaseCharacters,
+                AllowUppercaseCharacters = Globals.Defaults.AllowUppercaseCharacters,
+                AllowNumberCharacters = Globals.Defaults.AllowNumberCharacters,
+                AllowSpecialCharacters = Globals.Defaults.AllowSpecialCharacters,
+                AllowUnderscoreCharacters = Globals.Defaults.AllowUnderscoreCharacters,
+                AllowSpaceCharacters = Globals.Defaults.AllowSpaceCharacters,
+                AllowOtherCharacters = Globals.Defaults.AllowOtherCharacters,
+                RequireLowercaseCharacters = Globals.Defaults.RequireLowercaseCharacters,
+                RequireUppercaseCharacters = Globals.Defaults.RequireUppercaseCharacters,
+                RequireNumberCharacters = Globals.Defaults.RequireNumberCharacters,
+                RequireSpecialCharacters = Globals.Defaults.RequireSpecialCharacters,
+                RequireUnderscoreCharacters = Globals.Defaults.RequireUnderscoreCharacters,
+                RequireSpaceCharacters = Globals.Defaults.RequireSpaceCharacters,
+                RequireOtherCharacters = Globals.Defaults.RequireOtherCharacters,
+                MinimumCharacters = Globals.Defaults.MinimumCharacters,
+                MaximumCharacters = Globals.Defaults.MaximumCharacters
+            }; 
 
             // Make a list of allowed characters.
             string allowed = "";
@@ -73,7 +91,7 @@ namespace PasswordManager.BLL
             return password;
         }
 
-        public List<Password> Get(User user)
+        public List<Password> Get(Entities.User user)
         {
             return db.Password_Select(user);
         }
@@ -104,7 +122,7 @@ namespace PasswordManager.BLL
         /// <param name="user">User to Save Password to.</param>
         /// <param name="password">Password to be Saved.</param>
         /// <returns>The new Password</returns>
-        public Password Save(User user, Password password)
+        public Password Save(Entities.User user, Entities.Password password)
         {
             if (db.Password_Add(password, user))
             {

@@ -99,24 +99,19 @@ namespace PasswordManager.DAL
             return Settings.Update(settings);
         }
 
-        public bool PasswordOptions_Add(PasswordManager.Entities.PasswordOptions passwordOptions, User user)
+        public bool PasswordOptions_Add(PasswordManager.Entities.PasswordOptions passwordOptions, PasswordManager.Entities.Settings settings)
         {
-            return PasswordOptions.Insert(passwordOptions);
+            return PasswordOptions.Insert(passwordOptions, settings);
         }
 
-        public PasswordManager.Entities.Settings PasswordOptions_Select(User user)
+        public PasswordManager.Entities.PasswordOptions PasswordOptions_Select(PasswordManager.Entities.Settings settings)
         {
-            return Settings.Select(user);
-        }
-
-        public PasswordManager.Entities.Settings PasswordOptions_Select(int userID)
-        {
-            return Settings.Select(userID);
+            return PasswordOptions.Select(settings);
         }
 
         public bool PasswordOptions_Update(PasswordManager.Entities.Settings settings)
         {
-            return Settings.Update(settings);
+            return PasswordOptions.Update(settings);
         }
     }
 }

@@ -98,7 +98,7 @@ namespace PasswordManager.App
 
         private void btnNewPassword_Click(object sender, EventArgs e)
         {
-            NewPassword newPasswordForm = new NewPassword(user.Settings.PasswordOptions);
+            NewPassword newPasswordForm = new NewPassword(user);
 
             if (newPasswordForm.ShowDialog() == DialogResult.OK)
             {

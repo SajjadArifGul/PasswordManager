@@ -36,6 +36,6 @@ namespace PasswordManager.Entities
         public string SpecialCharacters = @"~!@#$%^&*():;[]{}<>,.?/\|";
         public string UnderscoreCharacters = "_";
         public string SpaceCharacters = " ";
-        public string OtherCharacters;
+        public string OtherCharacters = null;
     }
 }

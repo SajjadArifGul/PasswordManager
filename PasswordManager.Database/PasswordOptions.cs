@@ -29,10 +29,11 @@ namespace PasswordManager.Database
         {
             int AffectedRows = 0;
 
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            string commandQuery = string.Empty;
+
+            if (passwordOptions.AllowOtherCharacters || passwordOptions.RequireOtherCharacters)
             {
-                using (SqlCommand command = new SqlCommand(
-                @"Insert into PasswordOptions
+                commandQuery = @"Insert into PasswordOptions
                     (
                     SettingsID,
                     AllowLowercaseCharacters,
@@ -73,7 +74,54 @@ namespace PasswordManager.Database
                     @MinimumCharacters,
                     @MaximumCharacters,
                     @OtherCharacters
-                    )", connection))
+                    )";
+            }
+            else
+            {
+                commandQuery = @"Insert into PasswordOptions
+                    (
+                    SettingsID,
+                    AllowLowercaseCharacters,
+                    AllowUppercaseCharacters,
+                    AllowNumberCharacters,
+                    AllowSpecialCharacters,
+                    AllowUnderscoreCharacters,
+                    AllowSpaceCharacters,
+                    AllowOtherCharacters,
+                    RequireLowercaseCharacters,
+                    RequireUppercaseCharacters,
+                    RequireNumberCharacters,
+                    RequireSpecialCharacters,
+                    RequireUnderscoreCharacters,
+                    RequireSpaceCharacters,
+                    RequireOtherCharacters,
+                    MinimumCharacters,
+                    MaximumCharacters
+                    )
+                        values
+                    (
+                    @SettingsID,
+                    @AllowLowercaseCharacters,
+                    @AllowUppercaseCharacters,
+                    @AllowNumberCharacters,
+                    @AllowSpecialCharacters,
+                    @AllowUnderscoreCharacters,
+                    @AllowSpaceCharacters,
+                    @AllowOtherCharacters,
+                    @RequireLowercaseCharacters,
+                    @RequireUppercaseCharacters,
+                    @RequireNumberCharacters,
+                    @RequireSpecialCharacters,
+                    @RequireUnderscoreCharacters,
+                    @RequireSpaceCharacters,
+                    @RequireOtherCharacters,
+                    @MinimumCharacters,
+                    @MaximumCharacters
+                    )";
+            }
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(commandQuery, connection))
                 {
                     command.Parameters.Add(new SqlParameter("SettingsID", settings.ID));
                     command.Parameters.Add(new SqlParameter("AllowLowercaseCharacters",     passwordOptions.AllowLowercaseCharacters));   
@@ -92,8 +140,11 @@ namespace PasswordManager.Database
                     command.Parameters.Add(new SqlParameter("RequireOtherCharacters",       passwordOptions.RequireOtherCharacters));
                     command.Parameters.Add(new SqlParameter("MinimumCharacters",            passwordOptions.MinimumCharacters));
                     command.Parameters.Add(new SqlParameter("MaximumCharacters",            passwordOptions.MaximumCharacters));
-                    command.Parameters.Add(new SqlParameter("OtherCharacters",              passwordOptions.OtherCharacters));
 
+                    if (passwordOptions.AllowOtherCharacters || passwordOptions.RequireOtherCharacters)
+                    {
+                        command.Parameters.Add(new SqlParameter("OtherCharacters", passwordOptions.OtherCharacters));
+                    }
                     connection.Open();
 
                     AffectedRows = command.ExecuteNonQuery();
@@ -112,7 +163,25 @@ namespace PasswordManager.Database
         /// <returns>User Entity matching the given ID.</returns>
         public PasswordManager.Entities.PasswordOptions Select(PasswordManager.Entities.Settings settings)
         {
-            PasswordManager.Entities.PasswordOptions passwordOptions = null;
+            PasswordManager.Entities.PasswordOptions passwordOptions = new Entities.PasswordOptions()
+            {
+                AllowLowercaseCharacters     = Globals.Defaults.AllowLowercaseCharacters     ,
+                AllowUppercaseCharacters     = Globals.Defaults.AllowUppercaseCharacters     ,
+                AllowNumberCharacters        = Globals.Defaults.AllowNumberCharacters        ,
+                AllowSpecialCharacters       = Globals.Defaults.AllowSpecialCharacters       ,
+                AllowUnderscoreCharacters    = Globals.Defaults.AllowUnderscoreCharacters    ,
+                AllowSpaceCharacters         = Globals.Defaults.AllowSpaceCharacters         ,
+                AllowOtherCharacters         = Globals.Defaults.AllowOtherCharacters         ,
+                RequireLowercaseCharacters   = Globals.Defaults.RequireLowercaseCharacters   ,
+                RequireUppercaseCharacters   = Globals.Defaults.RequireUppercaseCharacters   ,
+                RequireNumberCharacters      = Globals.Defaults.RequireNumberCharacters      ,
+                RequireSpecialCharacters     = Globals.Defaults.RequireSpecialCharacters     ,
+                RequireUnderscoreCharacters  = Globals.Defaults.RequireUnderscoreCharacters  ,
+                RequireSpaceCharacters       = Globals.Defaults.RequireSpaceCharacters       ,
+                RequireOtherCharacters       = Globals.Defaults.RequireOtherCharacters       ,
+                MinimumCharacters            = Globals.Defaults.MinimumCharacters            ,
+                MaximumCharacters            = Globals.Defaults.MaximumCharacters            
+            };
 
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
@@ -127,8 +196,6 @@ namespace PasswordManager.Database
                     
                     while (reader.Read())
                     {
-                        passwordOptions = new Entities.PasswordOptions();
-
                         passwordOptions.AllowLowercaseCharacters=    Convert.ToBoolean(reader["AllowLowercaseCharacters"]);
                         passwordOptions.AllowUppercaseCharacters=    Convert.ToBoolean(reader["AllowUppercaseCharacters"]);
                         passwordOptions.AllowNumberCharacters=       Convert.ToBoolean(reader["AllowNumberCharacters"]);
@@ -158,35 +225,37 @@ namespace PasswordManager.Database
         /// </summary>
         /// <param name="user">User Entity to be updated.</param>
         /// <returns>True if User is updated otherwise False.</returns>
-        public bool Update(PasswordManager.Entities.PasswordOptions passwordOptions)
+        public bool Update(PasswordManager.Entities.Settings settings)
         {
+            PasswordManager.Entities.PasswordOptions passwordOptions = settings.PasswordOptions;
+
             int AffectedRows = 0;
 
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand(
                 @"Update PasswordOptions set
-                  AllowLowercaseCharacters     = @AllowLowercaseCharacters
-                  AllowUppercaseCharacters     = @AllowUppercaseCharacters
-                  AllowNumberCharacters        = @AllowNumberCharacters
-                  AllowSpecialCharacters       = @AllowSpecialCharacters
-                  AllowUnderscoreCharacters    = @AllowUnderscoreCharacters
-                  AllowSpaceCharacters         = @AllowSpaceCharacters
-                  AllowOtherCharacters         = @AllowOtherCharacters
-                  RequireLowercaseCharacters   = @RequireLowercaseCharacters
-                  RequireUppercaseCharacters   = @RequireUppercaseCharacters
-                  RequireNumberCharacters      = @RequireNumberCharacters
-                  RequireSpecialCharacters     = @RequireSpecialCharacters
-                  RequireUnderscoreCharacters  = @RequireUnderscoreCharacters
-                  RequireSpaceCharacters       = @RequireSpaceCharacters
-                  RequireOtherCharacters       = @RequireOtherCharacters
-                  MinimumCharacters            = @MinimumCharacters
-                  MaximumCharacters            = @MaximumCharacters
+                  AllowLowercaseCharacters     = @AllowLowercaseCharacters,
+                  AllowUppercaseCharacters     = @AllowUppercaseCharacters,
+                  AllowNumberCharacters        = @AllowNumberCharacters,
+                  AllowSpecialCharacters       = @AllowSpecialCharacters,
+                  AllowUnderscoreCharacters    = @AllowUnderscoreCharacters,
+                  AllowSpaceCharacters         = @AllowSpaceCharacters,
+                  AllowOtherCharacters         = @AllowOtherCharacters,
+                  RequireLowercaseCharacters   = @RequireLowercaseCharacters,
+                  RequireUppercaseCharacters   = @RequireUppercaseCharacters,
+                  RequireNumberCharacters      = @RequireNumberCharacters,
+                  RequireSpecialCharacters     = @RequireSpecialCharacters,
+                  RequireUnderscoreCharacters  = @RequireUnderscoreCharacters,
+                  RequireSpaceCharacters       = @RequireSpaceCharacters,
+                  RequireOtherCharacters       = @RequireOtherCharacters,
+                  MinimumCharacters            = @MinimumCharacters,
+                  MaximumCharacters            = @MaximumCharacters,
                   OtherCharacters              = @OtherCharacters
-                  where ID = @ID
+                  where SettingsID = @SettingsID
                 ", connection))
                 {
-                    command.Parameters.Add(new SqlParameter("ID", passwordOptions.ID));
+                    command.Parameters.Add(new SqlParameter("SettingsID", settings.ID));
                     command.Parameters.Add(new SqlParameter("AllowLowercaseCharacters", passwordOptions.AllowLowercaseCharacters));
                     command.Parameters.Add(new SqlParameter("AllowUppercaseCharacters", passwordOptions.AllowUppercaseCharacters));
                     command.Parameters.Add(new SqlParameter("AllowNumberCharacters", passwordOptions.AllowNumberCharacters));

@@ -61,7 +61,9 @@ namespace PasswordManager.App
                     Master = txtLoginPass.Text,
                 };
 
-                if (users.Register(user))
+                user = users.Register(user);
+
+                if (user != null)
                 {
                     lblMassege.Text = "User Registered.";
 

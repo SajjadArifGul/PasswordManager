@@ -55,7 +55,7 @@ namespace PasswordManager.App
 
         private void btnPasswordOptions_Click(object sender, EventArgs e)
         {
-            PasswordGenerateOptions passwordGenerateOptionsForm = new PasswordGenerateOptions(user.Settings.PasswordOptions);
+            PasswordGenerateOptions passwordGenerateOptionsForm = new PasswordGenerateOptions(user);
 
             if (passwordGenerateOptionsForm.ShowDialog() == DialogResult.OK)
             {

@@ -57,7 +57,6 @@ namespace PasswordManager.App
                     Master = txtLoginPass.Text
                 };
 
-                //User loginUser = users.Login(user);
                 LoginUs(user);
             }
         }

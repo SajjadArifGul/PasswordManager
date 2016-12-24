@@ -15,38 +15,33 @@ namespace PasswordManager.App
     public partial class NewPassword : Form
     {
         Passwords passwords;
+        User user;
 
         public Password newPassword;
 
-        PasswordOptions passwordOptions;
-
-        public NewPassword(PasswordOptions passwordOptions)
+        public NewPassword(User user)
         {
             InitializeComponent();
 
             passwords = new Passwords();
-
-            if (passwordOptions != null) this.passwordOptions = passwordOptions;
-            else passwordOptions = new PasswordOptions();
+            this.user = user;
             
             txtName.Focus();
         }
 
         private void btnOptions_Click(object sender, EventArgs e)
         {
-            PasswordGenerateOptions passwordGenerateOptionsForm = new PasswordGenerateOptions(passwordOptions);
+            PasswordGenerateOptions passwordGenerateOptionsForm = new PasswordGenerateOptions(user);
 
             if (passwordGenerateOptionsForm.ShowDialog() == DialogResult.OK)
             {
-                passwordOptions = passwordGenerateOptionsForm.passwordOptions;
-
-                txtPassword.Text = passwords.New(passwordOptions);
+                txtPassword.Text = passwords.New(passwordGenerateOptionsForm.passwordOptions);
             }
         }
 
         private void btnGenerate_Click(object sender, EventArgs e)
         {
-            txtPassword.Text = passwords.New(passwordOptions);
+            txtPassword.Text = passwords.New(user.Settings.PasswordOptions);
         }
         
         private void btnSave_Click(object sender, EventArgs e)

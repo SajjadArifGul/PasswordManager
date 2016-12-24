@@ -21,17 +21,6 @@ namespace PasswordManager.Entities
 
         public Settings()
         {
-            //if (dateTimeFormat != null) this.dateTimeFormat = dateTimeFormat;
-            //else this.dateTimeFormat = new DateTime();
-
-            //if (passwordOptions != null) this.passwordOptions = passwordOptions;
-            //else this.passwordOptions = new PasswordOptions();
-
-            //if (differentMaster) this.Master = Master;
-
-            //this.ShowEmailColumn = ShowEmailColumn;
-            //this.ShowUernameColumn = ShowUernameColumn;
-            //this.ShowPasswordColumn = ShowPasswordColumn;
         }
     }
 }

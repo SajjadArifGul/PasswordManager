@@ -13,12 +13,15 @@ namespace PasswordManager.Database
     /// </summary>
     public class Settings
     {
+        PasswordOptions passwordOptions;
+
         private string ConnectionString;
 
         public Settings()
         {
             //ConnectionString = ConfigurationManager.ConnectionStrings["PasswordManagerDBConnection"].ConnectionString;
             ConnectionString = Properties.Settings.Default["PasswordManagerDBConnection"].ToString();
+            passwordOptions = new PasswordOptions();
         }
         
         public bool Insert(PasswordManager.Entities.Settings settings, User user)
@@ -27,11 +30,10 @@ namespace PasswordManager.Database
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand(
-                "Insert into Settings (UserID, DateTimeFormat, PasswordOptionsID, ShowEmailColumn, ShowUsernameColumn, ShowPasswordColumn) values (@UserID, @DateTimeFormat, @PasswordOptionsID, @ShowEmailColumn, @ShowUsernameColumn, @ShowPasswordColumn)", connection))
+                "Insert into Settings (UserID, DateTimeFormat, ShowEmailColumn, ShowUsernameColumn, ShowPasswordColumn) values (@UserID, @DateTimeFormat, @ShowEmailColumn, @ShowUsernameColumn, @ShowPasswordColumn)", connection))
                 {
                     command.Parameters.Add(new SqlParameter("UserID", user.ID));
                     command.Parameters.Add(new SqlParameter("DateTimeFormat", settings.DateTimeFormat));
-                    command.Parameters.Add(new SqlParameter("PasswordOptionsID", settings.PasswordOptionsID));
                     command.Parameters.Add(new SqlParameter("ShowEmailColumn", settings.ShowEmailColumn));
                     command.Parameters.Add(new SqlParameter("ShowUsernameColumn", settings.ShowUsernameColumn));
                     command.Parameters.Add(new SqlParameter("ShowPasswordColumn", settings.ShowPasswordColumn));
@@ -43,7 +45,11 @@ namespace PasswordManager.Database
             }
 
             if (AffectedRows > 0)
+            {
+                //now add passwordoptions for new user
+                passwordOptions.Insert(settings.PasswordOptions, Select(user));
                 return true;
+            }
             else return false;
         }
 
@@ -79,6 +85,9 @@ namespace PasswordManager.Database
                 }
             }
 
+            //get password options for these settings too
+            settings.PasswordOptions = passwordOptions.Select(settings);
+
             return settings;
         }
 
@@ -89,7 +98,15 @@ namespace PasswordManager.Database
         /// <returns>User Entity matching the given ID.</returns>
         public PasswordManager.Entities.Settings Select(User user)
         {
-            PasswordManager.Entities.Settings settings = null;
+            //setting will be initilized to default settings if we are unable to get settings from DB
+            PasswordManager.Entities.Settings settings = new Entities.Settings()
+            {
+                DateTimeFormat = Globals.Defaults.DateTimeFormat,
+                ShowEmailColumn = Globals.Defaults.ShowEmailColumn,
+                ShowUsernameColumn = Globals.Defaults.ShowUsernameColumn,
+                ShowPasswordColumn = Globals.Defaults.ShowPasswordColumn
+            };
+
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand(
@@ -103,19 +120,18 @@ namespace PasswordManager.Database
 
                     while (reader.Read())
                     {
-                        settings = new PasswordManager.Entities.Settings();
-
                         settings.ID = Convert.ToInt32(reader["ID"]);
                         settings.UserID = user.ID;
-
-                        //get passwordoptionsID related stuff here
-
+                        settings.DateTimeFormat = reader["DateTimeFormat"].ToString();
                         settings.ShowEmailColumn = Convert.ToBoolean(reader["ShowEmailColumn"]);
                         settings.ShowUsernameColumn = Convert.ToBoolean(reader["ShowUsernameColumn"]);
                         settings.ShowPasswordColumn = Convert.ToBoolean(reader["ShowPasswordColumn"]);
                     }
                 }
             }
+
+            //get password options for these settings too
+            settings.PasswordOptions = passwordOptions.Select(settings);
 
             return settings;
         }
@@ -144,6 +160,7 @@ namespace PasswordManager.Database
                     AffectedRows = command.ExecuteNonQuery();
                 }
             }
+
             if (AffectedRows > 0) return true;
             else return false;
         }
