@@ -26,11 +26,12 @@ namespace PasswordManager.App
         
         private void Login_Load(object sender, EventArgs e)
         {
-
+            picboxLoading.Hide();
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            picboxLoading.Show();
             lblMassege.ForeColor = Color.FromArgb(67, 140, 235);
             lblMassege.Text = string.Empty;
 
@@ -45,7 +46,7 @@ namespace PasswordManager.App
             {
                 lblMassege.Text = "Enter Your Password.";
                 lblMassege.ForeColor = Color.Red;
-                
+
                 txtLoginPass.Focus();
             }
             else
@@ -56,23 +57,8 @@ namespace PasswordManager.App
                     Master = txtLoginPass.Text
                 };
 
-                User loginUser = users.Login(user);
-
-                if (loginUser != null)
-                {
-                    lblMassege.Text = "Login Successful.";
-
-                    this.Hide();
-                    Dashboard dashboard = new Dashboard(loginUser);
-                    dashboard.Show();
-                }
-                else
-                {
-                    lblMassege.Text = "No user found with the supplied credentials.";
-                    lblMassege.ForeColor = Color.Red;
-
-                    txtEmail.Focus();
-                }
+                //User loginUser = users.Login(user);
+                LoginUs(user);
             }
         }
 
@@ -86,6 +72,39 @@ namespace PasswordManager.App
         private void Login_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void LoginWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+        }
+
+        public async void LoginUs(User user)
+        {
+            picboxLoading.Show();
+
+            User loginUser = users.Login(user);
+            if (loginUser != null)
+            {
+                lblMassege.Text = "Login Successful.";
+
+                this.Hide();
+                Dashboard dashboard = new Dashboard(loginUser);
+                dashboard.Show();
+            }
+            else
+            {
+                lblMassege.Text = "No user found with the supplied credentials.";
+                lblMassege.ForeColor = Color.Red;
+
+                txtEmail.Focus();
+            }
+
+            picboxLoading.Hide();
+        }
+
+        private void LoginWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
         }
     }
 }

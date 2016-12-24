@@ -15,14 +15,18 @@ namespace PasswordManager.DAL
     {
         private static Database _instance;
 
-        private Users Users;
-        private Passwords Passwords;
-        
+        private PasswordManager.Database.Users Users;
+        private PasswordManager.Database.Passwords Passwords;
+        private PasswordManager.Database.Settings Settings;
+        private PasswordManager.Database.PasswordOptions PasswordOptions;
+
         // Constructor is 'protected'
         protected Database()
         {
-            Users = new Users();
-            Passwords = new Passwords();
+            Users = new PasswordManager.Database.Users();
+            Passwords = new PasswordManager.Database.Passwords();
+            Settings = new PasswordManager.Database.Settings();
+            PasswordOptions = new PasswordManager.Database.PasswordOptions();
         }
 
         public static Database Instance()
@@ -75,45 +79,44 @@ namespace PasswordManager.DAL
             return Passwords.Update(password);
         }
 
+        public bool Settings_Add(PasswordManager.Entities.Settings settings, User user)
+        {
+            return Settings.Insert(settings, user);
+        }
 
-        //public bool AddUser(User user)
-        //{
-        //    foreach (User u in Users)
-        //    {
-        //        if ((u.Username == user.Username) || (u.Email == user.Email))
-        //        {
-        //            //the user with same credentials exists. Cant add user.
-        //            return false;
-        //        }
-        //    }
+        public PasswordManager.Entities.Settings Settings_Select(User user)
+        {
+            return Settings.Select(user);
+        }
 
-        //    Users.Add(user);
-        //    return true;
-        //}
+        public PasswordManager.Entities.Settings Settings_Select(int userID)
+        {
+            return Settings.Select(userID);
+        }
+        
+        public bool Settings_Update(PasswordManager.Entities.Settings settings)
+        {
+            return Settings.Update(settings);
+        }
 
+        public bool PasswordOptions_Add(PasswordManager.Entities.PasswordOptions passwordOptions, User user)
+        {
+            return PasswordOptions.Insert(passwordOptions);
+        }
 
-        //public User FindUser(User user)
-        //{
-        //    User UserToBeReturned = null;
+        public PasswordManager.Entities.Settings PasswordOptions_Select(User user)
+        {
+            return Settings.Select(user);
+        }
 
-        //    foreach (User ExistingUser in Users)
-        //    {
-        //        if (ExistingUser.Email == user.Email)
-        //        {
-        //            if (ExistingUser.Master == user.Master)
-        //            {
-        //                UserToBeReturned = ExistingUser;
-        //            }
-        //        }
-        //    }
+        public PasswordManager.Entities.Settings PasswordOptions_Select(int userID)
+        {
+            return Settings.Select(userID);
+        }
 
-        //    return UserToBeReturned;
-        //}
-
-        //public Password AddPassword(User user, Password password)
-        //{
-        //    Users.Where(u=>u.Email == user.Email).FirstOrDefault().Passwords.Add(password);
-        //    return password;
-        //}
+        public bool PasswordOptions_Update(PasswordManager.Entities.Settings settings)
+        {
+            return Settings.Update(settings);
+        }
     }
 }

@@ -203,6 +203,16 @@ namespace PasswordManager.App.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap loading_gear_anim {
+            get {
+                object obj = ResourceManager.GetObject("loading.gear.anim", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap login {
             get {
                 object obj = ResourceManager.GetObject("login", resourceCulture);
@@ -226,6 +236,16 @@ namespace PasswordManager.App.Properties {
         internal static System.Drawing.Bitmap login_btn_light {
             get {
                 object obj = ResourceManager.GetObject("login-btn-light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap login_loading {
+            get {
+                object obj = ResourceManager.GetObject("login.loading", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

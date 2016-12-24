@@ -17,9 +17,12 @@ namespace PasswordManager.BLL
             db = Database.Instance();
         }
 
-        public bool Register(User user)
+        public User Register(User user)
         {
-            return db.User_Add(user);
+            if(db.User_Add(user))
+            {
+                return db.Settings_Add(user);
+            }
         }
 
         public User Exist(User user)
@@ -33,18 +36,23 @@ namespace PasswordManager.BLL
 
         public User Login(User user)
         {
-            if (Exist(user) != null)
+            User returnedUser = Exist(user);
+
+            if (returnedUser != null)
             {
                 //now populate the user with passwords and settings and related stuff
                 Passwords passwords = new Passwords();
-                user.Passwords = passwords.Get(user);
+                returnedUser.Passwords = passwords.Get(returnedUser);
 
                 //for now
-                user.Settings = new Settings() { PasswordOptions = new PasswordOptions()};
-                
+                returnedUser.Settings = new Settings() { PasswordOptions = new PasswordOptions()};
+
+
+
+                return returnedUser;
             }
 
-            return user;
+            return null;
         }
 
         public User Update(User user)

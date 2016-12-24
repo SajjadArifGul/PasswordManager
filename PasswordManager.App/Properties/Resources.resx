@@ -169,11 +169,11 @@
   <data name="password.cancel.40" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\password.cancel.40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="login.loading" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\login.loading.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="people.right" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\people.right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="linkedInIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\linkedInIcon.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="login" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\login.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -196,8 +196,8 @@
   <data name="password.generate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\password.generate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="add" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="linkedInIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\linkedInIcon.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cancel.40" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cancel.40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -211,8 +211,14 @@
   <data name="import" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icon-blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon-blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="password.master.save.40" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\password.master.save.40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="export" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -247,7 +253,7 @@
   <data name="login.40" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\login.40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="password.master.save.40" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\password.master.save.40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="loading.gear.anim" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\loading.gear.anim.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
