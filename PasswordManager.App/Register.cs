@@ -15,11 +15,13 @@ namespace PasswordManager.App
 {
     public partial class Register : Form
     {
-        Users users = new Users();
+        Users users;
 
         public Register()
         {
             InitializeComponent();
+
+            users = new Users();
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
@@ -56,8 +58,7 @@ namespace PasswordManager.App
                     Name = txtName.Text,
                     Username = txtUsername.Text,
                     Email = txtEmail.Text,
-                    LoginPassword = txtLoginPass.Text,
-                    MasterPassword = txtLoginPass.Text
+                    Master = txtLoginPass.Text,
                 };
 
                 if (users.Register(user))
@@ -79,6 +80,11 @@ namespace PasswordManager.App
         private void Register_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void Register_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

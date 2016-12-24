@@ -73,6 +73,11 @@ namespace PasswordManager.BLL
             return password;
         }
 
+        public List<Password> Get(User user)
+        {
+            return db.Password_Select(user);
+        }
+
         // Return a random character from a string.
         private string RandomChar(string str, Random random)
         {
@@ -101,7 +106,11 @@ namespace PasswordManager.BLL
         /// <returns>The new Password</returns>
         public Password Save(User user, Password password)
         {
-            return db.AddPassword(user, password);
+            if (db.Password_Add(password, user))
+            {
+                return password;
+            }
+            else return null;
         }
 
         public bool Same(string oldPass, string newPass)

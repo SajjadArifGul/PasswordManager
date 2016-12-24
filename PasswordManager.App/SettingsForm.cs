@@ -25,56 +25,56 @@ namespace PasswordManager.App
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
-            txtName.Text = user.Name;
-            txtEmail.Text = user.Email;
-            txtUsername.Text = user.Username;
+            //txtName.Text = user.Name;
+            //txtEmail.Text = user.Email;
+            //txtUsername.Text = user.Username;
 
-            txtPassword.Text = user.LoginPassword;
+            //txtPassword.Text = user.LoginPassword;
 
-            if (user.Settings.differentMaster)
-            {
-                chkEnableMaster.Checked = true;
-                txtMaster.Enabled = true;
-                txtMaster.Text = user.Settings.Master;
-            }
+            //if (user.Settings.DifferentMaster)
+            //{
+            //    chkEnableMaster.Checked = true;
+            //    txtMaster.Enabled = true;
+            //    txtMaster.Text = user.Settings.Master;
+            //}
 
-            cmbDateFormat.Items.Clear();
-            foreach(DateFormat dateFormat in Globals.Variables.DateFormats)
-            {
-                cmbDateFormat.Items.Add(dateFormat.Value);
-            }
+            //cmbDateFormat.Items.Clear();
+            //foreach(DateFormat dateFormat in Globals.Variables.DateFormats)
+            //{
+            //    cmbDateFormat.Items.Add(dateFormat.Value);
+            //}
 
-            if (user.Settings.dateTimeFormat != null)
-                cmbDateFormat.SelectedItem = Globals.Variables.DateFormats.Where(f => f.Format == user.Settings.dateTimeFormat).FirstOrDefault().Value;
+            //if (user.Settings.DateTimeFormat != null)
+            //    cmbDateFormat.SelectedItem = Globals.Variables.DateFormats.Where(f => f.Format == user.Settings.DateTimeFormat).FirstOrDefault().Value;
 
-            chkDisplayEmail.Checked = user.Settings.ShowEmailColumn;
-            chkDisplayUsername.Checked = user.Settings.ShowUsernameColumn;
-            chkDisplayPassword.Checked = user.Settings.ShowPasswordColumn;
+            //chkDisplayEmail.Checked = user.Settings.ShowEmailColumn;
+            //chkDisplayUsername.Checked = user.Settings.ShowUsernameColumn;
+            //chkDisplayPassword.Checked = user.Settings.ShowPasswordColumn;
             
         }
 
         private void btnPasswordOptions_Click(object sender, EventArgs e)
         {
-            PasswordGenerateOptions passwordGenerateOptionsForm = new PasswordGenerateOptions(user.Settings.passwordOptions);
+            PasswordGenerateOptions passwordGenerateOptionsForm = new PasswordGenerateOptions(user.Settings.PasswordOptions);
 
             if (passwordGenerateOptionsForm.ShowDialog() == DialogResult.OK)
             {
-                user.Settings.passwordOptions = passwordGenerateOptionsForm.passwordOptions;
+                user.Settings.PasswordOptions = passwordGenerateOptionsForm.passwordOptions;
             }
         }
 
         private void chkEnableMaster_CheckedChanged(object sender, EventArgs e)
         {
-            user.Settings.differentMaster = chkEnableMaster.Checked;
+            //user.Settings.DifferentMaster = chkEnableMaster.Checked;
 
-            if (user.Settings.differentMaster)
-            {
-                txtMaster.Enabled = true;
-            }
-            else
-            {
-                txtMaster.Enabled = false;
-            }
+            //if (user.Settings.DifferentMaster)
+            //{
+            //    txtMaster.Enabled = true;
+            //}
+            //else
+            //{
+            //    txtMaster.Enabled = false;
+            //}
         }
 
         private void txtName_TextChanged(object sender, EventArgs e)
@@ -102,11 +102,11 @@ namespace PasswordManager.App
 
         private void txtMaster_TextChanged(object sender, EventArgs e)
         {
-            if (user.Settings.differentMaster)
-            {
-                if (Verifier.Text(txtMaster.Text.ToString()))
-                    user.Settings.Master = txtMaster.Text.ToString();
-            }
+            //if (user.Settings.DifferentMaster)
+            //{
+            //    if (Verifier.Text(txtMaster.Text.ToString()))
+            //        user.Settings.Master = txtMaster.Text.ToString();
+            //}
         }
 
         private void cmbDateFormat_SelectedIndexChanged(object sender, EventArgs e)
@@ -115,7 +115,7 @@ namespace PasswordManager.App
 
             DateFormat SelectedFormat = Globals.Variables.DateFormats.Where(f => f.Value == selectedItem).FirstOrDefault();
 
-            user.Settings.dateTimeFormat = SelectedFormat.Format;
+            user.Settings.DateTimeFormat = SelectedFormat.Format;
 
             //if (Verifier.Text(txtUsername.Text.ToString()))
             //    user.Username = txtUsername.Text.ToString();

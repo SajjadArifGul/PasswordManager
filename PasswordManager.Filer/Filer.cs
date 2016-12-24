@@ -84,9 +84,9 @@ namespace PasswordManager.Filer
                                         case "Login":
                                             if (userreader.Read())
                                             {
-                                                string Login = userreader.Value.Trim();
-                                                if (Verifier.Text(Login))
-                                                    newUser.LoginPassword = Login;
+                                                string Master = userreader.Value.Trim();
+                                                if (Verifier.Text(Master))
+                                                    newUser.Master = Master;
                                             }
                                             break;
                                         case "Passwords":
@@ -176,9 +176,8 @@ namespace PasswordManager.Filer
                                 //temporary - 10122016
                                 newUser.Settings = new Settings()
                                 {
-                                    dateTimeFormat = "d",
-                                    passwordOptions = new PasswordOptions(),
-                                    differentMaster = false,
+                                    DateTimeFormat = "d",
+                                    PasswordOptions = new PasswordOptions(),
                                     ShowEmailColumn = true,
                                     ShowUsernameColumn = true,
                                     ShowPasswordColumn = false

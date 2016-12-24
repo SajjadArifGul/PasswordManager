@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PasswordManagerDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PasswordOptions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="AllowLowercaseCharacters" Type="bit" />
+          <Property Name="AllowUppercaseCharacters" Type="bit" />
+          <Property Name="AllowNumberCharacters" Type="bit" />
+          <Property Name="AllowSpecialCharacters" Type="bit" />
+          <Property Name="AllowUnderscoreCharacters" Type="bit" />
+          <Property Name="AllowSpaceCharacters" Type="bit" />
+          <Property Name="AllowOtherCharacters" Type="bit" />
+          <Property Name="RequireLowercaseCharacters" Type="bit" />
+          <Property Name="RequireUppercaseCharacters" Type="bit" />
+          <Property Name="RequireNumberCharacters" Type="bit" />
+          <Property Name="RequireSpecialCharacters" Type="bit" />
+          <Property Name="RequireUnderscoreCharacters" Type="bit" />
+          <Property Name="RequireSpaceCharacters" Type="bit" />
+          <Property Name="RequireOtherCharacters" Type="bit" />
+          <Property Name="MinimumCharacters" Type="int" />
+          <Property Name="MaximumCharacters" Type="int" />
+          <Property Name="OtherCharacters" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Passwords">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="Website" Type="varchar" MaxLength="50" />
+          <Property Name="Text" Type="varchar" MaxLength="50" />
+          <Property Name="Notes" Type="varchar" MaxLength="50" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Settings">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="DateTimeFormat" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PasswordOptionsID" Type="int" Nullable="false" />
+          <Property Name="ShowEmailColumn" Type="bit" Nullable="false" />
+          <Property Name="ShowUsernameColumn" Type="bit" Nullable="false" />
+          <Property Name="ShowPasswordColumn" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Master" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="PasswordManagerDBModelStoreContainer">
+          <EntitySet Name="PasswordOptions" EntityType="Self.PasswordOptions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Passwords" EntityType="Self.Passwords" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Settings" EntityType="Self.Settings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PasswordManagerDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PasswordOption">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="AllowLowercaseCharacters" Type="Boolean" />
+          <Property Name="AllowUppercaseCharacters" Type="Boolean" />
+          <Property Name="AllowNumberCharacters" Type="Boolean" />
+          <Property Name="AllowSpecialCharacters" Type="Boolean" />
+          <Property Name="AllowUnderscoreCharacters" Type="Boolean" />
+          <Property Name="AllowSpaceCharacters" Type="Boolean" />
+          <Property Name="AllowOtherCharacters" Type="Boolean" />
+          <Property Name="RequireLowercaseCharacters" Type="Boolean" />
+          <Property Name="RequireUppercaseCharacters" Type="Boolean" />
+          <Property Name="RequireNumberCharacters" Type="Boolean" />
+          <Property Name="RequireSpecialCharacters" Type="Boolean" />
+          <Property Name="RequireUnderscoreCharacters" Type="Boolean" />
+          <Property Name="RequireSpaceCharacters" Type="Boolean" />
+          <Property Name="RequireOtherCharacters" Type="Boolean" />
+          <Property Name="MinimumCharacters" Type="Int32" />
+          <Property Name="MaximumCharacters" Type="Int32" />
+          <Property Name="OtherCharacters" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Password">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Website" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Text" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Notes" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Setting">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="DateTimeFormat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PasswordOptionsID" Type="Int32" Nullable="false" />
+          <Property Name="ShowEmailColumn" Type="Boolean" Nullable="false" />
+          <Property Name="ShowUsernameColumn" Type="Boolean" Nullable="false" />
+          <Property Name="ShowPasswordColumn" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Master" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="PasswordManagerDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PasswordOptions" EntityType="Self.PasswordOption" />
+          <EntitySet Name="Passwords" EntityType="Self.Password" />
+          <EntitySet Name="Settings" EntityType="Self.Setting" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PasswordManagerDBModelStoreContainer" CdmEntityContainer="PasswordManagerDBEntities">
+          <EntitySetMapping Name="PasswordOptions">
+            <EntityTypeMapping TypeName="PasswordManagerDBModel.PasswordOption">
+              <MappingFragment StoreEntitySet="PasswordOptions">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AllowLowercaseCharacters" ColumnName="AllowLowercaseCharacters" />
+                <ScalarProperty Name="AllowUppercaseCharacters" ColumnName="AllowUppercaseCharacters" />
+                <ScalarProperty Name="AllowNumberCharacters" ColumnName="AllowNumberCharacters" />
+                <ScalarProperty Name="AllowSpecialCharacters" ColumnName="AllowSpecialCharacters" />
+                <ScalarProperty Name="AllowUnderscoreCharacters" ColumnName="AllowUnderscoreCharacters" />
+                <ScalarProperty Name="AllowSpaceCharacters" ColumnName="AllowSpaceCharacters" />
+                <ScalarProperty Name="AllowOtherCharacters" ColumnName="AllowOtherCharacters" />
+                <ScalarProperty Name="RequireLowercaseCharacters" ColumnName="RequireLowercaseCharacters" />
+                <ScalarProperty Name="RequireUppercaseCharacters" ColumnName="RequireUppercaseCharacters" />
+                <ScalarProperty Name="RequireNumberCharacters" ColumnName="RequireNumberCharacters" />
+                <ScalarProperty Name="RequireSpecialCharacters" ColumnName="RequireSpecialCharacters" />
+                <ScalarProperty Name="RequireUnderscoreCharacters" ColumnName="RequireUnderscoreCharacters" />
+                <ScalarProperty Name="RequireSpaceCharacters" ColumnName="RequireSpaceCharacters" />
+                <ScalarProperty Name="RequireOtherCharacters" ColumnName="RequireOtherCharacters" />
+                <ScalarProperty Name="MinimumCharacters" ColumnName="MinimumCharacters" />
+                <ScalarProperty Name="MaximumCharacters" ColumnName="MaximumCharacters" />
+                <ScalarProperty Name="OtherCharacters" ColumnName="OtherCharacters" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Passwords">
+            <EntityTypeMapping TypeName="PasswordManagerDBModel.Password">
+              <MappingFragment StoreEntitySet="Passwords">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Settings">
+            <EntityTypeMapping TypeName="PasswordManagerDBModel.Setting">
+              <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DateTimeFormat" ColumnName="DateTimeFormat" />
+                <ScalarProperty Name="PasswordOptionsID" ColumnName="PasswordOptionsID" />
+                <ScalarProperty Name="ShowEmailColumn" ColumnName="ShowEmailColumn" />
+                <ScalarProperty Name="ShowUsernameColumn" ColumnName="ShowUsernameColumn" />
+                <ScalarProperty Name="ShowPasswordColumn" ColumnName="ShowPasswordColumn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="PasswordManagerDBModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Master" ColumnName="Master" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

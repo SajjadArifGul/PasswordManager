@@ -19,22 +19,38 @@ namespace PasswordManager.BLL
 
         public bool Register(User user)
         {
-            return db.AddUser(user);
+            return db.User_Add(user);
         }
 
         public User Exist(User user)
         {
-            return db.FindUser(user);
+            User returnedUser = db.User_Select(user);
+
+            if (returnedUser.Master == user.Master)
+                return returnedUser;
+            else return null;
+        }
+
+        public User Login(User user)
+        {
+            if (Exist(user) != null)
+            {
+                //now populate the user with passwords and settings and related stuff
+                Passwords passwords = new Passwords();
+                user.Passwords = passwords.Get(user);
+
+                //for now
+                user.Settings = new Settings() { PasswordOptions = new PasswordOptions()};
+                
+            }
+
+            return user;
         }
 
         public User Update(User user)
         {
-            return user;
-        }
-
-        public bool Delete(User user)
-        {
-            return true;
+            if (db.User_Update(user)) return user;
+            else return null;
         }
     }
 }

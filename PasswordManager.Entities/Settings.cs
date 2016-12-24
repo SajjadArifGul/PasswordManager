@@ -8,10 +8,14 @@ namespace PasswordManager.Entities
 {
     public class Settings
     {
-        public string dateTimeFormat { get; set; }
-        public PasswordOptions passwordOptions { get; set; }
-        public bool differentMaster { get; set; }
-        public string Master { get; set; }
+        public int ID { get; set; }
+
+        public int UserID { get; set; }
+
+        public string DateTimeFormat { get; set; }
+
+        public int PasswordOptionsID { get; set; }
+        public PasswordOptions PasswordOptions { get; set; }
 
         public bool ShowEmailColumn { get; set; }
         public bool ShowUsernameColumn { get; set; }

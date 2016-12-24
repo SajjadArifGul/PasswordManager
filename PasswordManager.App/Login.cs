@@ -53,10 +53,10 @@ namespace PasswordManager.App
                 User user = new User()
                 {
                     Email = txtEmail.Text,
-                    LoginPassword = txtLoginPass.Text
+                    Master = txtLoginPass.Text
                 };
 
-                User loginUser = users.Exist(user);
+                User loginUser = users.Login(user);
 
                 if (loginUser != null)
                 {

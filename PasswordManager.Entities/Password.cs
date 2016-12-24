@@ -9,7 +9,10 @@ namespace PasswordManager.Entities
     public class Password
     {
         public int ID { get; set; }
-        
+
+        public User User { get; set; }
+        public int UserID { get; set; }
+
         public string Name { get; set; }
         public string Email { get; set; }
         public string Username { get; set; }

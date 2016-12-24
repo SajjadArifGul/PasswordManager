@@ -14,15 +14,15 @@ namespace PasswordManager.App
 {
     public partial class Dashboard : Form
     {
-        Passwords passwords;
-
         User user;
+
+        Passwords passwords;
 
         public Dashboard(User user)
         {
             InitializeComponent();
-
             passwords = new Passwords();
+            
             this.user = user;
 
             LoadSettings(user.Settings);
@@ -98,7 +98,7 @@ namespace PasswordManager.App
 
         private void btnNewPassword_Click(object sender, EventArgs e)
         {
-            NewPassword newPasswordForm = new NewPassword(user.Settings.passwordOptions);
+            NewPassword newPasswordForm = new NewPassword(user.Settings.PasswordOptions);
 
             if (newPasswordForm.ShowDialog() == DialogResult.OK)
             {

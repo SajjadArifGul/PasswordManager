@@ -8,6 +8,9 @@ namespace PasswordManager.Entities
 {
     public class PasswordOptions
     {
+        public int ID { get; set; }
+        public int SettingsID { get; set; }
+        
         public bool AllowLowercaseCharacters =true,
             AllowUppercaseCharacters=true,
             AllowNumberCharacters=true,
@@ -15,8 +18,7 @@ namespace PasswordManager.Entities
             AllowUnderscoreCharacters=false,
             AllowSpaceCharacters=false,
             AllowOtherCharacters=false;
-
-
+        
         public bool RequireLowercaseCharacters = true,
             RequireUppercaseCharacters = true,
             RequireNumberCharacters = true,

@@ -1,4 +1,5 @@
-﻿using PasswordManager.Entities;
+﻿using PasswordManager.Database;
+using PasswordManager.Entities;
 using PasswordManager.Filer;
 using System;
 using System.Collections.Generic;
@@ -14,19 +15,18 @@ namespace PasswordManager.DAL
     {
         private static Database _instance;
 
-        public List<User> Users;
-
+        private Users Users;
+        private Passwords Passwords;
+        
         // Constructor is 'protected'
         protected Database()
         {
-            //Get Users from Filer
-            Users = Filer.Filer.Read();
+            Users = new Users();
+            Passwords = new Passwords();
         }
 
         public static Database Instance()
         {
-            // Uses lazy initialization.
-            // Note: this is not thread safe.
             if (_instance == null)
             {
                 _instance = new Database();
@@ -35,44 +35,85 @@ namespace PasswordManager.DAL
             return _instance;
         }
 
-        public bool AddUser(User user)
+        public bool User_Add(User user)
         {
-            foreach (User u in Users)
-            {
-                if ((u.Username == user.Username) || (u.Email == user.Email))
-                {
-                    //the user with same credentials exists. Cant add user.
-                    return false;
-                }
-            }
+            return Users.Insert(user);
+        }
 
-            Users.Add(user);
-            return true;
+        public User User_Select(int userID)
+        {
+            return Users.Select(userID);
+        }
+
+        public User User_Select(User user)
+        {
+            return Users.Select(user);
+        }
+
+        public bool User_Update(User user)
+        {
+            return Users.Update(user);
+        }
+
+        public bool Password_Add(Password password, User user)
+        {
+            return Passwords.Insert(password, user);
+        }
+
+        public List<Password> Password_Select(int userID)
+        {
+            return Passwords.Select(userID);
+        }
+
+        public List<Password> Password_Select(User user)
+        {
+            return Passwords.Select(user);
+        }
+        
+        public bool Password_Update(Password password)
+        {
+            return Passwords.Update(password);
         }
 
 
-        public User FindUser(User user)
-        {
-            User UserToBeReturned = null;
+        //public bool AddUser(User user)
+        //{
+        //    foreach (User u in Users)
+        //    {
+        //        if ((u.Username == user.Username) || (u.Email == user.Email))
+        //        {
+        //            //the user with same credentials exists. Cant add user.
+        //            return false;
+        //        }
+        //    }
 
-            foreach (User ExistingUser in Users)
-            {
-                if (ExistingUser.Email == user.Email)
-                {
-                    if (ExistingUser.LoginPassword == user.LoginPassword)
-                    {
-                        UserToBeReturned = ExistingUser;
-                    }
-                }
-            }
+        //    Users.Add(user);
+        //    return true;
+        //}
 
-            return UserToBeReturned;
-        }
 
-        public Password AddPassword(User user, Password password)
-        {
-            Users.Where(u=>u.Email == user.Email).FirstOrDefault().Passwords.Add(password);
-            return password;
-        }
+        //public User FindUser(User user)
+        //{
+        //    User UserToBeReturned = null;
+
+        //    foreach (User ExistingUser in Users)
+        //    {
+        //        if (ExistingUser.Email == user.Email)
+        //        {
+        //            if (ExistingUser.Master == user.Master)
+        //            {
+        //                UserToBeReturned = ExistingUser;
+        //            }
+        //        }
+        //    }
+
+        //    return UserToBeReturned;
+        //}
+
+        //public Password AddPassword(User user, Password password)
+        //{
+        //    Users.Where(u=>u.Email == user.Email).FirstOrDefault().Passwords.Add(password);
+        //    return password;
+        //}
     }
 }
