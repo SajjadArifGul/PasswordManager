@@ -391,6 +391,7 @@
             this.MaximumSize = new System.Drawing.Size(500, 485);
             this.MinimumSize = new System.Drawing.Size(500, 485);
             this.Name = "SettingsForm";
+            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Settings";

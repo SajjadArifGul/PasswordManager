@@ -128,7 +128,9 @@ namespace PasswordManager.App
 
         private void btnGuide_Click(object sender, EventArgs e)
         {
+            Guide guide = new Guide();
 
+            guide.ShowDialog();
         }
 
         private void btnSettings_Click(object sender, EventArgs e)

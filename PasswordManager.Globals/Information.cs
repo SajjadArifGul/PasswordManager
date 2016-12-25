@@ -145,5 +145,23 @@ namespace PasswordManager.Globals
                        + AppName + "will use your Login Password for Encryption. If you forgot your Login Password, you will NOT be able to Login or Recover your Passwords.";
             }
         }
+
+        public static string Guidelines
+        {
+            get
+            {
+                return @"To prevent your passwords from being hacked by social engineering and keeping your online accounts safe, you should follow these guidelines:
+
+1. Do not use the same password, security question and answer for multiple important accounts.
+2. Use a password that has at least 16 characters, use at least one number, one uppercase letter, one lowercase letter and one special symbol.
+3. Do not use the names of your families, friends or pets in your passwords.
+4. Do not use postcodes, house numbers, phone numbers, birthdates, ID card numbers, social security numbers, and so on in your passwords.
+5. Do not use any dictionary word in your passwords.
+6. Do not use two or more similar passwords which most of their characters are same, for example, ilovefreshflowersMac, ilovefreshflowersDropBox, since if one of these passwords is stolen, then it means that all of these passwords are stolen.
+7. Do not use something that can be cloned(but you can't change ) as your passwords, such as your fingerprints.
+8. Do not let your Web browsers(FireFox, Chrome, Safari, Opera, IE) store your passwords, since all passwords saved in Web browsers can be revealed easily.
+9. Do not log in to important accounts on the computers of others, or when connected to a public Wi-Fi hotspot, Tor, free VPN or web proxy.";
+            }
+        }
     }
 }

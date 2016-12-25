@@ -427,6 +427,8 @@
             this.MaximumSize = new System.Drawing.Size(300, 350);
             this.MinimumSize = new System.Drawing.Size(300, 350);
             this.Name = "PasswordGenerateOptions";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Password Generate Options";
             this.Load += new System.EventHandler(this.PasswordGenerateOptions_Load);

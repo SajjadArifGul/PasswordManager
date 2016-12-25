@@ -30,6 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.TitlePanel = new System.Windows.Forms.Panel();
+            this.lblFormTitle = new System.Windows.Forms.Label();
+            this.TitlePictureBox = new System.Windows.Forms.PictureBox();
+            this.lblAppMotto = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblPictureCopyRightsLink = new System.Windows.Forms.Label();
             this.BearPictureBox = new System.Windows.Forms.PictureBox();
@@ -45,11 +49,9 @@
             this.picboxFacebook = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblDetails2 = new System.Windows.Forms.Label();
-            this.TitlePanel = new System.Windows.Forms.Panel();
-            this.lblFormTitle = new System.Windows.Forms.Label();
-            this.TitlePictureBox = new System.Windows.Forms.PictureBox();
-            this.lblAppMotto = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            this.TitlePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TitlePictureBox)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BearPictureBox)).BeginInit();
             this.panel2.SuspendLayout();
@@ -58,8 +60,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.picboxTwitter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxFacebook)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.TitlePanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.TitlePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -75,6 +75,48 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(584, 641);
             this.panel1.TabIndex = 0;
+            // 
+            // TitlePanel
+            // 
+            this.TitlePanel.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.TitlePanel.Controls.Add(this.lblFormTitle);
+            this.TitlePanel.Controls.Add(this.TitlePictureBox);
+            this.TitlePanel.Controls.Add(this.lblAppMotto);
+            this.TitlePanel.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.TitlePanel.Location = new System.Drawing.Point(150, 2);
+            this.TitlePanel.Name = "TitlePanel";
+            this.TitlePanel.Size = new System.Drawing.Size(321, 70);
+            this.TitlePanel.TabIndex = 12;
+            // 
+            // lblFormTitle
+            // 
+            this.lblFormTitle.AutoSize = true;
+            this.lblFormTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold);
+            this.lblFormTitle.Location = new System.Drawing.Point(63, 8);
+            this.lblFormTitle.Name = "lblFormTitle";
+            this.lblFormTitle.Size = new System.Drawing.Size(185, 32);
+            this.lblFormTitle.TabIndex = 11;
+            this.lblFormTitle.Text = "About BearPass";
+            // 
+            // TitlePictureBox
+            // 
+            this.TitlePictureBox.Image = global::PasswordManager.App.Properties.Resources.flag_bear;
+            this.TitlePictureBox.Location = new System.Drawing.Point(3, 5);
+            this.TitlePictureBox.Name = "TitlePictureBox";
+            this.TitlePictureBox.Size = new System.Drawing.Size(60, 60);
+            this.TitlePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.TitlePictureBox.TabIndex = 10;
+            this.TitlePictureBox.TabStop = false;
+            // 
+            // lblAppMotto
+            // 
+            this.lblAppMotto.AutoSize = true;
+            this.lblAppMotto.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.lblAppMotto.Location = new System.Drawing.Point(67, 38);
+            this.lblAppMotto.Name = "lblAppMotto";
+            this.lblAppMotto.Size = new System.Drawing.Size(247, 17);
+            this.lblAppMotto.TabIndex = 9;
+            this.lblAppMotto.Text = "BearPass - Personal Password Manager";
             // 
             // panel3
             // 
@@ -267,48 +309,6 @@
             this.lblDetails2.TabIndex = 17;
             this.lblDetails2.Text = " ";
             // 
-            // TitlePanel
-            // 
-            this.TitlePanel.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.TitlePanel.Controls.Add(this.lblFormTitle);
-            this.TitlePanel.Controls.Add(this.TitlePictureBox);
-            this.TitlePanel.Controls.Add(this.lblAppMotto);
-            this.TitlePanel.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.TitlePanel.Location = new System.Drawing.Point(150, 2);
-            this.TitlePanel.Name = "TitlePanel";
-            this.TitlePanel.Size = new System.Drawing.Size(321, 70);
-            this.TitlePanel.TabIndex = 12;
-            // 
-            // lblFormTitle
-            // 
-            this.lblFormTitle.AutoSize = true;
-            this.lblFormTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold);
-            this.lblFormTitle.Location = new System.Drawing.Point(63, 8);
-            this.lblFormTitle.Name = "lblFormTitle";
-            this.lblFormTitle.Size = new System.Drawing.Size(185, 32);
-            this.lblFormTitle.TabIndex = 11;
-            this.lblFormTitle.Text = "About BearPass";
-            // 
-            // TitlePictureBox
-            // 
-            this.TitlePictureBox.Image = global::PasswordManager.App.Properties.Resources.flag_bear;
-            this.TitlePictureBox.Location = new System.Drawing.Point(3, 5);
-            this.TitlePictureBox.Name = "TitlePictureBox";
-            this.TitlePictureBox.Size = new System.Drawing.Size(60, 60);
-            this.TitlePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.TitlePictureBox.TabIndex = 10;
-            this.TitlePictureBox.TabStop = false;
-            // 
-            // lblAppMotto
-            // 
-            this.lblAppMotto.AutoSize = true;
-            this.lblAppMotto.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.lblAppMotto.Location = new System.Drawing.Point(67, 38);
-            this.lblAppMotto.Name = "lblAppMotto";
-            this.lblAppMotto.Size = new System.Drawing.Size(247, 17);
-            this.lblAppMotto.TabIndex = 9;
-            this.lblAppMotto.Text = "BearPass - Personal Password Manager";
-            // 
             // About
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -320,10 +320,15 @@
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(600, 700);
             this.Name = "About";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "About";
             this.Load += new System.EventHandler(this.About_Load);
             this.panel1.ResumeLayout(false);
+            this.TitlePanel.ResumeLayout(false);
+            this.TitlePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TitlePictureBox)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BearPictureBox)).EndInit();
@@ -334,9 +339,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.picboxTwitter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxFacebook)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.TitlePanel.ResumeLayout(false);
-            this.TitlePanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.TitlePictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
