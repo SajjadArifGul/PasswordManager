@@ -1,5 +1,6 @@
 ﻿using PasswordManager.BLL;
 using PasswordManager.Entities;
+using PasswordManager.Filer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,7 +29,7 @@ namespace PasswordManager.App
             LoadSettings(user.Settings);
         }
 
-        public void LoadSettings(Settings settings)
+        public void LoadSettings(Entities.Settings settings)
         {
             if (settings != null)
             {
@@ -108,7 +109,21 @@ namespace PasswordManager.App
 
         private void btnExportPasswords_Click(object sender, EventArgs e)
         {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Title = "Export Passwords";
+            sfd.DefaultExt = "bp";
+            sfd.Filter = Globals.Information.AppName + " files (*.bp)|*.bp|All files (*.*)|*.*";
+            sfd.FilterIndex = 1;
+            sfd.CheckPathExists = true;
+            sfd.RestoreDirectory = true;
 
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                if (Filer.Filer.Export(user.Passwords, sfd.FileName))
+                {
+                    MessageBox.Show("Passwords exported to "+sfd.FileName+" file.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
         }
 
         private void btnGuide_Click(object sender, EventArgs e)

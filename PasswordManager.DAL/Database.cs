@@ -74,9 +74,9 @@ namespace PasswordManager.DAL
             return Passwords.Select(user);
         }
         
-        public bool Password_Update(Password password)
+        public bool Password_Update(Password password, User user)
         {
-            return Passwords.Update(password);
+            return Passwords.Update(user, password);
         }
 
         public bool Settings_Add(PasswordManager.Entities.Settings settings, User user)
@@ -94,9 +94,9 @@ namespace PasswordManager.DAL
             return Settings.Select(userID);
         }
         
-        public bool Settings_Update(PasswordManager.Entities.Settings settings)
+        public bool Settings_Update(PasswordManager.Entities.Settings settings, User user)
         {
-            return Settings.Update(settings);
+            return Settings.Update(settings, user);
         }
 
         public bool PasswordOptions_Add(PasswordManager.Entities.PasswordOptions passwordOptions, PasswordManager.Entities.Settings settings)

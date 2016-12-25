@@ -36,6 +36,7 @@ namespace PasswordManager.App
 
             if (passwordGenerateOptionsForm.ShowDialog() == DialogResult.OK)
             {
+                user.Settings.PasswordOptions = passwordGenerateOptionsForm.passwordOptions;
                 txtPassword.Text = passwords.New(passwordGenerateOptionsForm.passwordOptions);
             }
         }

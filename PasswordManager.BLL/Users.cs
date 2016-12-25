@@ -22,7 +22,7 @@ namespace PasswordManager.BLL
             if (db.User_Add(user))
             {
                 //its a new user. Add default settings and password options for it.
-                db.Settings_Add(new Settings()
+                db.Settings_Add(new Entities.Settings()
                 {
                     UserID = user.ID, //a small blunder leads to a fuckin headache
                     DateTimeFormat = Globals.Defaults.DateTimeFormat,

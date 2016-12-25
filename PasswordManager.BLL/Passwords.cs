@@ -181,5 +181,45 @@ namespace PasswordManager.BLL
                 return searchedPasswords;
             }
         }
+
+        public List<Password> ReEncrypter(User user, string NewMaster)
+        {
+            //use the gulipso to re encrypt here & then update all passwords in db
+
+            //for now
+            return user.Passwords;
+        }
+
+        /// <summary>
+        /// Save Password.
+        /// </summary>
+        /// <param name="user">User to Save Password to.</param>
+        /// <param name="password">Password to be Saved.</param>
+        /// <returns>The new Password</returns>
+        public Password Update(Entities.User user, Entities.Password password)
+        {
+            if (db.Password_Update(password, user))
+            {
+                return password;
+            }
+            else return null;
+        }
+
+        public List<Password> Update(Entities.User user, List<Entities.Password> passwords)
+        {
+            List<Password> UpdatedPasswords = new List<Password>();
+
+            //we should use transactions & try catch here
+            //or may be a new function with transactions in Database layer for a List of passwords
+            foreach(Password password in passwords)
+            {
+                if (db.Password_Update(password, user))
+                {
+                    UpdatedPasswords.Add(password);
+                }
+            }
+
+            return UpdatedPasswords;
+        }
     }
 }

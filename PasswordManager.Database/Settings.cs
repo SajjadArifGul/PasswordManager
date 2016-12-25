@@ -141,15 +141,17 @@ namespace PasswordManager.Database
         /// </summary>
         /// <param name="user">User Entity to be updated.</param>
         /// <returns>True if User is updated otherwise False.</returns>
-        public bool Update(PasswordManager.Entities.Settings settings)
+        public bool Update(PasswordManager.Entities.Settings settings, User user)
         {
             int AffectedRows = 0;
 
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand(
-                "Update Settings set DateTimeFormat= @DateTimeFormat, ShowEmailColumn=@ShowEmailColumn, ShowUsernameColumn= @ShowUsernameColumn, ShowPasswordColumn = @ShowPasswordColumn where ID = @ID", connection))
+                "Update Settings set DateTimeFormat= @DateTimeFormat, ShowEmailColumn=@ShowEmailColumn, ShowUsernameColumn= @ShowUsernameColumn, ShowPasswordColumn = @ShowPasswordColumn where ID = @ID AND UserID = @UserID", connection))
                 {
+                    command.Parameters.Add(new SqlParameter("ID", settings.ID));
+                    command.Parameters.Add(new SqlParameter("UserID", user.ID));
                     command.Parameters.Add(new SqlParameter("DateTimeFormat", settings.DateTimeFormat));
                     command.Parameters.Add(new SqlParameter("ShowEmailColumn", settings.ShowEmailColumn));
                     command.Parameters.Add(new SqlParameter("ShowUsernameColumn", settings.ShowUsernameColumn));

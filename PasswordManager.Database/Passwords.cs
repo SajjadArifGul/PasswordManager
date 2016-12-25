@@ -147,16 +147,17 @@ namespace PasswordManager.Database
         /// </summary>
         /// <param name="password">Password Entity to be updated.</param>
         /// <returns>True if updated otherwise false.</returns>
-        public bool Update(Password password)
+        public bool Update(User user, Password password)
         {
             int AffectedRows = 0;
 
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand(
-                "Update Passwords set Name= @Name, @Email=@Email, Username= @Username, Website= @Website, Text= @Text, Notes= @Notes, DateCreated= @DateCreated, DateModified= @DateModified where ID = @ID", connection))
+                "Update Passwords set Name= @Name, @Email=@Email, Username= @Username, Website= @Website, Text= @Text, Notes= @Notes, DateCreated= @DateCreated, DateModified= @DateModified where ID = @ID AND UserID=@UserID", connection))
                 {
                     command.Parameters.Add(new SqlParameter("@ID", password.ID));
+                    command.Parameters.Add(new SqlParameter("@UserID", user.ID));
                     command.Parameters.Add(new SqlParameter("@Name", password.Name));
                     command.Parameters.Add(new SqlParameter("@Email", password.Email));
                     command.Parameters.Add(new SqlParameter("@Username", password.Username));

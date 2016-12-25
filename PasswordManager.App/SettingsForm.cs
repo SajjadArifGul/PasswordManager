@@ -1,4 +1,5 @@
-﻿using PasswordManager.Entities;
+﻿using PasswordManager.BLL;
+using PasswordManager.Entities;
 using PasswordManager.Globals;
 using System;
 using System.Collections.Generic;
@@ -25,32 +26,17 @@ namespace PasswordManager.App
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
-            //txtName.Text = user.Name;
-            //txtEmail.Text = user.Email;
-            //txtUsername.Text = user.Username;
+            txtName.Text = user.Name;
+            txtEmail.Text = user.Email;
+            txtUsername.Text = user.Username;
 
-            //txtPassword.Text = user.LoginPassword;
+            DateFormat SelectedFormat = Globals.Variables.DateFormats.Where(f => f.Format == user.Settings.DateTimeFormat).FirstOrDefault();
 
-            //if (user.Settings.DifferentMaster)
-            //{
-            //    chkEnableMaster.Checked = true;
-            //    txtMaster.Enabled = true;
-            //    txtMaster.Text = user.Settings.Master;
-            //}
+            cmbDateFormat.SelectedItem = SelectedFormat.Value;
 
-            //cmbDateFormat.Items.Clear();
-            //foreach(DateFormat dateFormat in Globals.Variables.DateFormats)
-            //{
-            //    cmbDateFormat.Items.Add(dateFormat.Value);
-            //}
-
-            //if (user.Settings.DateTimeFormat != null)
-            //    cmbDateFormat.SelectedItem = Globals.Variables.DateFormats.Where(f => f.Format == user.Settings.DateTimeFormat).FirstOrDefault().Value;
-
-            //chkDisplayEmail.Checked = user.Settings.ShowEmailColumn;
-            //chkDisplayUsername.Checked = user.Settings.ShowUsernameColumn;
-            //chkDisplayPassword.Checked = user.Settings.ShowPasswordColumn;
-            
+            chkDisplayEmail.Checked = user.Settings.ShowEmailColumn;
+            chkDisplayUsername.Checked = user.Settings.ShowUsernameColumn;
+            chkDisplayPassword.Checked = user.Settings.ShowPasswordColumn;
         }
 
         private void btnPasswordOptions_Click(object sender, EventArgs e)
@@ -62,21 +48,7 @@ namespace PasswordManager.App
                 user.Settings.PasswordOptions = passwordGenerateOptionsForm.passwordOptions;
             }
         }
-
-        private void chkEnableMaster_CheckedChanged(object sender, EventArgs e)
-        {
-            //user.Settings.DifferentMaster = chkEnableMaster.Checked;
-
-            //if (user.Settings.DifferentMaster)
-            //{
-            //    txtMaster.Enabled = true;
-            //}
-            //else
-            //{
-            //    txtMaster.Enabled = false;
-            //}
-        }
-
+        
         private void txtName_TextChanged(object sender, EventArgs e)
         {
             if (Verifier.Text(txtName.Text.ToString()))
@@ -116,9 +88,6 @@ namespace PasswordManager.App
             DateFormat SelectedFormat = Globals.Variables.DateFormats.Where(f => f.Value == selectedItem).FirstOrDefault();
 
             user.Settings.DateTimeFormat = SelectedFormat.Format;
-
-            //if (Verifier.Text(txtUsername.Text.ToString()))
-            //    user.Username = txtUsername.Text.ToString();
         }
 
         private void chkDisplayEmail_CheckedChanged(object sender, EventArgs e)
@@ -134,6 +103,22 @@ namespace PasswordManager.App
         private void chkDisplayPassword_CheckedChanged(object sender, EventArgs e)
         {
             user.Settings.ShowPasswordColumn = chkDisplayPassword.Checked;
+        }
+
+        private void btnChangeMaster_Click(object sender, EventArgs e)
+        {
+            MasterPasswordForm masterPasswordForm = new MasterPasswordForm(user);
+
+            masterPasswordForm.ShowDialog();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            Users users = new Users();
+            users.Update(user);
+
+            BLL.Settings SetSettings = new BLL.Settings();
+            SetSettings.Update(user, user.Settings);
         }
     }
 }

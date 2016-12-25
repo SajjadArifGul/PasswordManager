@@ -13,6 +13,7 @@ namespace PasswordManager.Filer
 {
     public static class Filer
     {
+        //Deprecated
         public static bool Save(List<User> Users)
         {
             string FilePath = Globals.Variables.DatabaseFilePath;
@@ -28,6 +29,7 @@ namespace PasswordManager.Filer
             return false;
         }
 
+        //Deprecated
         public static List<User> Read()
         {
             //return type should be a list of users with their password details
@@ -191,6 +193,18 @@ namespace PasswordManager.Filer
                 }
                 return Users;
             }
+        }
+
+        public static List<Password> Import(string FileName)
+        {
+
+            return new List<Password>();
+        }
+
+        public static bool Export(List<Password> Passwords, string FileName)
+        {
+
+            return true;
         }
     }
 }

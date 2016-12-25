@@ -42,7 +42,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtNewMaster = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.chkEnableMaster = new System.Windows.Forms.CheckBox();
             this.txtMaster = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -65,7 +64,7 @@
             this.panel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(239)))), ((int)(((byte)(241)))));
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(484, 511);
+            this.panel1.Size = new System.Drawing.Size(484, 461);
             this.panel1.TabIndex = 52;
             // 
             // lblMasterNote
@@ -79,7 +78,7 @@
             this.lblMasterNote.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.lblMasterNote.Location = new System.Drawing.Point(40, 75);
             this.lblMasterNote.Name = "lblMasterNote";
-            this.lblMasterNote.Size = new System.Drawing.Size(376, 180);
+            this.lblMasterNote.Size = new System.Drawing.Size(376, 170);
             this.lblMasterNote.TabIndex = 78;
             // 
             // TitlePanel
@@ -137,15 +136,14 @@
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.txtNewMaster);
             this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.chkEnableMaster);
             this.panel2.Controls.Add(this.txtMaster);
             this.panel2.Controls.Add(this.label7);
             this.panel2.Controls.Add(this.btnCancel);
             this.panel2.Controls.Add(this.btnSave);
             this.panel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(140)))), ((int)(((byte)(235)))));
-            this.panel2.Location = new System.Drawing.Point(0, 258);
+            this.panel2.Location = new System.Drawing.Point(0, 248);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(484, 253);
+            this.panel2.Size = new System.Drawing.Size(484, 212);
             this.panel2.TabIndex = 60;
             // 
             // chkHideConfirmMaster
@@ -153,9 +151,8 @@
             this.chkHideConfirmMaster.AutoSize = true;
             this.chkHideConfirmMaster.Checked = true;
             this.chkHideConfirmMaster.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkHideConfirmMaster.Enabled = false;
             this.chkHideConfirmMaster.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkHideConfirmMaster.Location = new System.Drawing.Point(332, 111);
+            this.chkHideConfirmMaster.Location = new System.Drawing.Point(332, 78);
             this.chkHideConfirmMaster.Name = "chkHideConfirmMaster";
             this.chkHideConfirmMaster.Size = new System.Drawing.Size(58, 25);
             this.chkHideConfirmMaster.TabIndex = 85;
@@ -168,9 +165,8 @@
             this.chkHideNewMaster.AutoSize = true;
             this.chkHideNewMaster.Checked = true;
             this.chkHideNewMaster.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkHideNewMaster.Enabled = false;
             this.chkHideNewMaster.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkHideNewMaster.Location = new System.Drawing.Point(332, 76);
+            this.chkHideNewMaster.Location = new System.Drawing.Point(332, 43);
             this.chkHideNewMaster.Name = "chkHideNewMaster";
             this.chkHideNewMaster.Size = new System.Drawing.Size(58, 25);
             this.chkHideNewMaster.TabIndex = 84;
@@ -183,9 +179,8 @@
             this.chkHideMaster.AutoSize = true;
             this.chkHideMaster.Checked = true;
             this.chkHideMaster.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkHideMaster.Enabled = false;
             this.chkHideMaster.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkHideMaster.Location = new System.Drawing.Point(332, 41);
+            this.chkHideMaster.Location = new System.Drawing.Point(332, 8);
             this.chkHideMaster.Name = "chkHideMaster";
             this.chkHideMaster.Size = new System.Drawing.Size(58, 25);
             this.chkHideMaster.TabIndex = 83;
@@ -197,18 +192,18 @@
             // 
             this.txtConfirmMaster.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(234)))), ((int)(((byte)(246)))));
             this.txtConfirmMaster.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtConfirmMaster.Enabled = false;
             this.txtConfirmMaster.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(140)))), ((int)(((byte)(235)))));
-            this.txtConfirmMaster.Location = new System.Drawing.Point(164, 111);
+            this.txtConfirmMaster.Location = new System.Drawing.Point(164, 78);
             this.txtConfirmMaster.Name = "txtConfirmMaster";
             this.txtConfirmMaster.Size = new System.Drawing.Size(162, 29);
             this.txtConfirmMaster.TabIndex = 82;
             this.txtConfirmMaster.UseSystemPasswordChar = true;
+            this.txtConfirmMaster.TextChanged += new System.EventHandler(this.CheckSaveEnable);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(32, 113);
+            this.label4.Location = new System.Drawing.Point(32, 80);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(126, 21);
             this.label4.TabIndex = 81;
@@ -218,51 +213,39 @@
             // 
             this.txtNewMaster.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(234)))), ((int)(((byte)(246)))));
             this.txtNewMaster.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNewMaster.Enabled = false;
             this.txtNewMaster.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(140)))), ((int)(((byte)(235)))));
-            this.txtNewMaster.Location = new System.Drawing.Point(164, 76);
+            this.txtNewMaster.Location = new System.Drawing.Point(164, 43);
             this.txtNewMaster.Name = "txtNewMaster";
             this.txtNewMaster.Size = new System.Drawing.Size(162, 29);
             this.txtNewMaster.TabIndex = 80;
             this.txtNewMaster.UseSystemPasswordChar = true;
+            this.txtNewMaster.TextChanged += new System.EventHandler(this.CheckSaveEnable);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(57, 78);
+            this.label1.Location = new System.Drawing.Point(57, 45);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(101, 21);
             this.label1.TabIndex = 79;
             this.label1.Text = "New Master :";
             // 
-            // chkEnableMaster
-            // 
-            this.chkEnableMaster.AutoSize = true;
-            this.chkEnableMaster.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkEnableMaster.Location = new System.Drawing.Point(165, 10);
-            this.chkEnableMaster.Name = "chkEnableMaster";
-            this.chkEnableMaster.Size = new System.Drawing.Size(194, 25);
-            this.chkEnableMaster.TabIndex = 78;
-            this.chkEnableMaster.Text = "Enable Master Password";
-            this.chkEnableMaster.UseVisualStyleBackColor = true;
-            this.chkEnableMaster.CheckedChanged += new System.EventHandler(this.chkEnableMaster_CheckedChanged);
-            // 
             // txtMaster
             // 
             this.txtMaster.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(234)))), ((int)(((byte)(246)))));
             this.txtMaster.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMaster.Enabled = false;
             this.txtMaster.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(140)))), ((int)(((byte)(235)))));
-            this.txtMaster.Location = new System.Drawing.Point(164, 41);
+            this.txtMaster.Location = new System.Drawing.Point(164, 8);
             this.txtMaster.Name = "txtMaster";
             this.txtMaster.Size = new System.Drawing.Size(162, 29);
             this.txtMaster.TabIndex = 32;
             this.txtMaster.UseSystemPasswordChar = true;
+            this.txtMaster.TextChanged += new System.EventHandler(this.CheckSaveEnable);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(36, 43);
+            this.label7.Location = new System.Drawing.Point(36, 10);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(122, 21);
             this.label7.TabIndex = 29;
@@ -280,7 +263,7 @@
             this.btnCancel.ForeColor = System.Drawing.Color.White;
             this.btnCancel.Image = global::PasswordManager.App.Properties.Resources.password_cancel_40;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(164, 146);
+            this.btnCancel.Location = new System.Drawing.Point(164, 113);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(110, 42);
             this.btnCancel.TabIndex = 8;
@@ -294,17 +277,18 @@
             this.btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnSave.Enabled = false;
             this.btnSave.FlatAppearance.BorderSize = 0;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.Image = global::PasswordManager.App.Properties.Resources.password_master_save_40;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(280, 146);
+            this.btnSave.Location = new System.Drawing.Point(280, 113);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(110, 42);
             this.btnSave.TabIndex = 7;
-            this.btnSave.Text = "Save";
+            this.btnSave.Text = "Change";
             this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -314,9 +298,9 @@
             this.lblMassege.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblMassege.Image = global::PasswordManager.App.Properties.Resources.icon_blue;
             this.lblMassege.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblMassege.Location = new System.Drawing.Point(0, 451);
+            this.lblMassege.Location = new System.Drawing.Point(0, 406);
             this.lblMassege.Name = "lblMassege";
-            this.lblMassege.Size = new System.Drawing.Size(484, 60);
+            this.lblMassege.Size = new System.Drawing.Size(484, 55);
             this.lblMassege.TabIndex = 53;
             this.lblMassege.Text = " ";
             this.lblMassege.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -325,13 +309,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 511);
+            this.ClientSize = new System.Drawing.Size(484, 461);
             this.Controls.Add(this.lblMassege);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(500, 550);
-            this.MinimumSize = new System.Drawing.Size(500, 550);
+            this.MaximumSize = new System.Drawing.Size(500, 500);
+            this.MinimumSize = new System.Drawing.Size(500, 500);
             this.Name = "MasterPasswordForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Master Password";
@@ -349,7 +333,6 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.CheckBox chkEnableMaster;
         private System.Windows.Forms.Panel TitlePanel;
         private System.Windows.Forms.Label lblFormTitle;
         private System.Windows.Forms.PictureBox TitlePictureBox;
