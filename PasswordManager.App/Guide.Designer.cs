@@ -30,11 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Guide));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblGuide1 = new System.Windows.Forms.Label();
             this.TitlePanel = new System.Windows.Forms.Panel();
             this.lblFormTitle = new System.Windows.Forms.Label();
             this.TitlePictureBox = new System.Windows.Forms.PictureBox();
             this.lblAppMotto = new System.Windows.Forms.Label();
-            this.lblGuide1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.TitlePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TitlePictureBox)).BeginInit();
@@ -52,6 +52,20 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(584, 561);
             this.panel1.TabIndex = 51;
+            // 
+            // lblGuide1
+            // 
+            this.lblGuide1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblGuide1.BackColor = System.Drawing.Color.Transparent;
+            this.lblGuide1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.lblGuide1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGuide1.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.lblGuide1.Location = new System.Drawing.Point(12, 73);
+            this.lblGuide1.Name = "lblGuide1";
+            this.lblGuide1.Size = new System.Drawing.Size(560, 479);
+            this.lblGuide1.TabIndex = 79;
             // 
             // TitlePanel
             // 
@@ -96,20 +110,6 @@
             this.lblAppMotto.TabIndex = 89;
             this.lblAppMotto.Text = "BearPass - Personal Password Manager";
             // 
-            // lblGuide1
-            // 
-            this.lblGuide1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblGuide1.BackColor = System.Drawing.Color.Transparent;
-            this.lblGuide1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.lblGuide1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGuide1.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.lblGuide1.Location = new System.Drawing.Point(12, 73);
-            this.lblGuide1.Name = "lblGuide1";
-            this.lblGuide1.Size = new System.Drawing.Size(560, 479);
-            this.lblGuide1.TabIndex = 79;
-            // 
             // Guide
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -117,7 +117,9 @@
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(600, 600);
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(600, 600);
             this.Name = "Guide";
             this.ShowIcon = false;

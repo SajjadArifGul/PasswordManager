@@ -160,7 +160,10 @@ namespace PasswordManager.Globals
 6. Do not use two or more similar passwords which most of their characters are same, for example, ilovefreshflowersMac, ilovefreshflowersDropBox, since if one of these passwords is stolen, then it means that all of these passwords are stolen.
 7. Do not use something that can be cloned(but you can't change ) as your passwords, such as your fingerprints.
 8. Do not let your Web browsers(FireFox, Chrome, Safari, Opera, IE) store your passwords, since all passwords saved in Web browsers can be revealed easily.
-9. Do not log in to important accounts on the computers of others, or when connected to a public Wi-Fi hotspot, Tor, free VPN or web proxy.";
+9. Do not log in to important accounts on the computers of others, or when connected to a public Wi-Fi hotspot, Tor, free VPN or web proxy.
+10. Turn on 2-step authentication whenever possible.
+11. Encrypt and backup your passwords to different locations.
+12. Do not tell your passwords to anybody in the email.";
             }
         }
     }

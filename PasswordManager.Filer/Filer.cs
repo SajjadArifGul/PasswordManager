@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace PasswordManager.Filer
 {
@@ -197,12 +198,30 @@ namespace PasswordManager.Filer
 
         public static List<Password> Import(string FileName)
         {
+            XmlSerializer SerializerObj = new XmlSerializer(typeof(List<Password>));
 
-            return new List<Password>();
+            FileStream ReadFileStream = new FileStream(FileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+            List<Password> importedPasswords = (List<Password>)SerializerObj.Deserialize(ReadFileStream);
+
+            ReadFileStream.Flush();
+            ReadFileStream.Close();
+
+            return importedPasswords;
         }
 
         public static bool Export(List<Password> Passwords, string FileName)
         {
+            XmlSerializer SerializerObj = new XmlSerializer(typeof(List<Password>));
+
+            FileStream WriteFileStream = new FileStream(FileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Write);
+
+            TextWriter writer = new StreamWriter(WriteFileStream);
+
+            SerializerObj.Serialize(writer, Passwords);
+
+            writer.Flush();
+            writer.Close();
 
             return true;
         }

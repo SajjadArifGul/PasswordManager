@@ -64,6 +64,11 @@ namespace PasswordManager.DAL
             return Passwords.Insert(password, user);
         }
 
+        public bool Password_Add(List<Password> passwords, User user)
+        {
+            return Passwords.Insert(passwords, user);
+        }
+
         public List<Password> Password_Select(int userID)
         {
             return Passwords.Select(userID);

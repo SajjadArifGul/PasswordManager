@@ -55,7 +55,42 @@ namespace PasswordManager.Database
                 return true;
             else return false;
         }
-        
+
+        public bool Insert(List<Password> passwords, User user)
+        {
+
+            int AffectedRows = 0;
+            foreach (Password password in passwords)
+            {
+                using (SqlConnection connection = new SqlConnection(ConnectionString))
+                {
+                    using (SqlCommand command = new SqlCommand(
+                    "Insert into Passwords (UserID, Name, Email, Username, Website, Text, Notes, DateCreated, DateModified) values (@UserID, @Name, @Email, @Username, @Website, @Text, @Notes, @DateCreated, @DateModified)", connection))
+                    {
+                        command.Parameters.Add(new SqlParameter("UserID", user.ID));
+                        command.Parameters.Add(new SqlParameter("Name", password.Name));
+                        command.Parameters.Add(new SqlParameter("Email", password.Email));
+                        command.Parameters.Add(new SqlParameter("Username", password.Username));
+                        command.Parameters.Add(new SqlParameter("Website", password.Website));
+                        command.Parameters.Add(new SqlParameter("Text", password.Text));
+                        command.Parameters.Add(new SqlParameter("Notes", password.Notes));
+                        command.Parameters.Add(new SqlParameter("DateCreated", password.DateCreated));
+                        command.Parameters.Add(new SqlParameter("DateModified", password.DateModified));
+
+                        connection.Open();
+
+                        AffectedRows = command.ExecuteNonQuery();
+                    }
+                }
+
+            }
+
+            if (AffectedRows > 0)
+                return true;
+            else return false;
+        }
+
+
         /// <summary>
         /// Returns Passwords for given User.
         /// </summary>

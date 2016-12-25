@@ -104,7 +104,29 @@ namespace PasswordManager.App
         {
             ImportPasswords importPasswords = new ImportPasswords(user);
 
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "Import Passwords";
+            ofd.DefaultExt = "bp";
+            ofd.Filter = Globals.Information.AppName + " files (*.bp)|*.bp|All files (*.*)|*.*";
+            ofd.FilterIndex = 1;
+            ofd.CheckPathExists = true;
+            ofd.RestoreDirectory = true;
 
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                List<Password> importedPasswords = Filer.Filer.Import(ofd.FileName);
+                if (importedPasswords != null)
+                {
+                    if(MessageBox.Show("The file contains "+ importedPasswords.Count + " passwords. Are you sure you want to import these passwords to your account?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                    {
+                        //import the passwords to current user.
+                        user.Passwords.AddRange(importedPasswords);
+                        ShowPasswords(user.Passwords);
+
+                        passwords.Import(importedPasswords, user);
+                    }
+                }
+            }
         }
 
         private void btnExportPasswords_Click(object sender, EventArgs e)

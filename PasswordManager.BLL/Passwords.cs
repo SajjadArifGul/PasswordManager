@@ -91,6 +91,11 @@ namespace PasswordManager.BLL
             return password;
         }
 
+        public bool Import(List<Password> importedPasswords, User user)
+        {
+            return db.Password_Add(importedPasswords, user);
+        }
+
         public List<Password> Get(Entities.User user)
         {
             return db.Password_Select(user);
