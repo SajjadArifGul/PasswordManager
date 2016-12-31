@@ -194,5 +194,21 @@ namespace PasswordManager.App
                 PasswordsGridView.Rows.Add(password.ID, password.DateCreated, password.Name, password.Email, password.Username, password.Text);
             }
         }
+
+        private void PasswordsGridView_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            //Skip the Column and Row headers
+            if (e.ColumnIndex < 0 || e.RowIndex < 0)
+            {
+                return;
+            }
+
+            var dataGridView = (sender as DataGridView);
+
+            if (e.ColumnIndex == 6 || e.ColumnIndex == 7 || e.ColumnIndex == 8)
+                dataGridView.Cursor = Cursors.Hand;
+            else
+                dataGridView.Cursor = Cursors.Default;
+        }
     }
 }
