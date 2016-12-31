@@ -118,5 +118,10 @@ namespace PasswordManager.DAL
         {
             return PasswordOptions.Update(settings);
         }
+
+        public bool Password_Delete(Password password, User user)
+        {
+            return Passwords.Delete(password, user);
+        }
     }
 }

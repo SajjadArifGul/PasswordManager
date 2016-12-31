@@ -89,7 +89,8 @@ namespace PasswordManager.App
             if (newPasswordForm.ShowDialog() == DialogResult.OK)
             {
                 Password password = passwords.Save(user, newPasswordForm.newPassword);
-                PasswordsGridView.Rows.Add(password.ID, password.DateCreated, password.Name, password.Email, password.Username, password.Text);
+                //PasswordsGridView.Rows.Add(password.ID, password.DateCreated, password.Name, password.Email, password.Username, password.Text);
+                ShowPasswords(user);
             }
         }
 
@@ -102,8 +103,6 @@ namespace PasswordManager.App
 
         private void btnImportPasswords_Click(object sender, EventArgs e)
         {
-            ImportPasswords importPasswords = new ImportPasswords(user);
-
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Title = "Import Passwords";
             ofd.DefaultExt = "bp";
@@ -185,6 +184,14 @@ namespace PasswordManager.App
             Application.Exit();
         }
 
+        public void ShowPasswords()
+        {
+            ShowPasswords(user);
+        }
+        public void ShowPasswords(User user)
+        {
+            ShowPasswords(passwords.Get(user));
+        }
         public void ShowPasswords(List<Password> Passwords)
         {
             PasswordsGridView.Rows.Clear();
@@ -209,6 +216,64 @@ namespace PasswordManager.App
                 dataGridView.Cursor = Cursors.Hand;
             else
                 dataGridView.Cursor = Cursors.Default;
+        }
+
+        private void PasswordsGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                if (PasswordsGridView.Columns[e.ColumnIndex].Name == "ColCopy")
+                {
+                    Clipboard.Clear();
+                    Clipboard.SetText(PasswordsGridView.Rows[e.RowIndex].Cells["ColPassword"].Value.ToString());
+                    System.Media.SystemSounds.Exclamation.Play();
+                    Messenger(PasswordsGridView.Rows[e.RowIndex].Cells["ColName"].Value.ToString() + " Password Copied.");
+                }
+                else if (PasswordsGridView.Columns[e.ColumnIndex].Name == "ColUpdate")
+                {
+                    int ID = Convert.ToInt32(PasswordsGridView.Rows[e.RowIndex].Cells["ColID"].Value.ToString());
+
+                    UpdatePassword updatePasswordForm = new UpdatePassword(user, user.Passwords.Where(i=>i.ID == ID).FirstOrDefault());
+
+                    if (updatePasswordForm.ShowDialog() == DialogResult.OK)
+                    {
+                        Password updatedPassword = passwords.Update(user, updatePasswordForm.password);
+                        Messenger("Password Updated.", Globals.Defaults.WarningColor);
+                        ShowPasswords(user);
+                    }
+                }
+                else if (PasswordsGridView.Columns[e.ColumnIndex].Name == "ColDelete")
+                {
+                    if (MessageBox.Show("Are you sure you want to delete this Password?\nTHIS TASK WILL NOT BE REVERTED.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                    {
+                        int ID = Convert.ToInt32(PasswordsGridView.Rows[e.RowIndex].Cells["ColID"].Value.ToString());
+                        Password passwordToDelete = user.Passwords.Where(p => p.ID == ID).FirstOrDefault();
+
+                        if (passwords.Remove(user, passwordToDelete))
+                        {
+                            PasswordsGridView.Rows.RemoveAt(e.RowIndex);
+                            Messenger("Password Deleted.", Globals.Defaults.WarningColor);
+                            System.Media.SystemSounds.Question.Play();
+                        }
+                        else
+                        {
+                            Messenger("Password NOT Deleted.", Globals.Defaults.ErrorColor);
+                            System.Media.SystemSounds.Exclamation.Play();
+                        }
+                    }
+                }
+            }
+        }
+
+        public void Messenger(string Message)
+        {
+            Messenger(Message, Globals.Defaults.DefaultColor);
+        }
+
+        public void Messenger(string Message, Color FontColor)
+        {
+            lblMassege.Text = Message;
+            lblMassege.ForeColor = FontColor;
         }
     }
 }

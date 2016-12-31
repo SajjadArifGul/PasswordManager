@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PasswordManager.Entities;
 
 namespace PasswordManager.Database
 {
@@ -155,6 +156,7 @@ namespace PasswordManager.Database
                 return true;
             else return false;
         }
+
 
         /// <summary>
         /// Selects User from Database.

@@ -98,7 +98,18 @@ namespace PasswordManager.BLL
 
         public List<Password> Get(Entities.User user)
         {
-            return db.Password_Select(user);
+            List<Password> passwords = db.Password_Select(user);
+            List<Password> decryptedPasswords = null;
+
+            if (passwords != null)
+            {
+                decryptedPasswords = new List<Password>();
+                foreach (var password in db.Password_Select(user))
+                {
+                    decryptedPasswords.Add(Encrypter.Decrypt(password, user));
+                }
+            }
+            return decryptedPasswords;
         }
 
         // Return a random character from a string.
@@ -129,9 +140,9 @@ namespace PasswordManager.BLL
         /// <returns>The new Password</returns>
         public Password Save(Entities.User user, Entities.Password password)
         {
-            if (db.Password_Add(password, user))
+            if (db.Password_Add(Encrypter.Encrypt(password, user), user))
             {
-                return password;
+                return Encrypter.Decrypt(password, user);
             }
             else return null;
         }
@@ -203,7 +214,7 @@ namespace PasswordManager.BLL
         /// <returns>The new Password</returns>
         public Password Update(Entities.User user, Entities.Password password)
         {
-            if (db.Password_Update(password, user))
+            if (db.Password_Update(Encrypter.Encrypt(password, user), user))
             {
                 return password;
             }
@@ -218,13 +229,18 @@ namespace PasswordManager.BLL
             //or may be a new function with transactions in Database layer for a List of passwords
             foreach(Password password in passwords)
             {
-                if (db.Password_Update(password, user))
+                if (db.Password_Update(Encrypter.Encrypt(password, user), user))
                 {
                     UpdatedPasswords.Add(password);
                 }
             }
 
             return UpdatedPasswords;
+        }
+
+        public bool Remove(Entities.User user, Entities.Password password)
+        {
+            return db.Password_Delete(Encrypter.Decrypt(password, user), user);
         }
     }
 }

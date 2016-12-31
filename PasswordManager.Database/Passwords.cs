@@ -58,7 +58,6 @@ namespace PasswordManager.Database
 
         public bool Insert(List<Password> passwords, User user)
         {
-
             int AffectedRows = 0;
             foreach (Password password in passwords)
             {
@@ -83,6 +82,29 @@ namespace PasswordManager.Database
                     }
                 }
 
+            }
+
+            if (AffectedRows > 0)
+                return true;
+            else return false;
+        }
+
+        public bool Delete(Password password, User user)
+        {
+            int AffectedRows = 0;
+
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(
+                "Delete from Passwords where ID = @ID AND UserID = @UserID", connection))
+                {
+                    command.Parameters.Add(new SqlParameter("ID", password.ID));
+                    command.Parameters.Add(new SqlParameter("UserID", user.ID));
+
+                    connection.Open();
+
+                    AffectedRows = command.ExecuteNonQuery();
+                 }
             }
 
             if (AffectedRows > 0)
