@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PasswordManager.Data;
+using PasswordManager.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,5 +25,175 @@ namespace PasswordManager.Services
 
             return _instance;
         }
+
+        public Password Add(User user, Password password)
+        {
+            if (ValidationService.Instance().User(user) && ValidationService.Instance().Password(password))
+            {
+                return PasswordsData.Instance().Save(user, password);
+            }
+            else return null;
+        }
+
+        //Well I am refactoring code. Project is completed. But I love to make it the best.
+        //Right now I am thinking that I should create more meaning full names in service layer and 
+        //less definitive in data layer. I will look into it next time. /- gul:0301170131AM 
+
+        public List<Password> Get(User user)
+        {
+            if (ValidationService.Instance().User(user))
+            {
+                return PasswordsData.Instance().Select(user);
+            }
+            else return null;
+
+            List<Password> passwords = db.Password_Select(user);
+            List<Password> decryptedPasswords = null;
+
+            if (passwords != null)
+            {
+                decryptedPasswords = new List<Password>();
+                foreach (var password in db.Password_Select(user))
+                {
+                    decryptedPasswords.Add(Encrypter.Decrypt(password, user));
+                }
+            }
+            return decryptedPasswords;
+        }
+
+        public string Generate(User user)
+        {
+            PasswordOptions passwordOptions = null;
+
+            if (ValidationService.Instance().User(user))
+            {
+                passwordOptions = PasswordsData.Instance().GetPasswordOptions(user);
+            }
+            else passwordOptions = Globals.Defaults.PasswordOptions;
+
+            // Make a list of allowed characters.
+            string allowed = "";
+
+            if (passwordOptions.AllowLowercaseCharacters) allowed += passwordOptions.LowercaseCharacters;
+            if (passwordOptions.AllowUppercaseCharacters) allowed += passwordOptions.UppercaseCharacters;
+            if (passwordOptions.AllowNumberCharacters) allowed += passwordOptions.NumberCharacters;
+            if (passwordOptions.AllowSpecialCharacters) allowed += passwordOptions.SpecialCharacters;
+            if (passwordOptions.AllowUnderscoreCharacters) allowed += passwordOptions.UnderscoreCharacters;
+            if (passwordOptions.AllowSpaceCharacters) allowed += passwordOptions.SpaceCharacters;
+            if (passwordOptions.AllowOtherCharacters) allowed += passwordOptions.OtherCharacters;
+
+            Random random = new Random();
+
+            int RequiredLength = random.Next(passwordOptions.MinimumCharacters, passwordOptions.MaximumCharacters);
+
+            // Satisfy requirements.
+            string password = "";
+
+            if (passwordOptions.RequireLowercaseCharacters &&
+                (password.IndexOfAny(passwordOptions.LowercaseCharacters.ToCharArray()) == -1))
+                password += RandomChar(passwordOptions.LowercaseCharacters, random);
+            if (passwordOptions.RequireUppercaseCharacters &&
+                (password.IndexOfAny(passwordOptions.UppercaseCharacters.ToCharArray()) == -1))
+                password += RandomChar(passwordOptions.UppercaseCharacters, random);
+            if (passwordOptions.RequireNumberCharacters &&
+                (password.IndexOfAny(passwordOptions.NumberCharacters.ToCharArray()) == -1))
+                password += RandomChar(passwordOptions.NumberCharacters, random);
+            if (passwordOptions.RequireSpecialCharacters &&
+                (password.IndexOfAny(passwordOptions.SpecialCharacters.ToCharArray()) == -1))
+                password += RandomChar(passwordOptions.SpecialCharacters, random);
+            if (passwordOptions.RequireUnderscoreCharacters &&
+                (password.IndexOfAny(passwordOptions.UnderscoreCharacters.ToCharArray()) == -1))
+                password += passwordOptions.UnderscoreCharacters;
+            if (passwordOptions.RequireSpaceCharacters &&
+                (password.IndexOfAny(passwordOptions.SpaceCharacters.ToCharArray()) == -1))
+                password += passwordOptions.SpaceCharacters;
+            if (passwordOptions.RequireOtherCharacters &&
+                (password.IndexOfAny(passwordOptions.OtherCharacters.ToCharArray()) == -1))
+                password += passwordOptions.OtherCharacters;
+
+            // Add the remaining characters randomly.
+            while (password.Length < RequiredLength)
+                password += allowed.Substring(
+                    random.Next(0, allowed.Length - 1), 1);
+
+            // Randomize (to mix up the required characters at the front).
+            password = RandomizeString(password, random);
+
+            return password;
+        }
+
+        // Return a random character from a string.
+        private string RandomChar(string str, Random random)
+        {
+            return str.Substring(random.Next(0, str.Length - 1), 1);
+        }
+
+        // Return a random permutation of a string.
+        private string RandomizeString(string str, Random random)
+        {
+            string result = "";
+            while (str.Length > 0)
+            {
+                // Pick a random character.
+                int i = random.Next(0, str.Length - 1);
+                result += str.Substring(i, 1);
+                str = str.Remove(i, 1);
+            }
+            return result;
+        }
+
+        public bool Same(string oldPass, string newPass)
+        {
+            return string.Equals(oldPass, newPass);
+        }
+
+        public List<Password> Search(User user, string Search, string LooksFor, string Options)
+        {
+            List<Password> AllPasswords = Get(user);
+            List<Password> searchedPasswords = null;
+
+            if (string.IsNullOrEmpty(Search))
+            {
+                return AllPasswords;
+            }
+            else
+            {
+                switch (Options)
+                {
+                    case "Contains":
+                        if (LooksFor == "Username")
+                        {
+                            searchedPasswords = AllPasswords.Where(p => p.Username.ToLower().Contains(Search.ToLower())).ToList();
+                        }
+                        else if (LooksFor == "Email")
+                        {
+                            searchedPasswords = AllPasswords.Where(p => p.Email.ToLower().Contains(Search.ToLower())).ToList();
+                        }
+                        else
+                        {
+                            searchedPasswords = AllPasswords.Where(p => p.Name.ToLower().Contains(Search.ToLower())).ToList();
+                        }
+                        break;
+                    case "Equals":
+                        if (LooksFor == "Username")
+                        {
+                            searchedPasswords = AllPasswords.Where(p => p.Username.ToLower().Equals(Search.ToLower())).ToList();
+                        }
+                        else if (LooksFor == "Email")
+                        {
+                            searchedPasswords = AllPasswords.Where(p => p.Email.ToLower().Equals(Search.ToLower())).ToList();
+                        }
+                        else
+                        {
+                            searchedPasswords = AllPasswords.Where(p => p.Name.ToLower().Equals(Search.ToLower())).ToList();
+                        }
+                        break;
+                }
+                return searchedPasswords;
+            }
+        }
+
+
+
     }
 }

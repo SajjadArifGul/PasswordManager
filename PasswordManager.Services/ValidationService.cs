@@ -30,7 +30,20 @@ namespace PasswordManager.Services
         {
             if (user != null)
             {
-                if (Verifier.Email(user.Email) && Verifier.Text(user.Master))
+                if (Verifier.Email(user.Email) && Verifier.Text(user.Master) && Verifier.Text(user.Username))
+                {
+                    return true;
+                }
+                else return false;
+            }
+            else return false;
+        }
+
+        public bool Password(Password password)
+        {
+            if (password != null)
+            {
+                if (Verifier.Email(password.Email) && Verifier.Text(password.Text))
                 {
                     return true;
                 }
