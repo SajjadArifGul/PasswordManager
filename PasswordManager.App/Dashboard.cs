@@ -42,7 +42,7 @@ namespace PasswordManager.App
         private void Dashboard_Load(object sender, EventArgs e)
         {
             this.Text = user.Name + " - " + Globals.Information.AppName + " Dashboard";
-
+            BLL.Settings setting = new BLL.Settings();
             ShowPasswords(user.Passwords);
         }
 

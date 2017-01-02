@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PasswordManager.Entities;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -9,11 +10,41 @@ namespace PasswordManager.Globals
 {
     public static class Defaults
     {
+        public static string ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB2;AttachDbFilename=PasswordManagerDB.mdf;Integrated Security=False";
+
         public static string DateTimeFormat = "F";
         public static bool ShowEmailColumn = true;
         public static bool ShowUsernameColumn = true;
         public static bool ShowPasswordColumn = true;
-        
+
+        public static Settings Settings = new Settings()
+        {
+            DateTimeFormat = DateTimeFormat,
+            ShowEmailColumn = ShowEmailColumn,
+            ShowUsernameColumn = ShowUsernameColumn,
+            ShowPasswordColumn = ShowPasswordColumn,
+        };
+
+        public static PasswordOptions PasswordOptions = new PasswordOptions()
+        {
+            AllowLowercaseCharacters = AllowLowercaseCharacters,
+            AllowUppercaseCharacters = AllowUppercaseCharacters,
+            AllowNumberCharacters = AllowNumberCharacters,
+            AllowSpecialCharacters = AllowSpecialCharacters,
+            AllowUnderscoreCharacters = AllowUnderscoreCharacters,
+            AllowSpaceCharacters = AllowSpaceCharacters,
+            AllowOtherCharacters = AllowOtherCharacters,
+            RequireLowercaseCharacters = RequireLowercaseCharacters,
+            RequireUppercaseCharacters = RequireUppercaseCharacters,
+            RequireNumberCharacters = RequireNumberCharacters,
+            RequireSpecialCharacters = RequireSpecialCharacters,
+            RequireUnderscoreCharacters = RequireUnderscoreCharacters,
+            RequireSpaceCharacters = RequireSpaceCharacters,
+            RequireOtherCharacters = RequireOtherCharacters,
+            MinimumCharacters = MinimumCharacters,
+            MaximumCharacters = MaximumCharacters
+        };
+
         public static bool AllowLowercaseCharacters = true,
             AllowUppercaseCharacters = true,
             AllowNumberCharacters = true,
@@ -38,5 +69,6 @@ namespace PasswordManager.Globals
         public static Color WarningColor = Color.FromArgb(245, 124, 0);
 
         public static string initVector = "@1B2c3D4e5F6g7H8";
+        
     }
 }

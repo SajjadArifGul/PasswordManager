@@ -19,7 +19,7 @@ namespace PasswordManager.DAL
         private PasswordManager.Database.Passwords Passwords;
         private PasswordManager.Database.Settings Settings;
         private PasswordManager.Database.PasswordOptions PasswordOptions;
-
+        
         // Constructor is 'protected'
         protected Database()
         {

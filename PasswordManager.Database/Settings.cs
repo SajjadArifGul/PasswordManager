@@ -15,11 +15,10 @@ namespace PasswordManager.Database
     {
         PasswordOptions passwordOptions;
 
-        private string ConnectionString;
+        string ConnectionString;
 
         public Settings()
         {
-            //ConnectionString = ConfigurationManager.ConnectionStrings["PasswordManagerDBConnection"].ConnectionString;
             ConnectionString = Properties.Settings.Default["PasswordManagerDBConnection"].ToString();
             passwordOptions = new PasswordOptions();
         }

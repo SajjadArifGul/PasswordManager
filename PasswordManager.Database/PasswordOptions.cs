@@ -17,7 +17,6 @@ namespace PasswordManager.Database
 
         public PasswordOptions()
         {
-            //ConnectionString = ConfigurationManager.ConnectionStrings["PasswordManagerDBConnection"].ConnectionString;
             ConnectionString = Properties.Settings.Default["PasswordManagerDBConnection"].ToString();
         }
 
