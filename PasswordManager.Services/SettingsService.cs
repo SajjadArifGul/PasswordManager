@@ -26,50 +26,33 @@ namespace PasswordManager.Services
             return _instance;
         }
 
-        public User Update(User user, Settings settings)
+        public User UpdateSettings(User user, Settings settings)
         {
-            if (ValidationService.Instance().User(user))
+            if (ValidationService.Instance().User(user) && ValidationService.Instance().Settings(settings) && ValidationService.Instance().PasswordOptions(passwordOptions))
             {
-                if (ValidationService.Instance().Settings(settings))
-                {
-                    settings = Globals.Defaults.Settings;
-                }
-
-                if (SettingsData.Instance().UpdateSettings(user, settings))
+                if (SettingsData.Instance().UpdateSettings(user, settings) > 0)
                 {
                     user.Settings = settings;
-                }
 
-                return user;
+                    return user;
+                }
+                else return null; ;
             }
             else return null;
         }
 
-        public User Update(User user, Settings settings, PasswordOptions passwordOptions)
+        public User UpdatePasswordOptions(User user, Settings settings, PasswordOptions passwordOptions)
         {
-            if (ValidationService.Instance().User(user))
+            if (ValidationService.Instance().User(user) && ValidationService.Instance().Settings(settings) && ValidationService.Instance().PasswordOptions(passwordOptions))
             {
-                if (ValidationService.Instance().Settings(settings))
-                {
-                    settings = Globals.Defaults.Settings;
-                }
-
-                if (ValidationService.Instance().PasswordOptions(passwordOptions))
-                {
-                    passwordOptions = Globals.Defaults.PasswordOptions;
-                }
-                
-                if (PasswordOptionsData.Instance().Update(settings, passwordOptions))
+                if (PasswordOptionsData.Instance().UpdatePasswordOptions(settings, passwordOptions) > 0)
                 {
                     settings.PasswordOptions = passwordOptions;
-                }
-
-                if (SettingsData.Instance().UpdateSettings(user, settings))
-                {
                     user.Settings = settings;
-                }
 
-                return user;
+                    return user;
+                }
+                else return null;
             }
             else return null;
         }

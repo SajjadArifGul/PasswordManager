@@ -27,5 +27,23 @@ namespace PasswordManager.Globals
             }
             else return true;
         }
+
+        public static bool ID(int ID)
+        {
+            //this need a better implementation. -gul:0301171550
+            try
+            {
+                ID = Convert.ToInt32(ID);
+
+                if (ID > 0)
+                    return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return false;
+        }
     }
 }

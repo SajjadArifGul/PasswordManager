@@ -38,7 +38,7 @@ namespace PasswordManager.Data
             return Database.GetUserByID(user.ID);
         }
 
-        public bool UpdateUser(Entities.User user)
+        public int UpdateUser(Entities.User user)
         {
             return Database.UpdateUser(user);
         }

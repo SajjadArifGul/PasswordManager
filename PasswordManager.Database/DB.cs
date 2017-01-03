@@ -32,6 +32,11 @@ namespace PasswordManager.Database
             throw new NotImplementedException();
         }
 
+        public int UpdatePasswordOptionsBySettingsID(int iD, PasswordOptions passwordOptions)
+        {
+            throw new NotImplementedException();
+        }
+
         public PasswordOptions GetPasswordOptionsByID(int userID)
         {
             throw new NotImplementedException();
@@ -72,12 +77,12 @@ namespace PasswordManager.Database
             throw new NotImplementedException();
         }
 
-        public bool UpdateUser(User user)
+        public int UpdateUser(User user)
         {
             throw new NotImplementedException();
         }
 
-        public bool UpdateSettings(Entities.User user, Entities.Settings settings)
+        public int UpdateSettings(Entities.User user, Entities.Settings settings)
         {
             throw new NotImplementedException();
         }

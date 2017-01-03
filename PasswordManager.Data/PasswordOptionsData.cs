@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PasswordManager.Entities;
+using PasswordManager.Database;
 
 namespace PasswordManager.Data
 {
     public class PasswordOptionsData
     {
         private static PasswordOptionsData _instance;
+        DB Database = DB.Instance();
 
         protected PasswordOptionsData()
         {
@@ -25,9 +27,9 @@ namespace PasswordManager.Data
             return _instance;
         }
 
-        public bool Update(Settings settings, PasswordOptions passwordOptions)
+        public int UpdatePasswordOptions(Settings settings, PasswordOptions passwordOptions)
         {
-            throw new NotImplementedException();
+            return Database.UpdatePasswordOptionsBySettingsID(settings.ID, passwordOptions);
         }
     }
 }

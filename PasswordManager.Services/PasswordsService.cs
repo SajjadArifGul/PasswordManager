@@ -45,16 +45,24 @@ namespace PasswordManager.Services
         {
             if (ValidationService.Instance().User(user) && ValidationService.Instance().Password(password))
             {
-                return PasswordsData.Instance().Save(user, CryptoService.Instance().Encrypt(user, password));
+                if (PasswordsData.Instance().Save(user, CryptoService.Instance().Encrypt(user, password)) > 0)
+                {
+                    return password;
+                }
+                else return null;
             }
             else return null;
         }
 
-        public Password SaveNewPasswords(User user, List<Password> passwords)
+        public List<Password> SaveNewPasswords(User user, List<Password> passwords)
         {
             if (ValidationService.Instance().User(user) && ValidationService.Instance().Passwords(passwords))
             {
-                return PasswordsData.Instance().Save(user, CryptoService.Instance().Encrypt(user, passwords));
+                if (PasswordsData.Instance().Save(user, CryptoService.Instance().Encrypt(user, passwords)) > 0)
+                {
+                    return passwords;
+                }
+                else return null;
             }
             else return null;
         }
@@ -63,16 +71,24 @@ namespace PasswordManager.Services
         {
             if (ValidationService.Instance().User(user) && ValidationService.Instance().Password(password))
             {
-                return PasswordsData.Instance().Update(user, CryptoService.Instance().Encrypt(user, password));
+                if (PasswordsData.Instance().Update(user, CryptoService.Instance().Encrypt(user, password)) > 0)
+                {
+                    return password;
+                }
+                else return null;
             }
             else return null;
         }
 
-        public Password UpdatePasswords(User user, List<Password> passwords)
+        public List<Password> UpdatePasswords(User user, List<Password> passwords)
         {
             if (ValidationService.Instance().User(user) && ValidationService.Instance().Passwords(passwords))
             {
-                return PasswordsData.Instance().Update(user, CryptoService.Instance().Encrypt(user, passwords));
+                if (PasswordsData.Instance().Update(user, CryptoService.Instance().Encrypt(user, passwords)) > 0)
+                {
+                    return passwords;
+                }
+                else return null;
             }
             else return null;
         }
@@ -82,99 +98,17 @@ namespace PasswordManager.Services
             if (ValidationService.Instance().User(user) && ValidationService.Instance().Password(password))
             {
                 /* No need for decrypting password. We only need ID in the Delete method for work */
-                return PasswordsData.Instance().Delete(user, password);
+                if (PasswordsData.Instance().Delete(user, password) > 0)
+                    return true;
+                else return false;
             }
             else return false;            
         }
 
-        public string GeneratePassword(User user)
-        {
-            PasswordOptions passwordOptions = null;
-
-            if (ValidationService.Instance().User(user))
-            {
-                passwordOptions = PasswordsData.Instance().GetPasswordOptions(user);
-            }
-            else passwordOptions = Globals.Defaults.PasswordOptions;
-
-            // Make a list of allowed characters.
-            string allowed = "";
-
-            if (passwordOptions.AllowLowercaseCharacters) allowed += passwordOptions.LowercaseCharacters;
-            if (passwordOptions.AllowUppercaseCharacters) allowed += passwordOptions.UppercaseCharacters;
-            if (passwordOptions.AllowNumberCharacters) allowed += passwordOptions.NumberCharacters;
-            if (passwordOptions.AllowSpecialCharacters) allowed += passwordOptions.SpecialCharacters;
-            if (passwordOptions.AllowUnderscoreCharacters) allowed += passwordOptions.UnderscoreCharacters;
-            if (passwordOptions.AllowSpaceCharacters) allowed += passwordOptions.SpaceCharacters;
-            if (passwordOptions.AllowOtherCharacters) allowed += passwordOptions.OtherCharacters;
-
-            Random random = new Random();
-
-            int RequiredLength = random.Next(passwordOptions.MinimumCharacters, passwordOptions.MaximumCharacters);
-
-            // Satisfy requirements.
-            string password = "";
-
-            if (passwordOptions.RequireLowercaseCharacters &&
-                (password.IndexOfAny(passwordOptions.LowercaseCharacters.ToCharArray()) == -1))
-                password += RandomChar(passwordOptions.LowercaseCharacters, random);
-            if (passwordOptions.RequireUppercaseCharacters &&
-                (password.IndexOfAny(passwordOptions.UppercaseCharacters.ToCharArray()) == -1))
-                password += RandomChar(passwordOptions.UppercaseCharacters, random);
-            if (passwordOptions.RequireNumberCharacters &&
-                (password.IndexOfAny(passwordOptions.NumberCharacters.ToCharArray()) == -1))
-                password += RandomChar(passwordOptions.NumberCharacters, random);
-            if (passwordOptions.RequireSpecialCharacters &&
-                (password.IndexOfAny(passwordOptions.SpecialCharacters.ToCharArray()) == -1))
-                password += RandomChar(passwordOptions.SpecialCharacters, random);
-            if (passwordOptions.RequireUnderscoreCharacters &&
-                (password.IndexOfAny(passwordOptions.UnderscoreCharacters.ToCharArray()) == -1))
-                password += passwordOptions.UnderscoreCharacters;
-            if (passwordOptions.RequireSpaceCharacters &&
-                (password.IndexOfAny(passwordOptions.SpaceCharacters.ToCharArray()) == -1))
-                password += passwordOptions.SpaceCharacters;
-            if (passwordOptions.RequireOtherCharacters &&
-                (password.IndexOfAny(passwordOptions.OtherCharacters.ToCharArray()) == -1))
-                password += passwordOptions.OtherCharacters;
-
-            // Add the remaining characters randomly.
-            while (password.Length < RequiredLength)
-                password += allowed.Substring(
-                    random.Next(0, allowed.Length - 1), 1);
-
-            // Randomize (to mix up the required characters at the front).
-            password = RandomizeString(password, random);
-
-            return password;
-        }
-
-        // Return a random character from a string.
-        private string RandomChar(string str, Random random)
-        {
-            return str.Substring(random.Next(0, str.Length - 1), 1);
-        }
-
-        // Return a random permutation of a string.
-        private string RandomizeString(string str, Random random)
-        {
-            string result = "";
-            while (str.Length > 0)
-            {
-                // Pick a random character.
-                int i = random.Next(0, str.Length - 1);
-                result += str.Substring(i, 1);
-                str = str.Remove(i, 1);
-            }
-            return result;
-        }
-
-        public bool Same(string oldPass, string newPass)
-        {
-            return string.Equals(oldPass, newPass);
-        }
-
         public List<Password> Search(User user, string Search, string LooksFor, string Options)
         {
+            //we can send the search query to database -gul:0301171513
+
             List<Password> AllPasswords = GetAllPasswords(user);
             List<Password> searchedPasswords = null;
 
@@ -217,6 +151,93 @@ namespace PasswordManager.Services
                 }
                 return searchedPasswords;
             }
+        }
+
+        public string GeneratePassword(User user)
+        {
+            PasswordOptions passwordOptions = null;
+
+            if (ValidationService.Instance().User(user))
+            {
+                passwordOptions = PasswordsData.Instance().GetPasswordOptions(user);
+            }
+            else passwordOptions = Globals.Defaults.PasswordOptions;
+
+            // Make a list of allowed characters.
+            string allowed = "";
+
+            if (passwordOptions.AllowLowercaseCharacters) allowed += passwordOptions.LowercaseCharacters;
+            if (passwordOptions.AllowUppercaseCharacters) allowed += passwordOptions.UppercaseCharacters;
+            if (passwordOptions.AllowNumberCharacters) allowed += passwordOptions.NumberCharacters;
+            if (passwordOptions.AllowSpecialCharacters) allowed += passwordOptions.SpecialCharacters;
+            if (passwordOptions.AllowUnderscoreCharacters) allowed += passwordOptions.UnderscoreCharacters;
+            if (passwordOptions.AllowSpaceCharacters) allowed += passwordOptions.SpaceCharacters;
+            if (passwordOptions.AllowOtherCharacters) allowed += passwordOptions.OtherCharacters;
+
+            Random random = new Random();
+
+            int RequiredLength = random.Next(passwordOptions.MinimumCharacters, passwordOptions.MaximumCharacters);
+
+            // Satisfy requirements.
+            string password = "";
+
+            if (passwordOptions.RequireLowercaseCharacters &&
+                (password.IndexOfAny(passwordOptions.LowercaseCharacters.ToCharArray()) == -1))
+                password += RandomCharacter(passwordOptions.LowercaseCharacters, random);
+            if (passwordOptions.RequireUppercaseCharacters &&
+                (password.IndexOfAny(passwordOptions.UppercaseCharacters.ToCharArray()) == -1))
+                password += RandomCharacter(passwordOptions.UppercaseCharacters, random);
+            if (passwordOptions.RequireNumberCharacters &&
+                (password.IndexOfAny(passwordOptions.NumberCharacters.ToCharArray()) == -1))
+                password += RandomCharacter(passwordOptions.NumberCharacters, random);
+            if (passwordOptions.RequireSpecialCharacters &&
+                (password.IndexOfAny(passwordOptions.SpecialCharacters.ToCharArray()) == -1))
+                password += RandomCharacter(passwordOptions.SpecialCharacters, random);
+            if (passwordOptions.RequireUnderscoreCharacters &&
+                (password.IndexOfAny(passwordOptions.UnderscoreCharacters.ToCharArray()) == -1))
+                password += passwordOptions.UnderscoreCharacters;
+            if (passwordOptions.RequireSpaceCharacters &&
+                (password.IndexOfAny(passwordOptions.SpaceCharacters.ToCharArray()) == -1))
+                password += passwordOptions.SpaceCharacters;
+            if (passwordOptions.RequireOtherCharacters &&
+                (password.IndexOfAny(passwordOptions.OtherCharacters.ToCharArray()) == -1))
+                password += passwordOptions.OtherCharacters;
+
+            // Add the remaining characters randomly.
+            while (password.Length < RequiredLength)
+                password += allowed.Substring(
+                    random.Next(0, allowed.Length - 1), 1);
+
+            // Randomize (to mix up the required characters at the front).
+            password = RandomizeString(password, random);
+
+            return password;
+        }
+
+        // Return a random character from a string.
+        private string RandomCharacter(string str, Random random)
+        {
+            return str.Substring(random.Next(0, str.Length - 1), 1);
+        }
+
+        // Return a random permutation of a string.
+        private string RandomizeString(string str, Random random)
+        {
+            string result = "";
+            while (str.Length > 0)
+            {
+                // Pick a random character.
+                int i = random.Next(0, str.Length - 1);
+                result += str.Substring(i, 1);
+                str = str.Remove(i, 1);
+            }
+            return result;
+        }
+
+        public bool IsSame(string oldPass, string newPass)
+        {
+            //this need a little refactoring in a more better way i think. -gul:0301171513
+            return string.Equals(oldPass, newPass);
         }
     }
 }

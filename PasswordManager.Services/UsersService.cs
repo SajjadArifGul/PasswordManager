@@ -32,23 +32,27 @@ namespace PasswordManager.Services
             {
                 if (UsersData.Instance().SelectUser(user) != null)
                     return true;
+                else return false;
             }
-
-            return false;
+            else return false;
         }
 
         public User Register(User user)
         {
             if (ValidationService.Instance().User(user))
-            {
-                //initilze a default empty list of passwords for this user.
-                user.Passwords = new List<Password>();
-                
+            {   
                 if (UsersData.Instance().RegisterUser(user, Globals.Defaults.Settings, Globals.Defaults.PasswordOptions) > 0)
-                    return user;
-            }
+                {
+                    //initilze a default empty list of passwords for this user.
+                    user.Passwords = new List<Password>();
+                    user.Settings = Globals.Defaults.Settings;
+                    user.Settings.PasswordOptions = Globals.Defaults.PasswordOptions;
 
-            return null;
+                    return user;
+                }
+                else return null;
+            }
+            else return null;
         }
 
         public User Login(User user)
@@ -67,11 +71,12 @@ namespace PasswordManager.Services
         {
             if (ValidationService.Instance().User(user))
             {
-                user = UsersData.Instance().UpdateUser(user);
-
-                return user;
+                if (UsersData.Instance().UpdateUser(user) > 0)
+                {
+                    return user;
+                }
+                else return user;
             }
-
             else return null;
         }
     }
