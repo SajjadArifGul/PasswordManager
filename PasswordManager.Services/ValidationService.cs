@@ -29,15 +29,21 @@ namespace PasswordManager.Services
 
         public bool User(User user)
         {
+            //we should also check if user is authorized or exists -gul:0301171247
             if (user != null)
             {
-                if (Verifier.Email(user.Email) && Verifier.Text(user.Master) && Verifier.Text(user.Username))
+                if (Verifier.Text(user.Username) && Verifier.Email(user.Email) && Verifier.Text(user.Master))
                 {
                     return true;
                 }
                 else return false;
             }
             else return false;
+        }
+
+        internal bool Settings(Settings settings)
+        {
+            throw new NotImplementedException();
         }
 
         public bool File(string FileName)
@@ -60,6 +66,11 @@ namespace PasswordManager.Services
                 else return false;
             }
             else return false;
+        }
+
+        internal bool PasswordOptions(PasswordOptions passwordOptions)
+        {
+            throw new NotImplementedException();
         }
 
         internal bool Passwords(List<Password> passwords)

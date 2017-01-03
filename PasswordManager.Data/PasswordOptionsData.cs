@@ -7,25 +7,25 @@ using PasswordManager.Entities;
 
 namespace PasswordManager.Data
 {
-    public class SettingsData
+    public class PasswordOptionsData
     {
-        private static SettingsData _instance;
+        private static PasswordOptionsData _instance;
 
-        protected SettingsData()
+        protected PasswordOptionsData()
         {
         }
 
-        public static SettingsData Instance()
+        public static PasswordOptionsData Instance()
         {
             if (_instance == null)
             {
-                _instance = new SettingsData();
+                _instance = new PasswordOptionsData();
             }
 
             return _instance;
         }
 
-        public bool Update(User user, Settings settings)
+        public bool Update(Settings settings, PasswordOptions passwordOptions)
         {
             throw new NotImplementedException();
         }
