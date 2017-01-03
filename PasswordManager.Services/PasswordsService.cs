@@ -26,42 +26,68 @@ namespace PasswordManager.Services
             return _instance;
         }
 
-        public Password Add(User user, Password password)
-        {
-            if (ValidationService.Instance().User(user) && ValidationService.Instance().Password(password))
-            {
-                return PasswordsData.Instance().Save(user, password);
-            }
-            else return null;
-        }
-
-        //Well I am refactoring code. Project is completed. But I love to make it the best.
-        //Right now I am thinking that I should create more meaning full names in service layer and 
-        //less definitive in data layer. I will look into it next time. /- gul:0301170131AM 
-
-        public List<Password> Get(User user)
+        public List<Password> GetAllPasswords(User user)
         {
             if (ValidationService.Instance().User(user))
             {
-                return PasswordsData.Instance().Select(user);
+                List<Password> passwords = CryptoService.Instance().Decrypt(user, PasswordsData.Instance().Select(user));
+
+                if (ValidationService.Instance().Passwords(passwords))
+                {
+                    return passwords;
+                }
+                else return null;
             }
             else return null;
-
-            List<Password> passwords = db.Password_Select(user);
-            List<Password> decryptedPasswords = null;
-
-            if (passwords != null)
-            {
-                decryptedPasswords = new List<Password>();
-                foreach (var password in db.Password_Select(user))
-                {
-                    decryptedPasswords.Add(Encrypter.Decrypt(password, user));
-                }
-            }
-            return decryptedPasswords;
         }
 
-        public string Generate(User user)
+        public Password SaveNewPassword(User user, Password password)
+        {
+            if (ValidationService.Instance().User(user) && ValidationService.Instance().Password(password))
+            {
+                return PasswordsData.Instance().Save(user, CryptoService.Instance().Encrypt(user, password));
+            }
+            else return null;
+        }
+
+        public Password SaveNewPasswords(User user, List<Password> passwords)
+        {
+            if (ValidationService.Instance().User(user) && ValidationService.Instance().Passwords(passwords))
+            {
+                return PasswordsData.Instance().Save(user, CryptoService.Instance().Encrypt(user, passwords));
+            }
+            else return null;
+        }
+
+        public Password UpdatePassword(User user, Password password)
+        {
+            if (ValidationService.Instance().User(user) && ValidationService.Instance().Password(password))
+            {
+                return PasswordsData.Instance().Update(user, CryptoService.Instance().Encrypt(user, password));
+            }
+            else return null;
+        }
+
+        public Password UpdatePasswords(User user, List<Password> passwords)
+        {
+            if (ValidationService.Instance().User(user) && ValidationService.Instance().Passwords(passwords))
+            {
+                return PasswordsData.Instance().Update(user, CryptoService.Instance().Encrypt(user, passwords));
+            }
+            else return null;
+        }
+
+        public bool RemovePassword(User user, Password password)
+        {
+            if (ValidationService.Instance().User(user) && ValidationService.Instance().Password(password))
+            {
+                /* No need for decrypting password. We only need ID in the Delete method for work */
+                return PasswordsData.Instance().Delete(user, password);
+            }
+            else return false;            
+        }
+
+        public string GeneratePassword(User user)
         {
             PasswordOptions passwordOptions = null;
 
@@ -149,7 +175,7 @@ namespace PasswordManager.Services
 
         public List<Password> Search(User user, string Search, string LooksFor, string Options)
         {
-            List<Password> AllPasswords = Get(user);
+            List<Password> AllPasswords = GetAllPasswords(user);
             List<Password> searchedPasswords = null;
 
             if (string.IsNullOrEmpty(Search))
@@ -192,8 +218,5 @@ namespace PasswordManager.Services
                 return searchedPasswords;
             }
         }
-
-
-
     }
 }

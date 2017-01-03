@@ -39,5 +39,25 @@ namespace PasswordManager.Data
         {
             throw new NotImplementedException();
         }
+
+        public Password Update(User user, Password password)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Password Update(User user, List<Password> passwords)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Password Save(User user, List<Password> passwords)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Delete(User user, Password password)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

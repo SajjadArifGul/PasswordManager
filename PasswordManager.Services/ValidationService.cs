@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace PasswordManager.Services
 {
@@ -39,6 +40,15 @@ namespace PasswordManager.Services
             else return false;
         }
 
+        public bool File(string FileName)
+        {
+            if (Verifier.Text(FileName))
+            {
+                return System.IO.File.Exists(FileName);
+            }
+            else return false;
+        }
+        
         public bool Password(Password password)
         {
             if (password != null)
@@ -50,6 +60,25 @@ namespace PasswordManager.Services
                 else return false;
             }
             else return false;
+        }
+
+        internal bool Passwords(List<Password> passwords)
+        {
+            bool result = true;
+
+            foreach (Password password in passwords)
+            {
+                if (password != null)
+                {
+                    if (!Verifier.Email(password.Email) || !Verifier.Text(password.Text))
+                    {
+                        result = false;
+                    }
+                }
+                else result = false;
+            }
+
+            return result;
         }
     }
 }
