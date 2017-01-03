@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PasswordManager.Entities;
+using PasswordManager.Database;
 
 namespace PasswordManager.Data
 {
     public class SettingsData
     {
         private static SettingsData _instance;
+
+        private DB Database = DB.Instance();
 
         protected SettingsData()
         {
@@ -25,9 +28,9 @@ namespace PasswordManager.Data
             return _instance;
         }
 
-        public bool Update(User user, Settings settings)
+        public bool UpdateSettings(Entities.User user, Entities.Settings settings)
         {
-            throw new NotImplementedException();
+            return Database.UpdateSettings(user, settings);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using PasswordManager.Entities;
+﻿using PasswordManager.Database;
+using PasswordManager.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace PasswordManager.Data
 {
     public class UsersData
     {
+        private DB Database = DB.Instance();
+
         private static UsersData _instance;
 
         protected UsersData()
@@ -25,22 +28,19 @@ namespace PasswordManager.Data
             return _instance;
         }
 
-        public int Register(User user, Settings settings, PasswordOptions passwordOptions)
+        public int RegisterUser(Entities.User user, Entities.Settings settings, Entities.PasswordOptions passwordOptions)
         {
-
-            return 0;
+            return Database.AddNewUser(user, settings, passwordOptions);
         }
 
-        public User Select(User user)
+        public User SelectUser(Entities.User user)
         {
-
-            return user;
+            return Database.GetUserByID(user.ID);
         }
 
-        public User Update(User user)
+        public bool UpdateUser(Entities.User user)
         {
-
-            return user;
+            return Database.UpdateUser(user);
         }
     }
 }

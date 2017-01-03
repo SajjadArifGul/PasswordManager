@@ -1,4 +1,5 @@
-﻿using PasswordManager.Entities;
+﻿using PasswordManager.Database;
+using PasswordManager.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace PasswordManager.Data
     public class PasswordsData
     {
         private static PasswordsData _instance;
+
+        private DB Database = DB.Instance();
 
         protected PasswordsData()
         {
@@ -27,37 +30,37 @@ namespace PasswordManager.Data
 
         public PasswordOptions GetPasswordOptions(User user)
         {
-            throw new NotImplementedException();
+            return Database.GetPasswordOptionsByID(user.ID);
         }
 
-        public Password Save(User user, Password password)
+        public int Save(User user, Password password)
         {
-            throw new NotImplementedException();
+            return Database.AddNewPassword(user.ID, password);
+        }
+
+        public int Save(User user, List<Password> passwords)
+        {
+            return Database.AddNewPasswords(user.ID, passwords);
         }
 
         public List<Password> Select(User user)
         {
-            throw new NotImplementedException();
+            return Database.GetPasswordsByUserID(user.ID);
         }
 
-        public Password Update(User user, Password password)
+        public int Update(User user, Password password)
         {
-            throw new NotImplementedException();
+            return Database.UpdatePasswordByUserID(user.ID, password);
         }
 
-        public Password Update(User user, List<Password> passwords)
+        public int Update(User user, List<Password> passwords)
         {
-            throw new NotImplementedException();
+            return Database.UpdatePasswordsByUserID(user.ID, passwords);
         }
 
-        public Password Save(User user, List<Password> passwords)
+        public int Delete(User user, Password password)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool Delete(User user, Password password)
-        {
-            throw new NotImplementedException();
+            return Database.DeletePasswordByID(user.ID, password.ID);
         }
     }
 }

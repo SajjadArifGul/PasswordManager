@@ -30,7 +30,7 @@ namespace PasswordManager.Services
         {
             if (ValidationService.Instance().User(user))
             {
-                if (UsersData.Instance().Select(user) != null)
+                if (UsersData.Instance().SelectUser(user) != null)
                     return true;
             }
 
@@ -44,7 +44,7 @@ namespace PasswordManager.Services
                 //initilze a default empty list of passwords for this user.
                 user.Passwords = new List<Password>();
                 
-                if (UsersData.Instance().Register(user, Globals.Defaults.Settings, Globals.Defaults.PasswordOptions) > 0)
+                if (UsersData.Instance().RegisterUser(user, Globals.Defaults.Settings, Globals.Defaults.PasswordOptions) > 0)
                     return user;
             }
 
@@ -55,7 +55,7 @@ namespace PasswordManager.Services
         {
             if (ValidationService.Instance().User(user))
             {
-                user = UsersData.Instance().Select(user);
+                user = UsersData.Instance().SelectUser(user);
 
                 return user;
             }
@@ -67,7 +67,7 @@ namespace PasswordManager.Services
         {
             if (ValidationService.Instance().User(user))
             {
-                user = UsersData.Instance().Update(user);
+                user = UsersData.Instance().UpdateUser(user);
 
                 return user;
             }

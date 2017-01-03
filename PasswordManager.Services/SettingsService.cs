@@ -35,7 +35,7 @@ namespace PasswordManager.Services
                     settings = Globals.Defaults.Settings;
                 }
 
-                if (SettingsData.Instance().Update(user, settings))
+                if (SettingsData.Instance().UpdateSettings(user, settings))
                 {
                     user.Settings = settings;
                 }
@@ -64,7 +64,7 @@ namespace PasswordManager.Services
                     settings.PasswordOptions = passwordOptions;
                 }
 
-                if (SettingsData.Instance().Update(user, settings))
+                if (SettingsData.Instance().UpdateSettings(user, settings))
                 {
                     user.Settings = settings;
                 }
