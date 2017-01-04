@@ -31,5 +31,10 @@ namespace PasswordManager.Data
         {
             return Database.UpdatePasswordOptionsBySettingsID(settings.ID, passwordOptions);
         }
+
+        public PasswordOptions GetPasswordOptions(Settings settings)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

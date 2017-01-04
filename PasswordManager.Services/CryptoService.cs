@@ -1,11 +1,6 @@
 ﻿using PasswordManager.Entities;
 using PasswordManager.Globals;
-using PasswordManager.Gulipso;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PasswordManager.Services
 {
@@ -27,45 +22,45 @@ namespace PasswordManager.Services
             return _instance;
         }
 
-        public Password Encrypt(User user, Password password)
+        public Password EncryptUserPassword(User user, Password password)
         {
-            if (Verifier.Text(password.Name)) password.Name = Gulipso.Gulipso.Encrypt(password.Name, user.Master, Globals.Defaults.initVector, 256);
-            if (Verifier.Text(password.Email)) password.Email = Gulipso.Gulipso.Encrypt(password.Email, user.Master, Globals.Defaults.initVector, 256);
-            if (Verifier.Text(password.Username)) password.Username = Gulipso.Gulipso.Encrypt(password.Username, user.Master, Globals.Defaults.initVector, 256);
-            if (Verifier.Text(password.Website)) password.Website = Gulipso.Gulipso.Encrypt(password.Website, user.Master, Globals.Defaults.initVector, 256);
-            if (Verifier.Text(password.Text)) password.Text = Gulipso.Gulipso.Encrypt(password.Text, user.Master, Globals.Defaults.initVector, 256);
+            if (Verifier.Text(password.Name)) password.Name = Gulipso.Gulipso.Encrypt(password.Name, user.Master, Globals.Defaults.InitVector, Globals.Defaults.KeySize);
+            if (Verifier.Text(password.Email)) password.Email = Gulipso.Gulipso.Encrypt(password.Email, user.Master, Globals.Defaults.InitVector, Globals.Defaults.KeySize);
+            if (Verifier.Text(password.Username)) password.Username = Gulipso.Gulipso.Encrypt(password.Username, user.Master, Globals.Defaults.InitVector, Globals.Defaults.KeySize);
+            if (Verifier.Text(password.Website)) password.Website = Gulipso.Gulipso.Encrypt(password.Website, user.Master, Globals.Defaults.InitVector, Globals.Defaults.KeySize);
+            if (Verifier.Text(password.Text)) password.Text = Gulipso.Gulipso.Encrypt(password.Text, user.Master, Globals.Defaults.InitVector, Globals.Defaults.KeySize);
             return password;
         }
         
-        public List<Password> Encrypt(User user, List<Password> passwords)
+        public List<Password> EncryptUserPasswords(User user, List<Password> passwords)
         {
             List<Password> EncryptedPasswords = new List<Password>();
 
             foreach (Password password in passwords)
             {
-                EncryptedPasswords.Add(Encrypt(user, password));
+                EncryptedPasswords.Add(EncryptUserPassword(user, password));
             }
 
             return EncryptedPasswords;
         }
 
-        public Password Decrypt(User user, Password password)
+        public Password DecryptUserPassword(User user, Password password)
         {
-            if (Verifier.Text(password.Name)) password.Name = Gulipso.Gulipso.Decrypt(password.Name, user.Master, Globals.Defaults.initVector, 256);
-            if (Verifier.Text(password.Email)) password.Email = Gulipso.Gulipso.Decrypt(password.Email, user.Master, Globals.Defaults.initVector, 256);
-            if (Verifier.Text(password.Username)) password.Username = Gulipso.Gulipso.Decrypt(password.Username, user.Master, Globals.Defaults.initVector, 256);
-            if (Verifier.Text(password.Website)) password.Website = Gulipso.Gulipso.Decrypt(password.Website, user.Master, Globals.Defaults.initVector, 256);
-            if (Verifier.Text(password.Text)) password.Text = Gulipso.Gulipso.Decrypt(password.Text, user.Master, Globals.Defaults.initVector, 256);
+            if (Verifier.Text(password.Name)) password.Name = Gulipso.Gulipso.Decrypt(password.Name, user.Master, Globals.Defaults.InitVector, Globals.Defaults.KeySize);
+            if (Verifier.Text(password.Email)) password.Email = Gulipso.Gulipso.Decrypt(password.Email, user.Master, Globals.Defaults.InitVector, Globals.Defaults.KeySize);
+            if (Verifier.Text(password.Username)) password.Username = Gulipso.Gulipso.Decrypt(password.Username, user.Master, Globals.Defaults.InitVector, Globals.Defaults.KeySize);
+            if (Verifier.Text(password.Website)) password.Website = Gulipso.Gulipso.Decrypt(password.Website, user.Master, Globals.Defaults.InitVector, Globals.Defaults.KeySize);
+            if (Verifier.Text(password.Text)) password.Text = Gulipso.Gulipso.Decrypt(password.Text, user.Master, Globals.Defaults.InitVector, Globals.Defaults.KeySize);
             return password;
         }
 
-        internal List<Password> Decrypt(User user, List<Password> passwords)
+        internal List<Password> DecryptUserPasswords(User user, List<Password> passwords)
         {
             List<Password> decryptedPasswords = new List<Password>();
 
             foreach (var password in passwords)
             {
-                decryptedPasswords.Add(Decrypt(user, password));
+                decryptedPasswords.Add(DecryptUserPassword(user, password));
             }
             return decryptedPasswords;
         }

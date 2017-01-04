@@ -30,6 +30,7 @@ namespace PasswordManager.Services
         public bool User(User user)
         {
             //we should also check if user is authorized or exists -gul:0301171247
+            //i think that would be heavy operation because i am calling this method in so many places. -gul:0401171150
             if (user != null)
             {
                 if (Verifier.ID(user.ID) && Verifier.Text(user.Username) && Verifier.Email(user.Email) && Verifier.Text(user.Master))
@@ -37,28 +38,6 @@ namespace PasswordManager.Services
                     return true;
                 }
                 else return false;
-            }
-            else return false;
-        }
-
-        public bool Settings(Settings settings)
-        {
-            if (settings != null)
-            {
-                if (Verifier.ID(settings.ID) && Verifier.ID(settings.UserID))
-                {
-                    return true;
-                }
-                else return false;
-            }
-            else return false;
-        }
-
-        public bool File(string FileName)
-        {
-            if (Verifier.Text(FileName))
-            {
-                return System.IO.File.Exists(FileName);
             }
             else return false;
         }
@@ -76,28 +55,54 @@ namespace PasswordManager.Services
             else return false;
         }
 
+        internal bool Passwords(List<Password> passwords)
+        {
+            if (passwords != null)
+            {
+                bool result = true;
+
+                foreach (Password password in passwords)
+                {
+                    if (password != null)
+                    {
+                        if (!Verifier.Email(password.Email) || !Verifier.Text(password.Text))
+                        {
+                            result = false;
+                        }
+                    }
+                    else result = false;
+                }
+
+                return result;
+            }
+            else return false;
+        }
+
+        public bool Settings(Settings settings)
+        {
+            if (settings != null)
+            {
+                if (Verifier.ID(settings.ID) && Verifier.ID(settings.UserID))
+                {
+                    return true;
+                }
+                else return false;
+            }
+            else return false;
+        }
+
         internal bool PasswordOptions(PasswordOptions passwordOptions)
         {
             throw new NotImplementedException();
         }
 
-        internal bool Passwords(List<Password> passwords)
+        public bool File(string FileName)
         {
-            bool result = true;
-
-            foreach (Password password in passwords)
+            if (Verifier.Text(FileName))
             {
-                if (password != null)
-                {
-                    if (!Verifier.Email(password.Email) || !Verifier.Text(password.Text))
-                    {
-                        result = false;
-                    }
-                }
-                else result = false;
+                return System.IO.File.Exists(FileName);
             }
-
-            return result;
+            else return false;
         }
     }
 }

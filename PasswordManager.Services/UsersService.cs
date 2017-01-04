@@ -26,7 +26,7 @@ namespace PasswordManager.Services
             return _instance;
         }
 
-        public bool Exist(User user)
+        public bool UserExist(User user)
         {
             if (ValidationService.Instance().User(user))
             {
@@ -37,11 +37,11 @@ namespace PasswordManager.Services
             else return false;
         }
 
-        public User Register(User user)
+        public User RegisterUser(User user)
         {
             if (ValidationService.Instance().User(user))
             {   
-                if (UsersData.Instance().RegisterUser(user, Globals.Defaults.Settings, Globals.Defaults.PasswordOptions) > 0)
+                if (UsersData.Instance().AddNewUser(user, Globals.Defaults.Settings, Globals.Defaults.PasswordOptions) > 0)
                 {
                     //initilze a default empty list of passwords for this user.
                     user.Passwords = new List<Password>();
@@ -55,19 +55,16 @@ namespace PasswordManager.Services
             else return null;
         }
 
-        public User Login(User user)
+        public User LoginUser(User user)
         {
             if (ValidationService.Instance().User(user))
             {
-                user = UsersData.Instance().SelectUser(user);
-
-                return user;
+                return UsersData.Instance().SelectUser(user);
             }
-
-            return user;
+            else return null;
         }
 
-        public User Update(User user)
+        public User UpdateUser(User user)
         {
             if (ValidationService.Instance().User(user))
             {
@@ -76,6 +73,19 @@ namespace PasswordManager.Services
                     return user;
                 }
                 else return user;
+            }
+            else return null;
+        }
+
+        public User PopulateUserData(User user)
+        {
+            if (ValidationService.Instance().User(user))
+            {
+                user.Passwords = PasswordsData.Instance().GetUserPasswords(user);
+                user.Settings = SettingsData.Instance().GetUserSettings(user);
+                user.Settings.PasswordOptions = PasswordOptionsData.Instance().GetPasswordOptions(user.Settings);
+
+                return user;
             }
             else return null;
         }

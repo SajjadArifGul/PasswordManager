@@ -68,7 +68,7 @@ namespace PasswordManager.Globals
         public static Color ErrorColor = Color.FromArgb(244, 67, 54);
         public static Color WarningColor = Color.FromArgb(245, 124, 0);
 
-        public static string initVector = "@1B2c3D4e5F6g7H8";
-        
+        public static string InitVector = "@1B2c3D4e5F6g7H8";
+        public static int KeySize = 512;
     }
 }

@@ -26,26 +26,33 @@ namespace PasswordManager.Services
             return _instance;
         }
 
-        public List<Password> GetAllPasswords(User user)
+        public List<Password> GetAllUserPasswords(User user)
         {
             if (ValidationService.Instance().User(user))
             {
-                List<Password> passwords = CryptoService.Instance().Decrypt(user, PasswordsData.Instance().Select(user));
+                //List<Password> passwords = CryptoService.Instance().Decrypt(user, PasswordsData.Instance().GetUserPasswords(user));
+                List<Password> passwords = PasswordsData.Instance().GetUserPasswords(user);
 
-                if (ValidationService.Instance().Passwords(passwords))
+                if (passwords != null)//i am not using the validation service here because passwords are bot yet decrypted and may return false when validation called -gul:0401171228
                 {
-                    return passwords;
+                    passwords = CryptoService.Instance().DecryptUserPasswords(user, passwords);
+
+                    if (ValidationService.Instance().Passwords(passwords))
+                    {
+                        return passwords;
+                    }
+                    else return null;
                 }
                 else return null;
             }
             else return null;
         }
 
-        public Password SaveNewPassword(User user, Password password)
+        public Password SaveNewUserPassword(User user, Password password)
         {
             if (ValidationService.Instance().User(user) && ValidationService.Instance().Password(password))
             {
-                if (PasswordsData.Instance().Save(user, CryptoService.Instance().Encrypt(user, password)) > 0)
+                if (PasswordsData.Instance().Save(user, CryptoService.Instance().EncryptUserPassword(user, password)) > 0)
                 {
                     return password;
                 }
@@ -54,11 +61,11 @@ namespace PasswordManager.Services
             else return null;
         }
 
-        public List<Password> SaveNewPasswords(User user, List<Password> passwords)
+        public List<Password> SaveNewUserPasswords(User user, List<Password> passwords)
         {
             if (ValidationService.Instance().User(user) && ValidationService.Instance().Passwords(passwords))
             {
-                if (PasswordsData.Instance().Save(user, CryptoService.Instance().Encrypt(user, passwords)) > 0)
+                if (PasswordsData.Instance().Save(user, CryptoService.Instance().EncryptUserPasswords(user, passwords)) > 0)
                 {
                     return passwords;
                 }
@@ -67,11 +74,11 @@ namespace PasswordManager.Services
             else return null;
         }
 
-        public Password UpdatePassword(User user, Password password)
+        public Password UpdateUserPassword(User user, Password password)
         {
             if (ValidationService.Instance().User(user) && ValidationService.Instance().Password(password))
             {
-                if (PasswordsData.Instance().Update(user, CryptoService.Instance().Encrypt(user, password)) > 0)
+                if (PasswordsData.Instance().Update(user, CryptoService.Instance().EncryptUserPassword(user, password)) > 0)
                 {
                     return password;
                 }
@@ -80,11 +87,11 @@ namespace PasswordManager.Services
             else return null;
         }
 
-        public List<Password> UpdatePasswords(User user, List<Password> passwords)
+        public List<Password> UpdateUserPasswords(User user, List<Password> passwords)
         {
             if (ValidationService.Instance().User(user) && ValidationService.Instance().Passwords(passwords))
             {
-                if (PasswordsData.Instance().Update(user, CryptoService.Instance().Encrypt(user, passwords)) > 0)
+                if (PasswordsData.Instance().Update(user, CryptoService.Instance().EncryptUserPasswords(user, passwords)) > 0)
                 {
                     return passwords;
                 }
@@ -93,7 +100,7 @@ namespace PasswordManager.Services
             else return null;
         }
 
-        public bool RemovePassword(User user, Password password)
+        public bool RemoveUserPassword(User user, Password password)
         {
             if (ValidationService.Instance().User(user) && ValidationService.Instance().Password(password))
             {
@@ -105,52 +112,56 @@ namespace PasswordManager.Services
             else return false;            
         }
 
-        public List<Password> Search(User user, string Search, string LooksFor, string Options)
+        public List<Password> SearchUserPasswords(User user, string Search, string LooksFor, string Options)
         {
             //we can send the search query to database -gul:0301171513
 
-            List<Password> AllPasswords = GetAllPasswords(user);
-            List<Password> searchedPasswords = null;
+            List<Password> AllPasswords = GetAllUserPasswords(user);
+            if (ValidationService.Instance().Passwords(AllPasswords))
+            {
+                List<Password> searchedPasswords = null;
 
-            if (string.IsNullOrEmpty(Search))
-            {
-                return AllPasswords;
-            }
-            else
-            {
-                switch (Options)
+                if (string.IsNullOrEmpty(Search))
                 {
-                    case "Contains":
-                        if (LooksFor == "Username")
-                        {
-                            searchedPasswords = AllPasswords.Where(p => p.Username.ToLower().Contains(Search.ToLower())).ToList();
-                        }
-                        else if (LooksFor == "Email")
-                        {
-                            searchedPasswords = AllPasswords.Where(p => p.Email.ToLower().Contains(Search.ToLower())).ToList();
-                        }
-                        else
-                        {
-                            searchedPasswords = AllPasswords.Where(p => p.Name.ToLower().Contains(Search.ToLower())).ToList();
-                        }
-                        break;
-                    case "Equals":
-                        if (LooksFor == "Username")
-                        {
-                            searchedPasswords = AllPasswords.Where(p => p.Username.ToLower().Equals(Search.ToLower())).ToList();
-                        }
-                        else if (LooksFor == "Email")
-                        {
-                            searchedPasswords = AllPasswords.Where(p => p.Email.ToLower().Equals(Search.ToLower())).ToList();
-                        }
-                        else
-                        {
-                            searchedPasswords = AllPasswords.Where(p => p.Name.ToLower().Equals(Search.ToLower())).ToList();
-                        }
-                        break;
+                    return AllPasswords;
                 }
-                return searchedPasswords;
+                else
+                {
+                    switch (Options)
+                    {
+                        case "Contains":
+                            if (LooksFor == "Username")
+                            {
+                                searchedPasswords = AllPasswords.Where(p => p.Username.ToLower().Contains(Search.ToLower())).ToList();
+                            }
+                            else if (LooksFor == "Email")
+                            {
+                                searchedPasswords = AllPasswords.Where(p => p.Email.ToLower().Contains(Search.ToLower())).ToList();
+                            }
+                            else
+                            {
+                                searchedPasswords = AllPasswords.Where(p => p.Name.ToLower().Contains(Search.ToLower())).ToList();
+                            }
+                            break;
+                        case "Equals":
+                            if (LooksFor == "Username")
+                            {
+                                searchedPasswords = AllPasswords.Where(p => p.Username.ToLower().Equals(Search.ToLower())).ToList();
+                            }
+                            else if (LooksFor == "Email")
+                            {
+                                searchedPasswords = AllPasswords.Where(p => p.Email.ToLower().Equals(Search.ToLower())).ToList();
+                            }
+                            else
+                            {
+                                searchedPasswords = AllPasswords.Where(p => p.Name.ToLower().Equals(Search.ToLower())).ToList();
+                            }
+                            break;
+                    }
+                    return searchedPasswords;
+                }
             }
+            else return null;
         }
 
         public string GeneratePassword(User user)

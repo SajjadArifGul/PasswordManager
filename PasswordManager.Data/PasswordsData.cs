@@ -43,7 +43,7 @@ namespace PasswordManager.Data
             return Database.AddNewPasswords(user.ID, passwords);
         }
 
-        public List<Password> Select(User user)
+        public List<Password> GetUserPasswords(User user)
         {
             return Database.GetPasswordsByUserID(user.ID);
         }

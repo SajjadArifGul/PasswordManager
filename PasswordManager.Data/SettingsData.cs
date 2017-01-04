@@ -32,5 +32,10 @@ namespace PasswordManager.Data
         {
             return Database.UpdateSettings(user, settings);
         }
+
+        public Settings GetUserSettings(User user)
+        {
+            return Database.GetSettingsByUserID(user.ID);
+        }
     }
 }

@@ -37,6 +37,11 @@ namespace PasswordManager.Database
             throw new NotImplementedException();
         }
 
+        public Settings GetSettingsByUserID(int iD)
+        {
+            throw new NotImplementedException();
+        }
+
         public PasswordOptions GetPasswordOptionsByID(int userID)
         {
             throw new NotImplementedException();

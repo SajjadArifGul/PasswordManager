@@ -28,7 +28,7 @@ namespace PasswordManager.Data
             return _instance;
         }
 
-        public int RegisterUser(Entities.User user, Entities.Settings settings, Entities.PasswordOptions passwordOptions)
+        public int AddNewUser(Entities.User user, Entities.Settings settings, Entities.PasswordOptions passwordOptions)
         {
             return Database.AddNewUser(user, settings, passwordOptions);
         }
