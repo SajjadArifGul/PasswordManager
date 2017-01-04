@@ -196,7 +196,7 @@ namespace PasswordManager.Filer
             }
         }
 
-        public static List<Password> Import(string FileName)
+        public static List<Password> ImportFromFile(string FileName)
         {
             XmlSerializer SerializerObj = new XmlSerializer(typeof(List<Password>));
 
@@ -210,7 +210,7 @@ namespace PasswordManager.Filer
             return importedPasswords;
         }
 
-        public static bool Export(List<Password> Passwords, string FileName)
+        public static bool ExportToFile(List<Password> Passwords, string FileName)
         {
             XmlSerializer SerializerObj = new XmlSerializer(typeof(List<Password>));
 

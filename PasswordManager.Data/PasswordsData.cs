@@ -27,18 +27,13 @@ namespace PasswordManager.Data
 
             return _instance;
         }
-
-        public PasswordOptions GetPasswordOptions(User user)
-        {
-            return Database.GetPasswordOptionsByID(user.ID);
-        }
-
-        public int Save(User user, Password password)
+        
+        public int SaveNewUserPassword(User user, Password password)
         {
             return Database.AddNewPassword(user.ID, password);
         }
 
-        public int Save(User user, List<Password> passwords)
+        public int SaveNewUserPasswords(User user, List<Password> passwords)
         {
             return Database.AddNewPasswords(user.ID, passwords);
         }
@@ -48,17 +43,17 @@ namespace PasswordManager.Data
             return Database.GetPasswordsByUserID(user.ID);
         }
 
-        public int Update(User user, Password password)
+        public int UpdateUserPassword(User user, Password password)
         {
             return Database.UpdatePasswordByUserID(user.ID, password);
         }
 
-        public int Update(User user, List<Password> passwords)
+        public int UpdateUserPasswords(User user, List<Password> passwords)
         {
             return Database.UpdatePasswordsByUserID(user.ID, passwords);
         }
 
-        public int Delete(User user, Password password)
+        public int DeleteUserPassword(User user, Password password)
         {
             return Database.DeletePasswordByID(user.ID, password.ID);
         }

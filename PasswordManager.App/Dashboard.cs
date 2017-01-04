@@ -113,7 +113,7 @@ namespace PasswordManager.App
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                List<Password> importedPasswords = Filer.Filer.Import(ofd.FileName);
+                List<Password> importedPasswords = Filer.Filer.ImportFromFile(ofd.FileName);
                 if (importedPasswords != null)
                 {
                     if(MessageBox.Show("The file contains "+ importedPasswords.Count + " passwords. Are you sure you want to import these passwords to your account?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
@@ -140,7 +140,7 @@ namespace PasswordManager.App
 
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                if (Filer.Filer.Export(user.Passwords, sfd.FileName))
+                if (Filer.Filer.ExportToFile(user.Passwords, sfd.FileName))
                 {
                     MessageBox.Show("Passwords exported to "+sfd.FileName+" file.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

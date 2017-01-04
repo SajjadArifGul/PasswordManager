@@ -28,9 +28,9 @@ namespace PasswordManager.Data
             return _instance;
         }
 
-        public int UpdateSettings(Entities.User user, Entities.Settings settings)
+        public int UpdateUserSettings(User user, Settings settings)
         {
-            return Database.UpdateSettings(user, settings);
+            return Database.UpdateSettingsByUserID(user.ID, settings);
         }
 
         public Settings GetUserSettings(User user)

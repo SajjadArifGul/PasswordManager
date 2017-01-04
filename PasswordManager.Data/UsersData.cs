@@ -28,17 +28,17 @@ namespace PasswordManager.Data
             return _instance;
         }
 
-        public int AddNewUser(Entities.User user, Entities.Settings settings, Entities.PasswordOptions passwordOptions)
+        public int AddNewUser(User user, Settings settings, PasswordOptions passwordOptions)
         {
             return Database.AddNewUser(user, settings, passwordOptions);
         }
 
-        public User SelectUser(Entities.User user)
+        public User SelectUser(User user)
         {
             return Database.GetUserByID(user.ID);
         }
 
-        public int UpdateUser(Entities.User user)
+        public int UpdateUser(User user)
         {
             return Database.UpdateUser(user);
         }

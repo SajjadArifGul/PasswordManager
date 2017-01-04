@@ -83,7 +83,7 @@ namespace PasswordManager.Services
             {
                 user.Passwords = PasswordsData.Instance().GetUserPasswords(user);
                 user.Settings = SettingsData.Instance().GetUserSettings(user);
-                user.Settings.PasswordOptions = PasswordOptionsData.Instance().GetPasswordOptions(user.Settings);
+                user.Settings.PasswordOptions = PasswordOptionsData.Instance().GetPasswordOptionsBySettings(user.Settings);
 
                 return user;
             }

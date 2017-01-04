@@ -10,8 +10,6 @@ namespace PasswordManager.Globals
 {
     public static class Defaults
     {
-        public static string ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB2;AttachDbFilename=PasswordManagerDB.mdf;Integrated Security=False";
-
         public static string DateTimeFormat = "F";
         public static bool ShowEmailColumn = true;
         public static bool ShowUsernameColumn = true;

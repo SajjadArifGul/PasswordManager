@@ -39,7 +39,7 @@ namespace PasswordManager.Services
         {
             if (ValidationService.Instance().User(user) && ValidationService.Instance().Settings(settings))
             {
-                if (SettingsData.Instance().UpdateSettings(user, settings) > 0)
+                if (SettingsData.Instance().UpdateUserSettings(user, settings) > 0)
                 {
                     user.Settings = settings;
 
@@ -54,7 +54,7 @@ namespace PasswordManager.Services
         {
             if (ValidationService.Instance().Settings(settings))
             {
-                return PasswordOptionsData.Instance().GetPasswordOptions(settings);
+                return PasswordOptionsData.Instance().GetPasswordOptionsBySettings(settings);
             }
             else return null;
         }
@@ -63,7 +63,7 @@ namespace PasswordManager.Services
         {
             if (ValidationService.Instance().User(user) && ValidationService.Instance().Settings(settings) && ValidationService.Instance().PasswordOptions(passwordOptions))
             {
-                if (PasswordOptionsData.Instance().UpdatePasswordOptions(settings, passwordOptions) > 0)
+                if (PasswordOptionsData.Instance().UpdatePasswordOptionsBySettings(settings, passwordOptions) > 0)
                 {
                     user.Settings.PasswordOptions = passwordOptions;
                     return user;

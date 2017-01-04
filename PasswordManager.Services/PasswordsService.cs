@@ -52,7 +52,7 @@ namespace PasswordManager.Services
         {
             if (ValidationService.Instance().User(user) && ValidationService.Instance().Password(password))
             {
-                if (PasswordsData.Instance().Save(user, CryptoService.Instance().EncryptUserPassword(user, password)) > 0)
+                if (PasswordsData.Instance().SaveNewUserPassword(user, CryptoService.Instance().EncryptUserPassword(user, password)) > 0)
                 {
                     return password;
                 }
@@ -65,7 +65,7 @@ namespace PasswordManager.Services
         {
             if (ValidationService.Instance().User(user) && ValidationService.Instance().Passwords(passwords))
             {
-                if (PasswordsData.Instance().Save(user, CryptoService.Instance().EncryptUserPasswords(user, passwords)) > 0)
+                if (PasswordsData.Instance().SaveNewUserPasswords(user, CryptoService.Instance().EncryptUserPasswords(user, passwords)) > 0)
                 {
                     return passwords;
                 }
@@ -78,7 +78,7 @@ namespace PasswordManager.Services
         {
             if (ValidationService.Instance().User(user) && ValidationService.Instance().Password(password))
             {
-                if (PasswordsData.Instance().Update(user, CryptoService.Instance().EncryptUserPassword(user, password)) > 0)
+                if (PasswordsData.Instance().UpdateUserPassword(user, CryptoService.Instance().EncryptUserPassword(user, password)) > 0)
                 {
                     return password;
                 }
@@ -91,7 +91,7 @@ namespace PasswordManager.Services
         {
             if (ValidationService.Instance().User(user) && ValidationService.Instance().Passwords(passwords))
             {
-                if (PasswordsData.Instance().Update(user, CryptoService.Instance().EncryptUserPasswords(user, passwords)) > 0)
+                if (PasswordsData.Instance().UpdateUserPasswords(user, CryptoService.Instance().EncryptUserPasswords(user, passwords)) > 0)
                 {
                     return passwords;
                 }
@@ -105,7 +105,7 @@ namespace PasswordManager.Services
             if (ValidationService.Instance().User(user) && ValidationService.Instance().Password(password))
             {
                 /* No need for decrypting password. We only need ID in the Delete method for work */
-                if (PasswordsData.Instance().Delete(user, password) > 0)
+                if (PasswordsData.Instance().DeleteUserPassword(user, password) > 0)
                     return true;
                 else return false;
             }
@@ -170,7 +170,7 @@ namespace PasswordManager.Services
 
             if (ValidationService.Instance().User(user))
             {
-                passwordOptions = PasswordsData.Instance().GetPasswordOptions(user);
+                passwordOptions = PasswordOptionsData.Instance().GetPasswordOptionsBySettings(user.Settings);
             }
             else passwordOptions = Globals.Defaults.PasswordOptions;
 

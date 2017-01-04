@@ -27,14 +27,14 @@ namespace PasswordManager.Data
             return _instance;
         }
 
-        public int UpdatePasswordOptions(Settings settings, PasswordOptions passwordOptions)
+        public int UpdatePasswordOptionsBySettings(Settings settings, PasswordOptions passwordOptions)
         {
             return Database.UpdatePasswordOptionsBySettingsID(settings.ID, passwordOptions);
         }
 
-        public PasswordOptions GetPasswordOptions(Settings settings)
+        public PasswordOptions GetPasswordOptionsBySettings(Settings settings)
         {
-            throw new NotImplementedException();
+            return Database.GetPasswordOptionsBySettingsID(settings.ID);
         }
     }
 }

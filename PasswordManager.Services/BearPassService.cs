@@ -30,7 +30,7 @@ namespace PasswordManager.Services
         {
             if (ValidationService.Instance().File(FileName))
             {
-                return Filer.Filer.Import(FileName);
+                return Filer.Filer.ImportFromFile(FileName);
             }
             else return null;
         }
@@ -39,7 +39,7 @@ namespace PasswordManager.Services
         {
             if (ValidationService.Instance().File(FileName))
             {
-                return Filer.Filer.Export(Passwords, FileName);
+                return Filer.Filer.ExportToFile(Passwords, FileName);
             }
             else return false;
         }
