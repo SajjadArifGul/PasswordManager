@@ -9,6 +9,9 @@ using System.IO;
 
 namespace PasswordManager.Services
 {
+    /// <summary>
+    /// Provides Validation for Different Entities and Objects in BearPass
+    /// </summary>
     public class ValidationService
     {
         private static ValidationService _instance;
@@ -27,6 +30,11 @@ namespace PasswordManager.Services
             return _instance;
         }
 
+        /// <summary>
+        /// Determines wether the supplied User object is valid.
+        /// </summary>
+        /// <param name="user">User object be validated.</param>
+        /// <returns>Boolean: True if Valid otherwise False.</returns>
         public bool User(User user)
         {
             //we should also check if user is authorized or exists -gul:0301171247
@@ -41,7 +49,12 @@ namespace PasswordManager.Services
             }
             else return false;
         }
-        
+
+        /// <summary>
+        /// Determines wether the supplied Password object is valid.
+        /// </summary>
+        /// <param name="password">Password object be validated.</param>
+        /// <returns>Boolean: True if Valid otherwise False.</returns>
         public bool Password(Password password)
         {
             if (password != null)
@@ -55,7 +68,12 @@ namespace PasswordManager.Services
             else return false;
         }
 
-        internal bool Passwords(List<Password> passwords)
+        /// <summary>
+        /// Determines wether the supplied List of Password objects is valid.
+        /// </summary>
+        /// <param name="passwords">List of type Password object be validated.</param>
+        /// <returns>Boolean: True if Valid otherwise False.</returns>
+        public bool Passwords(List<Password> passwords)
         {
             if (passwords != null)
             {
@@ -78,6 +96,11 @@ namespace PasswordManager.Services
             else return false;
         }
 
+        /// <summary>
+        /// Determines wether the supplied Settings object is valid.
+        /// </summary>
+        /// <param name="settings">Settings object be validated.</param>
+        /// <returns>Boolean: True if Valid otherwise False.</returns>
         public bool Settings(Settings settings)
         {
             if (settings != null)
@@ -91,16 +114,34 @@ namespace PasswordManager.Services
             else return false;
         }
 
-        internal bool PasswordOptions(PasswordOptions passwordOptions)
+        /// <summary>
+        /// Determines wether the supplied PasswordOptions object is valid.
+        /// </summary>
+        /// <param name="passwordOptions">PasswordOptions object be validated.</param>
+        /// <returns>Boolean: True if Valid otherwise False.</returns>
+        public bool PasswordOptions(PasswordOptions passwordOptions)
         {
-            throw new NotImplementedException();
+            if (passwordOptions != null)
+            {
+                if (Verifier.ID(passwordOptions.ID) && Verifier.ID(passwordOptions.SettingsID))
+                {
+                    return true;
+                }
+                else return false;
+            }
+            else return false;
         }
 
-        public bool File(string FileName)
+        /// <summary>
+        /// Determines wether the supplied File path is valid.
+        /// </summary>
+        /// <param name="fileName">File Path be validated.</param>
+        /// <returns>Boolean: True if Valid otherwise False.</returns>
+        public bool File(string fileName)
         {
-            if (Verifier.Text(FileName))
+            if (Verifier.Text(fileName))
             {
-                return System.IO.File.Exists(FileName);
+                return System.IO.File.Exists(fileName);
             }
             else return false;
         }

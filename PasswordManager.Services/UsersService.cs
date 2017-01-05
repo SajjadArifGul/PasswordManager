@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace PasswordManager.Services
 {
+    /// <summary>
+    /// Provides access to User related objects and data.
+    /// </summary>
     public class UsersService
     {
         private static UsersService _instance;
@@ -26,6 +29,11 @@ namespace PasswordManager.Services
             return _instance;
         }
 
+        /// <summary>
+        /// Determines wether User already exists or not.
+        /// </summary>
+        /// <param name="user">User to check.</param>
+        /// <returns>Boolean: True if User exists, False if not.</returns>
         public bool UserExist(User user)
         {
             if (ValidationService.Instance().User(user))
@@ -37,6 +45,11 @@ namespace PasswordManager.Services
             else return false;
         }
 
+        /// <summary>
+        /// Registers the new User.
+        /// </summary>
+        /// <param name="user">User to be registered.</param>
+        /// <returns>User: The newly registered user with Default Settings.</returns>
         public User RegisterUser(User user)
         {
             if (ValidationService.Instance().User(user))
@@ -55,6 +68,11 @@ namespace PasswordManager.Services
             else return null;
         }
 
+        /// <summary>
+        /// Login the User.
+        /// </summary>
+        /// <param name="user">User to be Login.</param>
+        /// <returns>User: The logged in User.</returns>
         public User LoginUser(User user)
         {
             if (ValidationService.Instance().User(user))
@@ -64,6 +82,11 @@ namespace PasswordManager.Services
             else return null;
         }
 
+        /// <summary>
+        /// Updates the given User.
+        /// </summary>
+        /// <param name="user">User to be updated.</param>
+        /// <returns>User: updated User.</returns>
         public User UpdateUser(User user)
         {
             if (ValidationService.Instance().User(user))
@@ -77,6 +100,11 @@ namespace PasswordManager.Services
             else return null;
         }
 
+        /// <summary>
+        /// Populates the User with Passwords and Settings.
+        /// </summary>
+        /// <param name="user">User to be populated.</param>
+        /// <returns>User: User with its Passwords and Settings.</returns>
         public User PopulateUserData(User user)
         {
             if (ValidationService.Instance().User(user))

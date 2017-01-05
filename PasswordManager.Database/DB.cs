@@ -122,7 +122,7 @@ namespace PasswordManager.Database
             }
             return AffectedRows;
         }
-        
+
         public int AddNewPassword(int userID, Password password)
         {
             int AffectedRows = -1;
@@ -178,7 +178,7 @@ namespace PasswordManager.Database
                     }
                 }
             }
-            
+
             return AffectedRows;
         }
 
@@ -334,7 +334,7 @@ namespace PasswordManager.Database
 
             return settings;
         }
-        
+
         public int UpdateSettingsByUserID(int userID, Settings settings)
         {
             int AffectedRows = 0;

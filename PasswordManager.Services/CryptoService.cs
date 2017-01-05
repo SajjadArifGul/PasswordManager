@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace PasswordManager.Services
 {
+    /// <summary>
+    /// Provides access to Encryption and Decryption functions.
+    /// </summary>
     public class CryptoService
     {
         private static CryptoService _instance;
@@ -22,6 +25,12 @@ namespace PasswordManager.Services
             return _instance;
         }
 
+        /// <summary>
+        /// Encrypts the Password for supplied User.
+        /// </summary>
+        /// <param name="user">User for whom the Password is to be Encrypted.</param>
+        /// <param name="password">Password to be encrypted.</param>
+        /// <returns>Password: The Password in encrypted format.</returns>
         public Password EncryptUserPassword(User user, Password password)
         {
             if (Verifier.Text(password.Name)) password.Name = Gulipso.Gulipso.Encrypt(password.Name, user.Master, Globals.Defaults.InitVector, Globals.Defaults.KeySize);
@@ -31,7 +40,13 @@ namespace PasswordManager.Services
             if (Verifier.Text(password.Text)) password.Text = Gulipso.Gulipso.Encrypt(password.Text, user.Master, Globals.Defaults.InitVector, Globals.Defaults.KeySize);
             return password;
         }
-        
+
+        /// <summary>
+        /// Encrypts the List of Passwords for supplied User.
+        /// </summary>
+        /// <param name="user">User for whom the Password is to be Encrypted.</param>
+        /// <param name="passwords">List of Passwords to be encrypted.</param>
+        /// <returns>List of Passwords: The List of Passwords in encrypted format.</returns>
         public List<Password> EncryptUserPasswords(User user, List<Password> passwords)
         {
             List<Password> EncryptedPasswords = new List<Password>();
@@ -44,6 +59,12 @@ namespace PasswordManager.Services
             return EncryptedPasswords;
         }
 
+        /// <summary>
+        /// Decrypts the Password for supplied User.
+        /// </summary>
+        /// <param name="user">User for whom the Password is to be Decrypted.</param>
+        /// <param name="password">Password to be Decrypted.</param>
+        /// <returns>Password: The Password in Decrypted format.</returns>
         public Password DecryptUserPassword(User user, Password password)
         {
             if (Verifier.Text(password.Name)) password.Name = Gulipso.Gulipso.Decrypt(password.Name, user.Master, Globals.Defaults.InitVector, Globals.Defaults.KeySize);
@@ -54,7 +75,13 @@ namespace PasswordManager.Services
             return password;
         }
 
-        internal List<Password> DecryptUserPasswords(User user, List<Password> passwords)
+        /// <summary>
+        /// Decrypted the List of Passwords for supplied User.
+        /// </summary>
+        /// <param name="user">User for whom the Password is to be Decrypted.</param>
+        /// <param name="passwords">List of Passwords to be Decrypted.</param>
+        /// <returns>List of Passwords: The List of Passwords in Decrypted format.</returns>
+        public List<Password> DecryptUserPasswords(User user, List<Password> passwords)
         {
             List<Password> decryptedPasswords = new List<Password>();
 

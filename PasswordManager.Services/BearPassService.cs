@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace PasswordManager.Services
 {
+    /// <summary>
+    /// Provides Access to Misellanious Functions and Data.
+    /// </summary>
     public class BearPassService
     {
         private static BearPassService _instance;
@@ -26,6 +29,11 @@ namespace PasswordManager.Services
             return _instance;
         }
 
+        /// <summary>
+        /// Imports Passwords from the Supplied File
+        /// </summary>
+        /// <param name="FileName">File from which Passwords to Imported.</param>
+        /// <returns>List of Passwords: List of Passwords imported from File.</returns>
         public List<Password> ImportPasswords(string FileName)
         {
             if (ValidationService.Instance().File(FileName))
@@ -35,6 +43,12 @@ namespace PasswordManager.Services
             else return null;
         }
 
+        /// <summary>
+        /// Exports Passwords to the Supplied File
+        /// </summary>
+        /// <param name="Passwords">Passwords to be exported</param>
+        /// <param name="FileName">File to which Passwords are to be exported.</param>
+        /// <returns>Boolean: True if Passwords are exported otherwise False.</returns>
         public bool ExportPasswords(List<Password> Passwords, string FileName)
         {
             if (ValidationService.Instance().File(FileName))

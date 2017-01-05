@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace PasswordManager.Services
 {
+    /// <summary>
+    /// Provides access to User related Passwords and data.
+    /// </summary>
     public class PasswordsService
     {
         private static PasswordsService _instance;
@@ -26,6 +29,11 @@ namespace PasswordManager.Services
             return _instance;
         }
 
+        /// <summary>
+        /// Gets All Passwords for the Supplied User.
+        /// </summary>
+        /// <param name="user">User for whom Passwords are required.</param>
+        /// <returns>List of Passwords for the supplied User.</returns>
         public List<Password> GetAllUserPasswords(User user)
         {
             if (ValidationService.Instance().User(user))
@@ -48,6 +56,12 @@ namespace PasswordManager.Services
             else return null;
         }
 
+        /// <summary>
+        /// Saves a new Password for the supplied User
+        /// </summary>
+        /// <param name="user">User for whom Password is to be stored.</param>
+        /// <param name="password">Password to be saved.</param>
+        /// <returns>Password: The newly saved Password.</returns>
         public Password SaveNewUserPassword(User user, Password password)
         {
             if (ValidationService.Instance().User(user) && ValidationService.Instance().Password(password))
@@ -61,6 +75,12 @@ namespace PasswordManager.Services
             else return null;
         }
 
+        /// <summary>
+        /// Saves List of new Passwords for the supplied User
+        /// </summary>
+        /// <param name="user">User for whom Password is to be stored.</param>
+        /// <param name="passwords">Passwords List to be saved.</param>
+        /// <returns>List of Password: The newly saved Passwords.</returns>
         public List<Password> SaveNewUserPasswords(User user, List<Password> passwords)
         {
             if (ValidationService.Instance().User(user) && ValidationService.Instance().Passwords(passwords))
@@ -74,6 +94,12 @@ namespace PasswordManager.Services
             else return null;
         }
 
+        /// <summary>
+        /// Updates the supplied Password.
+        /// </summary>
+        /// <param name="user">User for whom the Password is to be updated.</param>
+        /// <param name="password">Password to be updated.</param>
+        /// <returns>Password: The updated password.</returns>
         public Password UpdateUserPassword(User user, Password password)
         {
             if (ValidationService.Instance().User(user) && ValidationService.Instance().Password(password))
@@ -87,6 +113,12 @@ namespace PasswordManager.Services
             else return null;
         }
 
+        /// <summary>
+        /// Updates the supplied List of Passwords.
+        /// </summary>
+        /// <param name="user">User for whom the Password is to be updated.</param>
+        /// <param name="passwords">List of Passwords to be updated.</param>
+        /// <returns>List of Password: The updated passwords.</returns>
         public List<Password> UpdateUserPasswords(User user, List<Password> passwords)
         {
             if (ValidationService.Instance().User(user) && ValidationService.Instance().Passwords(passwords))
@@ -100,6 +132,12 @@ namespace PasswordManager.Services
             else return null;
         }
 
+        /// <summary>
+        /// Removes Password from the Supplied User.
+        /// </summary>
+        /// <param name="user">User for whom Password is to be removed.</param>
+        /// <param name="password">Password to be removed.</param>
+        /// <returns>Boolean: True if Password Deleted otherwise False.</returns>
         public bool RemoveUserPassword(User user, Password password)
         {
             if (ValidationService.Instance().User(user) && ValidationService.Instance().Password(password))
@@ -112,6 +150,14 @@ namespace PasswordManager.Services
             else return false;            
         }
 
+        /// <summary>
+        /// Searches the Required Passwords
+        /// </summary>
+        /// <param name="user">User whose Passwords are used as source for Search.</param>
+        /// <param name="Search">Search Keyword</param>
+        /// <param name="LooksFor">Looks for Password Name, Email or Username</param>
+        /// <param name="Options">Options for Search Keywords Matched either Equals or Contains </param>
+        /// <returns>List of Password: Passwords matching the search criteria.</returns>
         public List<Password> SearchUserPasswords(User user, string Search, string LooksFor, string Options)
         {
             //we can send the search query to database -gul:0301171513
@@ -164,6 +210,11 @@ namespace PasswordManager.Services
             else return null;
         }
 
+        /// <summary>
+        /// Generates a new Random Password
+        /// </summary>
+        /// <param name="user">User whose PasswordOptions settings is used.</param>
+        /// <returns>String: Random Characters to be used as Password.</returns>
         public string GeneratePassword(User user)
         {
             PasswordOptions passwordOptions = null;
@@ -225,13 +276,23 @@ namespace PasswordManager.Services
             return password;
         }
 
-        // Return a random character from a string.
+        /// <summary>
+        /// Select Random Character
+        /// </summary>
+        /// <param name="str">String from which a substring is selected.</param>
+        /// <param name="random">Random object for index position</param>
+        /// <returns>String: A random string.</returns>
         private string RandomCharacter(string str, Random random)
         {
             return str.Substring(random.Next(0, str.Length - 1), 1);
         }
-
-        // Return a random permutation of a string.
+        
+        /// <summary>
+        /// String Randomizer.
+        /// </summary>
+        /// <param name="str">String which is to be randomize.</param>
+        /// <param name="random">Random object for Positioning.</param>
+        /// <returns>String: A randomized string.</returns>
         private string RandomizeString(string str, Random random)
         {
             string result = "";
@@ -245,10 +306,16 @@ namespace PasswordManager.Services
             return result;
         }
 
-        public bool IsSame(string oldPass, string newPass)
+        /// <summary>
+        /// Determines weather the Supplied Passwords are Same or Not.
+        /// </summary>
+        /// <param name="Pass1">Password to be Matched.</param>
+        /// <param name="Pass2">Password to be Matched With.</param>
+        /// <returns>Boolean: True if Same otherwise False.</returns>
+        public bool IsSame(string Pass1, string Pass2)
         {
             //this need a little refactoring in a more better way i think. -gul:0301171513
-            return string.Equals(oldPass, newPass);
+            return string.Equals(Pass1, Pass2);
         }
     }
 }
