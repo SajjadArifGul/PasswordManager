@@ -8,6 +8,9 @@ using System.Data.SqlClient;
 
 namespace PasswordManager.Database
 {
+    /// <summary>
+    /// This class gives direct access to Functions with SQL Queries to Database.
+    /// </summary>
     public class DB
     {
         private static DB _instance;
@@ -28,6 +31,11 @@ namespace PasswordManager.Database
             return _instance;
         }
 
+        /// <summary>
+        /// Add New User to Database.
+        /// </summary>
+        /// <param name="user">User Entity.</param>
+        /// <returns>Number of Rows Affected.</returns>
         public int AddNewUser(User user)
         {
             int AffectedRows = -1;
@@ -49,6 +57,13 @@ namespace PasswordManager.Database
             return AffectedRows;
         }
 
+        /// <summary>
+        /// Add New User with Settings and PasswordOptions
+        /// </summary>
+        /// <param name="user">User Entity.</param>
+        /// <param name="settings">Settings Entity.</param>
+        /// <param name="passwordOptions">PasswordOptions Entity.</param>
+        /// <returns>Number of Rows Affected.</returns>
         public int AddNewUser(User user, Settings settings, PasswordOptions passwordOptions)
         {
             int AffectedRows = -1;
@@ -70,6 +85,11 @@ namespace PasswordManager.Database
             return AffectedRows;
         }
 
+        /// <summary>
+        /// Get User from Database
+        /// </summary>
+        /// <param name="userID">User ID to select User.</param>
+        /// <returns>User Entity.</returns>
         public User GetUserByID(int userID)
         {
             User user = null;
@@ -100,6 +120,11 @@ namespace PasswordManager.Database
             return user;
         }
 
+        /// <summary>
+        /// Update User
+        /// </summary>
+        /// <param name="user">User Entity to Update.</param>
+        /// <returns>Number of Rows Affected.</returns>
         public int UpdateUser(User user)
         {
             int AffectedRows = -1;
@@ -123,6 +148,12 @@ namespace PasswordManager.Database
             return AffectedRows;
         }
 
+        /// <summary>
+        /// Add New Password to Database.
+        /// </summary>
+        /// <param name="userID">User ID to add Password for.</param>
+        /// <param name="password">Password Entity to be saved.</param>
+        /// <returns>Number of Rows Affected.</returns>
         public int AddNewPassword(int userID, Password password)
         {
             int AffectedRows = -1;
@@ -150,6 +181,12 @@ namespace PasswordManager.Database
             return AffectedRows;
         }
 
+        /// <summary>
+        /// Add List of New Passwords to Database.
+        /// </summary>
+        /// <param name="userID">User ID to Add Passwords to.</param>
+        /// <param name="passwords">List of Passwords.</param>
+        /// <returns>Number of Rows Affected.</returns>
         public int AddNewPasswords(int userID, List<Password> passwords)
         {
             //use transaction in here -gul:0401171330
@@ -182,6 +219,11 @@ namespace PasswordManager.Database
             return AffectedRows;
         }
 
+        /// <summary>
+        /// Get List of Passwords.
+        /// </summary>
+        /// <param name="userID">User ID for Passwords</param>
+        /// <returns>List of Passwords.</returns>
         public List<Password> GetPasswordsByUserID(int userID)
         {
             List<Password> passwords = new List<Password>();
@@ -220,6 +262,12 @@ namespace PasswordManager.Database
             return passwords;
         }
 
+        /// <summary>
+        /// Update the supplied Password
+        /// </summary>
+        /// <param name="userID">User ID for Password.</param>
+        /// <param name="password">Password Entity to be updated.</param>
+        /// <returns>Number of Rows Affected.</returns>
         public int UpdatePasswordByUserID(int userID, Password password)
         {
             int AffectedRows = 0;
@@ -248,6 +296,12 @@ namespace PasswordManager.Database
             return AffectedRows;
         }
 
+        /// <summary>
+        /// Updates List of Passwords.
+        /// </summary>
+        /// <param name="userID">User ID for Passwords.</param>
+        /// <param name="passwords">List of Password Entities.</param>
+        /// <returns>Number of Rows Affected.</returns>
         public int UpdatePasswordsByUserID(int userID, List<Password> passwords)
         {
             //we'll use transaction in here
@@ -261,6 +315,12 @@ namespace PasswordManager.Database
             return AffectedRows;
         }
 
+        /// <summary>
+        /// Deletes the Password.
+        /// </summary>
+        /// <param name="userID">User ID for Password.</param>
+        /// <param name="passwordID">Password ID for Password.</param>
+        /// <returns>Number of Rows Affected.</returns>
         public int DeletePasswordByID(int userID, int passwordID)
         {
             int AffectedRows = 0;
@@ -282,6 +342,12 @@ namespace PasswordManager.Database
             return AffectedRows;
         }
 
+        /// <summary>
+        /// Add Settings to Database for the User.
+        /// </summary>
+        /// <param name="userID">User ID for Settings.</param>
+        /// <param name="settings">Settings Entity to Saved.</param>
+        /// <returns>Number of Rows Affected.</returns>
         public int AddSettingsByUserID(int userID, Settings settings)
         {
             int AffectedRows = 0;
@@ -305,6 +371,11 @@ namespace PasswordManager.Database
             return AffectedRows;
         }
 
+        /// <summary>
+        /// Get Settings against the Supplied User ID
+        /// </summary>
+        /// <param name="userID">User ID for Settings</param>
+        /// <returns>Settings Entity for User.</returns>
         public Settings GetSettingsByUserID(int userID)
         {
             Settings settings = null;
@@ -335,6 +406,12 @@ namespace PasswordManager.Database
             return settings;
         }
 
+        /// <summary>
+        /// Updates Settings for supplied User ID
+        /// </summary>
+        /// <param name="userID">User ID for Settings</param>
+        /// <param name="settings">Settings Entity to be updated.</param>
+        /// <returns>Number of Rows Affected.</returns>
         public int UpdateSettingsByUserID(int userID, Settings settings)
         {
             int AffectedRows = 0;
@@ -359,6 +436,11 @@ namespace PasswordManager.Database
             return AffectedRows;
         }
 
+        /// <summary>
+        /// Get PasswordOptions from Database.
+        /// </summary>
+        /// <param name="userID">User ID for PasswordOptions</param>
+        /// <returns>PasswordOptions Entity.</returns>
         public PasswordOptions GetPasswordOptionsByID(int userID)
         {
             PasswordOptions passwordOptions = null;
@@ -401,6 +483,11 @@ namespace PasswordManager.Database
             return passwordOptions;
         }
 
+        /// <summary>
+        /// Get PasswordOptions by Setting ID
+        /// </summary>
+        /// <param name="settingsID">Settings ID for PasswordOptions</param>
+        /// <returns>PasswordOptions Entity.</returns>
         public PasswordOptions GetPasswordOptionsBySettingsID(int settingsID)
         {
             PasswordOptions passwordOptions = null;
@@ -442,6 +529,12 @@ namespace PasswordManager.Database
             return passwordOptions;
         }
 
+        /// <summary>
+        /// Updates PasswordOptions for the Supplied Settings ID.
+        /// </summary>
+        /// <param name="settingsID">Settings ID for PasswordOptions.</param>
+        /// <param name="passwordOptions">PasswordOptions Entity to be updated.</param>
+        /// <returns>Number of Rows Affected.</returns>
         public int UpdatePasswordOptionsBySettingsID(int settingsID, PasswordOptions passwordOptions)
         {
             int AffectedRows = 0;
