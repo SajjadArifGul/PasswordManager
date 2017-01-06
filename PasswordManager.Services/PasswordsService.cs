@@ -34,7 +34,38 @@ namespace PasswordManager.Services
         /// </summary>
         /// <param name="user">User for whom Passwords are required.</param>
         /// <returns>List of Passwords for the supplied User.</returns>
-        public List<Password> GetAllUserPasswords(User user)
+        public Task<List<Password>> GetAllUserPasswordsAsync(User user)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                if (ValidationService.Instance().User(user))
+                {
+                    //List<Password> passwords = CryptoService.Instance().Decrypt(user, PasswordsData.Instance().GetUserPasswords(user));
+                    List<Password> passwords = PasswordsData.Instance().GetUserPasswords(user);
+
+                    if (passwords != null)//i am not using the validation service here because passwords are not yet decrypted and may return false when validation called -gul:0401171228
+                    {
+                        passwords = CryptoService.Instance().DecryptUserPasswords(user, passwords);
+
+                        if (ValidationService.Instance().Passwords(passwords))
+                        {
+                            return passwords;
+                        }
+                        else return null;
+                    }
+                    else return null;
+                }
+                else return null;
+            });
+        }
+
+
+        /// <summary>
+        /// Gets All Passwords for the Supplied User.
+        /// </summary>
+        /// <param name="user">User for whom Passwords are required.</param>
+        /// <returns>List of Passwords for the supplied User.</returns>
+        private List<Password> GetAllUserPasswords(User user)
         {
             if (ValidationService.Instance().User(user))
             {
@@ -55,24 +86,26 @@ namespace PasswordManager.Services
             }
             else return null;
         }
-
         /// <summary>
         /// Saves a new Password for the supplied User
         /// </summary>
         /// <param name="user">User for whom Password is to be stored.</param>
         /// <param name="password">Password to be saved.</param>
         /// <returns>Password: The newly saved Password.</returns>
-        public Password SaveNewUserPassword(User user, Password password)
+        public Task<Password> SaveNewUserPasswordAsync(User user, Password password)
         {
-            if (ValidationService.Instance().User(user) && ValidationService.Instance().Password(password))
+            return Task.Factory.StartNew(() =>
             {
-                if (PasswordsData.Instance().SaveNewUserPassword(user, CryptoService.Instance().EncryptUserPassword(user, password)) > 0)
+                if (ValidationService.Instance().User(user) && ValidationService.Instance().Password(password))
                 {
-                    return password;
+                    if (PasswordsData.Instance().SaveNewUserPassword(user, CryptoService.Instance().EncryptUserPassword(user, password)) > 0)
+                    {
+                        return password;
+                    }
+                    else return null;
                 }
                 else return null;
-            }
-            else return null;
+            });
         }
 
         /// <summary>
@@ -81,17 +114,20 @@ namespace PasswordManager.Services
         /// <param name="user">User for whom Password is to be stored.</param>
         /// <param name="passwords">Passwords List to be saved.</param>
         /// <returns>List of Password: The newly saved Passwords.</returns>
-        public List<Password> SaveNewUserPasswords(User user, List<Password> passwords)
+        public Task<List<Password>> SaveNewUserPasswordsAsync(User user, List<Password> passwords)
         {
-            if (ValidationService.Instance().User(user) && ValidationService.Instance().Passwords(passwords))
+            return Task.Factory.StartNew(() =>
             {
-                if (PasswordsData.Instance().SaveNewUserPasswords(user, CryptoService.Instance().EncryptUserPasswords(user, passwords)) > 0)
+                if (ValidationService.Instance().User(user) && ValidationService.Instance().Passwords(passwords))
                 {
-                    return passwords;
+                    if (PasswordsData.Instance().SaveNewUserPasswords(user, CryptoService.Instance().EncryptUserPasswords(user, passwords)) > 0)
+                    {
+                        return passwords;
+                    }
+                    else return null;
                 }
                 else return null;
-            }
-            else return null;
+            });
         }
 
         /// <summary>
@@ -100,17 +136,20 @@ namespace PasswordManager.Services
         /// <param name="user">User for whom the Password is to be updated.</param>
         /// <param name="password">Password to be updated.</param>
         /// <returns>Password: The updated password.</returns>
-        public Password UpdateUserPassword(User user, Password password)
+        public Task<Password> UpdateUserPasswordAsync(User user, Password password)
         {
-            if (ValidationService.Instance().User(user) && ValidationService.Instance().Password(password))
+            return Task.Factory.StartNew(() =>
             {
-                if (PasswordsData.Instance().UpdateUserPassword(user, CryptoService.Instance().EncryptUserPassword(user, password)) > 0)
+                if (ValidationService.Instance().User(user) && ValidationService.Instance().Password(password))
                 {
-                    return password;
+                    if (PasswordsData.Instance().UpdateUserPassword(user, CryptoService.Instance().EncryptUserPassword(user, password)) > 0)
+                    {
+                        return password;
+                    }
+                    else return null;
                 }
                 else return null;
-            }
-            else return null;
+            });
         }
 
         /// <summary>
@@ -119,17 +158,20 @@ namespace PasswordManager.Services
         /// <param name="user">User for whom the Password is to be updated.</param>
         /// <param name="passwords">List of Passwords to be updated.</param>
         /// <returns>List of Password: The updated passwords.</returns>
-        public List<Password> UpdateUserPasswords(User user, List<Password> passwords)
+        public Task<List<Password>> UpdateUserPasswordsAsync(User user, List<Password> passwords)
         {
-            if (ValidationService.Instance().User(user) && ValidationService.Instance().Passwords(passwords))
+            return Task.Factory.StartNew(() =>
             {
-                if (PasswordsData.Instance().UpdateUserPasswords(user, CryptoService.Instance().EncryptUserPasswords(user, passwords)) > 0)
+                if (ValidationService.Instance().User(user) && ValidationService.Instance().Passwords(passwords))
                 {
-                    return passwords;
+                    if (PasswordsData.Instance().UpdateUserPasswords(user, CryptoService.Instance().EncryptUserPasswords(user, passwords)) > 0)
+                    {
+                        return passwords;
+                    }
+                    else return null;
                 }
                 else return null;
-            }
-            else return null;
+            });
         }
 
         /// <summary>
@@ -138,16 +180,19 @@ namespace PasswordManager.Services
         /// <param name="user">User for whom Password is to be removed.</param>
         /// <param name="password">Password to be removed.</param>
         /// <returns>Boolean: True if Password Deleted otherwise False.</returns>
-        public bool RemoveUserPassword(User user, Password password)
+        public Task<bool> RemoveUserPasswordAsync(User user, Password password)
         {
-            if (ValidationService.Instance().User(user) && ValidationService.Instance().Password(password))
+            return Task.Factory.StartNew(() =>
             {
-                /* No need for decrypting password. We only need ID in the Delete method for work */
-                if (PasswordsData.Instance().DeleteUserPassword(user, password) > 0)
-                    return true;
+                if (ValidationService.Instance().User(user) && ValidationService.Instance().Password(password))
+                {
+                    /* No need for decrypting password. We only need ID in the Delete method for work */
+                    if (PasswordsData.Instance().DeleteUserPassword(user, password) > 0)
+                        return true;
+                    else return false;
+                }
                 else return false;
-            }
-            else return false;            
+            });
         }
 
         /// <summary>
@@ -158,56 +203,59 @@ namespace PasswordManager.Services
         /// <param name="LooksFor">Looks for Password Name, Email or Username</param>
         /// <param name="Options">Options for Search Keywords Matched either Equals or Contains </param>
         /// <returns>List of Password: Passwords matching the search criteria.</returns>
-        public List<Password> SearchUserPasswords(User user, string Search, string LooksFor, string Options)
+        public Task<List<Password>> SearchUserPasswordsAsync(User user, string Search, string LooksFor, string Options)
         {
             //we can send the search query to database -gul:0301171513
 
-            List<Password> AllPasswords = GetAllUserPasswords(user);
-            if (ValidationService.Instance().Passwords(AllPasswords))
+            return Task.Factory.StartNew(() =>
             {
-                List<Password> searchedPasswords = null;
+                List<Password> AllPasswords = GetAllUserPasswords(user);
+                if (ValidationService.Instance().Passwords(AllPasswords))
+                {
+                    List<Password> searchedPasswords = null;
 
-                if (string.IsNullOrEmpty(Search))
-                {
-                    return AllPasswords;
-                }
-                else
-                {
-                    switch (Options)
+                    if (string.IsNullOrEmpty(Search))
                     {
-                        case "Contains":
-                            if (LooksFor == "Username")
-                            {
-                                searchedPasswords = AllPasswords.Where(p => p.Username.ToLower().Contains(Search.ToLower())).ToList();
-                            }
-                            else if (LooksFor == "Email")
-                            {
-                                searchedPasswords = AllPasswords.Where(p => p.Email.ToLower().Contains(Search.ToLower())).ToList();
-                            }
-                            else
-                            {
-                                searchedPasswords = AllPasswords.Where(p => p.Name.ToLower().Contains(Search.ToLower())).ToList();
-                            }
-                            break;
-                        case "Equals":
-                            if (LooksFor == "Username")
-                            {
-                                searchedPasswords = AllPasswords.Where(p => p.Username.ToLower().Equals(Search.ToLower())).ToList();
-                            }
-                            else if (LooksFor == "Email")
-                            {
-                                searchedPasswords = AllPasswords.Where(p => p.Email.ToLower().Equals(Search.ToLower())).ToList();
-                            }
-                            else
-                            {
-                                searchedPasswords = AllPasswords.Where(p => p.Name.ToLower().Equals(Search.ToLower())).ToList();
-                            }
-                            break;
+                        return AllPasswords;
                     }
-                    return searchedPasswords;
+                    else
+                    {
+                        switch (Options)
+                        {
+                            case "Contains":
+                                if (LooksFor == "Username")
+                                {
+                                    searchedPasswords = AllPasswords.Where(p => p.Username.ToLower().Contains(Search.ToLower())).ToList();
+                                }
+                                else if (LooksFor == "Email")
+                                {
+                                    searchedPasswords = AllPasswords.Where(p => p.Email.ToLower().Contains(Search.ToLower())).ToList();
+                                }
+                                else
+                                {
+                                    searchedPasswords = AllPasswords.Where(p => p.Name.ToLower().Contains(Search.ToLower())).ToList();
+                                }
+                                break;
+                            case "Equals":
+                                if (LooksFor == "Username")
+                                {
+                                    searchedPasswords = AllPasswords.Where(p => p.Username.ToLower().Equals(Search.ToLower())).ToList();
+                                }
+                                else if (LooksFor == "Email")
+                                {
+                                    searchedPasswords = AllPasswords.Where(p => p.Email.ToLower().Equals(Search.ToLower())).ToList();
+                                }
+                                else
+                                {
+                                    searchedPasswords = AllPasswords.Where(p => p.Name.ToLower().Equals(Search.ToLower())).ToList();
+                                }
+                                break;
+                        }
+                        return searchedPasswords;
+                    }
                 }
-            }
-            else return null;
+                else return null;
+            });
         }
 
         /// <summary>
@@ -215,65 +263,68 @@ namespace PasswordManager.Services
         /// </summary>
         /// <param name="user">User whose PasswordOptions settings is used.</param>
         /// <returns>String: Random Characters to be used as Password.</returns>
-        public string GeneratePassword(User user)
+        public Task<string> GeneratePasswordAsync(User user)
         {
-            PasswordOptions passwordOptions = null;
-
-            if (ValidationService.Instance().User(user))
+            return Task.Factory.StartNew(() =>
             {
-                passwordOptions = PasswordOptionsData.Instance().GetPasswordOptionsBySettings(user.Settings);
-            }
-            else passwordOptions = Globals.Defaults.PasswordOptions;
+                PasswordOptions passwordOptions = null;
 
-            // Make a list of allowed characters.
-            string allowed = "";
+                if (ValidationService.Instance().User(user))
+                {
+                    passwordOptions = PasswordOptionsData.Instance().GetPasswordOptionsBySettings(user.Settings);
+                }
+                else passwordOptions = Globals.Defaults.PasswordOptions;
 
-            if (passwordOptions.AllowLowercaseCharacters) allowed += passwordOptions.LowercaseCharacters;
-            if (passwordOptions.AllowUppercaseCharacters) allowed += passwordOptions.UppercaseCharacters;
-            if (passwordOptions.AllowNumberCharacters) allowed += passwordOptions.NumberCharacters;
-            if (passwordOptions.AllowSpecialCharacters) allowed += passwordOptions.SpecialCharacters;
-            if (passwordOptions.AllowUnderscoreCharacters) allowed += passwordOptions.UnderscoreCharacters;
-            if (passwordOptions.AllowSpaceCharacters) allowed += passwordOptions.SpaceCharacters;
-            if (passwordOptions.AllowOtherCharacters) allowed += passwordOptions.OtherCharacters;
+                // Make a list of allowed characters.
+                string allowed = "";
 
-            Random random = new Random();
+                if (passwordOptions.AllowLowercaseCharacters) allowed += passwordOptions.LowercaseCharacters;
+                if (passwordOptions.AllowUppercaseCharacters) allowed += passwordOptions.UppercaseCharacters;
+                if (passwordOptions.AllowNumberCharacters) allowed += passwordOptions.NumberCharacters;
+                if (passwordOptions.AllowSpecialCharacters) allowed += passwordOptions.SpecialCharacters;
+                if (passwordOptions.AllowUnderscoreCharacters) allowed += passwordOptions.UnderscoreCharacters;
+                if (passwordOptions.AllowSpaceCharacters) allowed += passwordOptions.SpaceCharacters;
+                if (passwordOptions.AllowOtherCharacters) allowed += passwordOptions.OtherCharacters;
 
-            int RequiredLength = random.Next(passwordOptions.MinimumCharacters, passwordOptions.MaximumCharacters);
+                Random random = new Random();
 
-            // Satisfy requirements.
-            string password = "";
+                int RequiredLength = random.Next(passwordOptions.MinimumCharacters, passwordOptions.MaximumCharacters);
 
-            if (passwordOptions.RequireLowercaseCharacters &&
-                (password.IndexOfAny(passwordOptions.LowercaseCharacters.ToCharArray()) == -1))
-                password += RandomCharacter(passwordOptions.LowercaseCharacters, random);
-            if (passwordOptions.RequireUppercaseCharacters &&
-                (password.IndexOfAny(passwordOptions.UppercaseCharacters.ToCharArray()) == -1))
-                password += RandomCharacter(passwordOptions.UppercaseCharacters, random);
-            if (passwordOptions.RequireNumberCharacters &&
-                (password.IndexOfAny(passwordOptions.NumberCharacters.ToCharArray()) == -1))
-                password += RandomCharacter(passwordOptions.NumberCharacters, random);
-            if (passwordOptions.RequireSpecialCharacters &&
-                (password.IndexOfAny(passwordOptions.SpecialCharacters.ToCharArray()) == -1))
-                password += RandomCharacter(passwordOptions.SpecialCharacters, random);
-            if (passwordOptions.RequireUnderscoreCharacters &&
-                (password.IndexOfAny(passwordOptions.UnderscoreCharacters.ToCharArray()) == -1))
-                password += passwordOptions.UnderscoreCharacters;
-            if (passwordOptions.RequireSpaceCharacters &&
-                (password.IndexOfAny(passwordOptions.SpaceCharacters.ToCharArray()) == -1))
-                password += passwordOptions.SpaceCharacters;
-            if (passwordOptions.RequireOtherCharacters &&
-                (password.IndexOfAny(passwordOptions.OtherCharacters.ToCharArray()) == -1))
-                password += passwordOptions.OtherCharacters;
+                // Satisfy requirements.
+                string password = "";
 
-            // Add the remaining characters randomly.
-            while (password.Length < RequiredLength)
-                password += allowed.Substring(
-                    random.Next(0, allowed.Length - 1), 1);
+                if (passwordOptions.RequireLowercaseCharacters &&
+                    (password.IndexOfAny(passwordOptions.LowercaseCharacters.ToCharArray()) == -1))
+                    password += RandomCharacter(passwordOptions.LowercaseCharacters, random);
+                if (passwordOptions.RequireUppercaseCharacters &&
+                    (password.IndexOfAny(passwordOptions.UppercaseCharacters.ToCharArray()) == -1))
+                    password += RandomCharacter(passwordOptions.UppercaseCharacters, random);
+                if (passwordOptions.RequireNumberCharacters &&
+                    (password.IndexOfAny(passwordOptions.NumberCharacters.ToCharArray()) == -1))
+                    password += RandomCharacter(passwordOptions.NumberCharacters, random);
+                if (passwordOptions.RequireSpecialCharacters &&
+                    (password.IndexOfAny(passwordOptions.SpecialCharacters.ToCharArray()) == -1))
+                    password += RandomCharacter(passwordOptions.SpecialCharacters, random);
+                if (passwordOptions.RequireUnderscoreCharacters &&
+                    (password.IndexOfAny(passwordOptions.UnderscoreCharacters.ToCharArray()) == -1))
+                    password += passwordOptions.UnderscoreCharacters;
+                if (passwordOptions.RequireSpaceCharacters &&
+                    (password.IndexOfAny(passwordOptions.SpaceCharacters.ToCharArray()) == -1))
+                    password += passwordOptions.SpaceCharacters;
+                if (passwordOptions.RequireOtherCharacters &&
+                    (password.IndexOfAny(passwordOptions.OtherCharacters.ToCharArray()) == -1))
+                    password += passwordOptions.OtherCharacters;
 
-            // Randomize (to mix up the required characters at the front).
-            password = RandomizeString(password, random);
+                // Add the remaining characters randomly.
+                while (password.Length < RequiredLength)
+                    password += allowed.Substring(
+                        random.Next(0, allowed.Length - 1), 1);
 
-            return password;
+                // Randomize (to mix up the required characters at the front).
+                password = RandomizeString(password, random);
+
+                return password;
+            });
         }
 
         /// <summary>
@@ -286,7 +337,7 @@ namespace PasswordManager.Services
         {
             return str.Substring(random.Next(0, str.Length - 1), 1);
         }
-        
+
         /// <summary>
         /// String Randomizer.
         /// </summary>
@@ -312,9 +363,23 @@ namespace PasswordManager.Services
         /// <param name="Pass1">Password to be Matched.</param>
         /// <param name="Pass2">Password to be Matched With.</param>
         /// <returns>Boolean: True if Same otherwise False.</returns>
-        public bool IsSame(string Pass1, string Pass2)
+        public Task<bool> IsSameAsync(string Pass1, string Pass2)
         {
             //this need a little refactoring in a more better way i think. -gul:0301171513
+            return Task.Factory.StartNew(() =>
+            {
+                return string.Equals(Pass1, Pass2);
+            });
+        }
+
+        /// <summary>
+        /// Determines weather the Supplied Passwords are Same or Not.
+        /// </summary>
+        /// <param name="Pass1">Password to be Matched.</param>
+        /// <param name="Pass2">Password to be Matched With.</param>
+        /// <returns>Boolean: True if Same otherwise False.</returns>
+        public bool IsSame(string Pass1, string Pass2)
+        {
             return string.Equals(Pass1, Pass2);
         }
     }

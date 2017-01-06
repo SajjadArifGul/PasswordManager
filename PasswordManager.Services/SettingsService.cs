@@ -34,13 +34,16 @@ namespace PasswordManager.Services
         /// </summary>
         /// <param name="user">User for which Settings are required.</param>
         /// <returns>Settings: The Settings for User</returns>
-        public Settings GetUserSettings(User user)
+        public Task<Settings> GetUserSettingsAsync(User user)
         {
-            if (ValidationService.Instance().User(user))
+            return Task.Factory.StartNew(() =>
             {
-                return SettingsData.Instance().GetUserSettings(user);
-            }
-            else return null;
+                if (ValidationService.Instance().User(user))
+                {
+                    return SettingsData.Instance().GetUserSettings(user);
+                }
+                else return null;
+            });
         }
 
         /// <summary>
@@ -49,19 +52,22 @@ namespace PasswordManager.Services
         /// <param name="user">User for which settings are to be updated.</param>
         /// <param name="settings">Settings which are to be updated.</param>
         /// <returns>User: User with the updated settings.</returns>
-        public User UpdateUserSettings(User user, Settings settings)
+        public Task<User> UpdateUserSettingsAsync(User user, Settings settings)
         {
-            if (ValidationService.Instance().User(user) && ValidationService.Instance().Settings(settings))
+            return Task.Factory.StartNew(() =>
             {
-                if (SettingsData.Instance().UpdateUserSettings(user, settings) > 0)
+                if (ValidationService.Instance().User(user) && ValidationService.Instance().Settings(settings))
                 {
-                    user.Settings = settings;
+                    if (SettingsData.Instance().UpdateUserSettings(user, settings) > 0)
+                    {
+                        user.Settings = settings;
 
-                    return user;
+                        return user;
+                    }
+                    else return null;
                 }
                 else return null;
-            }
-            else return null;
+            });
         }
 
         /// <summary>
@@ -69,13 +75,16 @@ namespace PasswordManager.Services
         /// </summary>
         /// <param name="settings">Settings for which PasswordOptions are required.</param>
         /// <returns>PasswordOptions object to be attached to settings.</returns>
-        public PasswordOptions GetUserPasswordOptions(Settings settings)
+        public Task<PasswordOptions> GetUserPasswordOptionsAsync(Settings settings)
         {
-            if (ValidationService.Instance().Settings(settings))
+            return Task.Factory.StartNew(() =>
             {
-                return PasswordOptionsData.Instance().GetPasswordOptionsBySettings(settings);
-            }
-            else return null;
+                if (ValidationService.Instance().Settings(settings))
+                {
+                    return PasswordOptionsData.Instance().GetPasswordOptionsBySettings(settings);
+                }
+                else return null;
+            });
         }
 
         /// <summary>
@@ -85,18 +94,21 @@ namespace PasswordManager.Services
         /// <param name="settings">Settings to be updated with PasswordOptions.</param>
         /// <param name="passwordOptions">PasswordOptions to be updated.</param>
         /// <returns>User: User with the updated Settings and PasswordOptions.</returns>
-        public User UpdateUserPasswordOptions(User user, Settings settings, PasswordOptions passwordOptions)
+        public Task<User> UpdateUserPasswordOptionsAsync(User user, Settings settings, PasswordOptions passwordOptions)
         {
-            if (ValidationService.Instance().User(user) && ValidationService.Instance().Settings(settings) && ValidationService.Instance().PasswordOptions(passwordOptions))
+            return Task.Factory.StartNew(() =>
             {
-                if (PasswordOptionsData.Instance().UpdatePasswordOptionsBySettings(settings, passwordOptions) > 0)
+                if (ValidationService.Instance().User(user) && ValidationService.Instance().Settings(settings) && ValidationService.Instance().PasswordOptions(passwordOptions))
                 {
-                    user.Settings.PasswordOptions = passwordOptions;
-                    return user;
+                    if (PasswordOptionsData.Instance().UpdatePasswordOptionsBySettings(settings, passwordOptions) > 0)
+                    {
+                        user.Settings.PasswordOptions = passwordOptions;
+                        return user;
+                    }
+                    else return null;
                 }
                 else return null;
-            }
-            else return null;
+            });
         }
     }
 }

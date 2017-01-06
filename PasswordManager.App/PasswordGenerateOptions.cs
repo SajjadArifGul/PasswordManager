@@ -170,7 +170,7 @@ namespace PasswordManager.App
             passwordOptions = user.Settings.PasswordOptions;
             
             //update password options
-            SettingsService.Instance().UpdateUserSettings(user, user.Settings);
+            SettingsService.Instance().UpdateUserSettingsAsync(user, user.Settings);
         }
     }
 }

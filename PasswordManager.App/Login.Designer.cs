@@ -43,7 +43,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblMassege = new System.Windows.Forms.Label();
-            this.LoginWorker = new System.ComponentModel.BackgroundWorker();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picboxLoading)).BeginInit();
@@ -92,6 +91,7 @@
             this.picboxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picboxLoading.TabIndex = 26;
             this.picboxLoading.TabStop = false;
+            this.picboxLoading.Visible = false;
             // 
             // btnLogin
             // 
@@ -218,11 +218,6 @@
             this.lblMassege.Text = " ";
             this.lblMassege.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // LoginWorker
-            // 
-            this.LoginWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.LoginWorker_DoWork);
-            this.LoginWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.LoginWorker_RunWorkerCompleted);
-            // 
             // Login
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -264,6 +259,5 @@
         private System.Windows.Forms.Label lblMassege;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.PictureBox picboxLoading;
-        private System.ComponentModel.BackgroundWorker LoginWorker;
     }
 }

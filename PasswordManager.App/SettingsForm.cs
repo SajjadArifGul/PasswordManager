@@ -114,9 +114,9 @@ namespace PasswordManager.App
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            UsersService.Instance().UpdateUser(user);
+            UsersService.Instance().UpdateUserAsync(user);
             
-            SettingsService.Instance().UpdateUserSettings(user, user.Settings);
+            SettingsService.Instance().UpdateUserSettingsAsync(user, user.Settings);
         }
     }
 }

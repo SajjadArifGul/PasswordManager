@@ -52,7 +52,7 @@ namespace PasswordManager.App
         private void btnSave_Click(object sender, EventArgs e)
         {
             //check if the newly supplied passwords are same or not
-            if (!PasswordsService.Instance().IsSame(txtNewMaster.Text, txtConfirmMaster.Text) && !Verifier.Text(txtNewMaster.Text) && !Verifier.Text(txtConfirmMaster.Text))
+            if (!PasswordsService.Instance().IsSameAsync(txtNewMaster.Text, txtConfirmMaster.Text) && !Verifier.Text(txtNewMaster.Text) && !Verifier.Text(txtConfirmMaster.Text))
             {
                 lblMassege.Text = "Your New Master Password and Confirm Master Password doesn't match.";
                 lblMassege.ForeColor = Color.FromArgb(244, 67, 54);
@@ -60,7 +60,7 @@ namespace PasswordManager.App
             else //both new passwords are same. Dont match them again
             {
                 //match the current Master Password with the entered Master Password
-                if (Verifier.Text(txtMaster.Text) && PasswordsService.Instance().IsSame(user.Master, txtMaster.Text))
+                if (Verifier.Text(txtMaster.Text) && PasswordsService.Instance().IsSameAsync(user.Master, txtMaster.Text))
                 {
                     ////Proceed with re-encrypting all passwords with new master
                     //NewPasswords = PasswordsService.Instance().ReEncrypter(user, txtNewMaster.Text);
@@ -83,10 +83,10 @@ namespace PasswordManager.App
 
         public bool IsEnable()
         {
-            if (PasswordsService.Instance().IsSame(txtNewMaster.Text, txtConfirmMaster.Text) && Verifier.Text(txtNewMaster.Text) && Verifier.Text(txtConfirmMaster.Text))
+            if (PasswordsService.Instance().IsSameAsync(txtNewMaster.Text, txtConfirmMaster.Text) && Verifier.Text(txtNewMaster.Text) && Verifier.Text(txtConfirmMaster.Text))
             {
                 //now check if existing master match too
-                if (Verifier.Text(txtMaster.Text) && PasswordsService.Instance().IsSame(user.Master, txtMaster.Text))
+                if (Verifier.Text(txtMaster.Text) && PasswordsService.Instance().IsSameAsync(user.Master, txtMaster.Text))
                 {
                     lblMassege.Text = "You can try to save now.";
                     lblMassege.ForeColor = Color.FromArgb(67, 140, 235);

@@ -20,7 +20,7 @@ namespace PasswordManager.App
             InitializeComponent();
         }
 
-        private void btnRegister_Click(object sender, EventArgs e)
+        private async void btnRegister_Click(object sender, EventArgs e)
         {
             lblMassege.BackColor = Color.Transparent;
             lblMassege.ForeColor = Color.FromArgb(67, 140, 235);
@@ -57,7 +57,7 @@ namespace PasswordManager.App
                     Master = txtLoginPass.Text,
                 };
 
-                user = UsersService.Instance().RegisterUser(user);
+                user = await UsersService.Instance().RegisterUserAsync(user);
 
                 if (user != null)
                 {

@@ -63,7 +63,7 @@ namespace PasswordManager.App
 
         private void btnGenerate_Click(object sender, EventArgs e)
         {
-            txtPassword.Text = PasswordsService.Instance().GeneratePassword(user);
+            txtPassword.Text = PasswordsService.Instance().GeneratePasswordAsync(user);
         }
 
         private void btnOptions_Click(object sender, EventArgs e)
@@ -73,7 +73,7 @@ namespace PasswordManager.App
             if (passwordGenerateOptionsForm.ShowDialog() == DialogResult.OK)
             {
                 user.Settings.PasswordOptions = passwordGenerateOptionsForm.passwordOptions;
-                txtPassword.Text = PasswordsService.Instance().GeneratePassword(user);
+                txtPassword.Text = PasswordsService.Instance().GeneratePasswordAsync(user);
             }
         }
     }

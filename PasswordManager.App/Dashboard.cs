@@ -75,7 +75,7 @@ namespace PasswordManager.App
                 }
                 else Options = "Equals";
 
-                ShowPasswords(PasswordsService.Instance().SearchUserPasswords(user, SearchTerm, LooksFor, Options));
+                ShowPasswords(PasswordsService.Instance().SearchUserPasswordsAsync(user, SearchTerm, LooksFor, Options));
             }
         }
 
@@ -85,7 +85,7 @@ namespace PasswordManager.App
 
             if (newPasswordForm.ShowDialog() == DialogResult.OK)
             {
-                Password password = PasswordsService.Instance().SaveNewUserPassword(user, newPasswordForm.newPassword);
+                Password password = PasswordsService.Instance().SaveNewUserPasswordAsync(user, newPasswordForm.newPassword);
                 //PasswordsGridView.Rows.Add(password.ID, password.DateCreated, password.Name, password.Email, password.Username, password.Text);
                 ShowPasswords(user);
             }
@@ -189,7 +189,7 @@ namespace PasswordManager.App
         }
         public void ShowPasswords(User user)
         {
-            ShowPasswords(PasswordsService.Instance().GetAllUserPasswords(user));
+            ShowPasswords(PasswordsService.Instance().GetAllUserPasswordsAsync(user));
         }
         public void ShowPasswords(List<Password> Passwords)
         {
@@ -236,7 +236,7 @@ namespace PasswordManager.App
 
                     if (updatePasswordForm.ShowDialog() == DialogResult.OK)
                     {
-                        Password updatedPassword = PasswordsService.Instance().UpdateUserPassword(user, updatePasswordForm.password);
+                        Password updatedPassword = PasswordsService.Instance().UpdateUserPasswordAsync(user, updatePasswordForm.password);
                         Messenger("Password Updated.", Globals.Defaults.WarningColor);
                         ShowPasswords(user);
                     }
@@ -248,7 +248,7 @@ namespace PasswordManager.App
                         int ID = Convert.ToInt32(PasswordsGridView.Rows[e.RowIndex].Cells["ColID"].Value.ToString());
                         Password passwordToDelete = user.Passwords.Where(p => p.ID == ID).FirstOrDefault();
 
-                        if (PasswordsService.Instance().RemoveUserPassword(user, passwordToDelete))
+                        if (PasswordsService.Instance().RemoveUserPasswordAsync(user, passwordToDelete))
                         {
                             PasswordsGridView.Rows.RemoveAt(e.RowIndex);
                             Messenger("Password Deleted.", Globals.Defaults.WarningColor);

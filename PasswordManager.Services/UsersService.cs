@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PasswordManager.Services
@@ -14,7 +15,7 @@ namespace PasswordManager.Services
     public class UsersService
     {
         private static UsersService _instance;
-        
+
         protected UsersService()
         {
         }
@@ -34,15 +35,18 @@ namespace PasswordManager.Services
         /// </summary>
         /// <param name="user">User to check.</param>
         /// <returns>Boolean: True if User exists, False if not.</returns>
-        public bool UserExist(User user)
+        public Task<bool> UserExistAsync(User user)
         {
-            if (ValidationService.Instance().User(user))
+            return Task.Factory.StartNew(() =>
             {
-                if (UsersData.Instance().SelectUser(user) != null)
-                    return true;
+                if (ValidationService.Instance().User(user))
+                {
+                    if (UsersData.Instance().SelectUser(user) != null)
+                        return true;
+                    else return false;
+                }
                 else return false;
-            }
-            else return false;
+            });
         }
 
         /// <summary>
@@ -50,22 +54,25 @@ namespace PasswordManager.Services
         /// </summary>
         /// <param name="user">User to be registered.</param>
         /// <returns>User: The newly registered user with Default Settings.</returns>
-        public User RegisterUser(User user)
+        public Task<User> RegisterUserAsync(User user)
         {
-            if (ValidationService.Instance().User(user))
-            {   
-                if (UsersData.Instance().AddNewUser(user, Globals.Defaults.Settings, Globals.Defaults.PasswordOptions) > 0)
+            return Task.Factory.StartNew(() =>
+            {
+                if (ValidationService.Instance().User(user))
                 {
-                    //initilze a default empty list of passwords for this user.
-                    user.Passwords = new List<Password>();
-                    user.Settings = Globals.Defaults.Settings;
-                    user.Settings.PasswordOptions = Globals.Defaults.PasswordOptions;
+                    if (UsersData.Instance().AddNewUser(user, Globals.Defaults.Settings, Globals.Defaults.PasswordOptions) > 0)
+                    {
+                        //initilze a default empty list of passwords for this user.
+                        user.Passwords = new List<Password>();
+                        user.Settings = Globals.Defaults.Settings;
+                        user.Settings.PasswordOptions = Globals.Defaults.PasswordOptions;
 
-                    return user;
+                        return user;
+                    }
+                    else return null;
                 }
                 else return null;
-            }
-            else return null;
+            });
         }
 
         /// <summary>
@@ -73,18 +80,21 @@ namespace PasswordManager.Services
         /// </summary>
         /// <param name="user">User to be Login.</param>
         /// <returns>User: The logged in User.</returns>
-        public User LoginUser(User user)
+        public Task<User> LoginUserAsync(User user)
         {
-            if (ValidationService.Instance().User(user))
+            return Task.Factory.StartNew(() =>
             {
-                User UserFromDB = UsersData.Instance().LoginUser(user);
-                if (ValidationService.Instance().User(UserFromDB) && PasswordsService.Instance().IsSame(UserFromDB.Master, user.Master))
+                if (ValidationService.Instance().User(user))
                 {
-                    return UsersService.Instance().PopulateUserData(UserFromDB);
+                    User UserFromDB = UsersData.Instance().LoginUser(user);
+                    if (ValidationService.Instance().User(UserFromDB) && PasswordsService.Instance().IsSame(UserFromDB.Master, user.Master))
+                    {
+                        return PopulateUserData(UserFromDB);
+                    }
+                    else return null;
                 }
                 else return null;
-            }
-            else return null;
+            });
         }
 
         /// <summary>
@@ -92,17 +102,42 @@ namespace PasswordManager.Services
         /// </summary>
         /// <param name="user">User to be updated.</param>
         /// <returns>User: updated User.</returns>
-        public User UpdateUser(User user)
+        public Task<User> UpdateUserAsync(User user)
         {
-            if (ValidationService.Instance().User(user))
+            return Task.Factory.StartNew(() =>
             {
-                if (UsersData.Instance().UpdateUser(user) > 0)
+                if (ValidationService.Instance().User(user))
                 {
+                    if (UsersData.Instance().UpdateUser(user) > 0)
+                    {
+                        return user;
+                    }
+                    else return user;
+                }
+                else return null;
+            });
+
+        }
+
+        /// <summary>
+        /// Populates the User with Passwords and Settings.
+        /// </summary>
+        /// <param name="user">User to be populated.</param>
+        /// <returns>User: User with its Passwords and Settings.</returns>
+        public Task<User> PopulateUserDataAsync(User user)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                if (ValidationService.Instance().User(user))
+                {
+                    user.Passwords = CryptoService.Instance().DecryptUserPasswords(user, PasswordsData.Instance().GetUserPasswords(user));
+                    user.Settings = SettingsData.Instance().GetUserSettings(user);
+                    user.Settings.PasswordOptions = PasswordOptionsData.Instance().GetPasswordOptionsBySettings(user.Settings);
+
                     return user;
                 }
-                else return user;
-            }
-            else return null;
+                else return null;
+            });
         }
 
         /// <summary>

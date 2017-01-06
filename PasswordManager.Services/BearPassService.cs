@@ -34,13 +34,16 @@ namespace PasswordManager.Services
         /// </summary>
         /// <param name="FileName">File from which Passwords to Imported.</param>
         /// <returns>List of Passwords: List of Passwords imported from File.</returns>
-        public List<Password> ImportPasswords(string FileName)
+        public Task<List<Password>> ImportPasswordsAsync(string FileName)
         {
-            if (ValidationService.Instance().File(FileName))
+            return Task.Factory.StartNew(() =>
             {
-                return Filer.Filer.ImportFromFile(FileName);
-            }
-            else return null;
+                if (ValidationService.Instance().File(FileName))
+                {
+                    return Filer.Filer.ImportFromFile(FileName);
+                }
+                else return null;
+            });
         }
 
         /// <summary>
@@ -49,13 +52,16 @@ namespace PasswordManager.Services
         /// <param name="Passwords">Passwords to be exported</param>
         /// <param name="FileName">File to which Passwords are to be exported.</param>
         /// <returns>Boolean: True if Passwords are exported otherwise False.</returns>
-        public bool ExportPasswords(List<Password> Passwords, string FileName)
+        public Task<bool> ExportPasswordsAsync(List<Password> Passwords, string FileName)
         {
-            if (ValidationService.Instance().File(FileName))
+            return Task.Factory.StartNew(() =>
             {
-                return Filer.Filer.ExportToFile(Passwords, FileName);
-            }
-            else return false;
+                if (ValidationService.Instance().File(FileName))
+                {
+                    return Filer.Filer.ExportToFile(Passwords, FileName);
+                }
+                else return false;
+            });
         }
     }
 }
