@@ -17,50 +17,31 @@ namespace PasswordManager.Globals
 
         public static Settings Settings = new Settings()
         {
-            DateTimeFormat = DateTimeFormat,
-            ShowEmailColumn = ShowEmailColumn,
-            ShowUsernameColumn = ShowUsernameColumn,
-            ShowPasswordColumn = ShowPasswordColumn,
+            DateTimeFormat = "F",
+            ShowEmailColumn = true,
+            ShowUsernameColumn = true,
+            ShowPasswordColumn = true
         };
 
         public static PasswordOptions PasswordOptions = new PasswordOptions()
         {
-            AllowLowercaseCharacters = AllowLowercaseCharacters,
-            AllowUppercaseCharacters = AllowUppercaseCharacters,
-            AllowNumberCharacters = AllowNumberCharacters,
-            AllowSpecialCharacters = AllowSpecialCharacters,
-            AllowUnderscoreCharacters = AllowUnderscoreCharacters,
-            AllowSpaceCharacters = AllowSpaceCharacters,
-            AllowOtherCharacters = AllowOtherCharacters,
-            RequireLowercaseCharacters = RequireLowercaseCharacters,
-            RequireUppercaseCharacters = RequireUppercaseCharacters,
-            RequireNumberCharacters = RequireNumberCharacters,
-            RequireSpecialCharacters = RequireSpecialCharacters,
-            RequireUnderscoreCharacters = RequireUnderscoreCharacters,
-            RequireSpaceCharacters = RequireSpaceCharacters,
-            RequireOtherCharacters = RequireOtherCharacters,
-            MinimumCharacters = MinimumCharacters,
-            MaximumCharacters = MaximumCharacters
-        };
-
-        public static bool AllowLowercaseCharacters = true,
+            AllowLowercaseCharacters = true,
             AllowUppercaseCharacters = true,
             AllowNumberCharacters = true,
             AllowSpecialCharacters = true,
             AllowUnderscoreCharacters = false,
             AllowSpaceCharacters = false,
-            AllowOtherCharacters = false;
-
-        public static bool RequireLowercaseCharacters = true,
+            AllowOtherCharacters = false,
+            RequireLowercaseCharacters = true,
             RequireUppercaseCharacters = true,
             RequireNumberCharacters = true,
-            RequireSpecialCharacters = true,
+            RequireSpecialCharacters = false,
             RequireUnderscoreCharacters = false,
             RequireSpaceCharacters = false,
-            RequireOtherCharacters = false;
-
-        // Pick the number of characters.
-        public static int MinimumCharacters = 10, MaximumCharacters = 12;
+            RequireOtherCharacters = false,
+            MinimumCharacters = 10,
+            MaximumCharacters = 12
+        };
 
         public static Color DefaultColor = Color.FromArgb(67, 140, 235);
         public static Color ErrorColor = Color.FromArgb(244, 67, 54);

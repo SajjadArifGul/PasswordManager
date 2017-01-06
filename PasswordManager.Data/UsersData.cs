@@ -30,7 +30,20 @@ namespace PasswordManager.Data
 
         public int AddNewUser(User user, Settings settings, PasswordOptions passwordOptions)
         {
-            return Database.AddNewUser(user, settings, passwordOptions);
+            if (Database.AddNewUser(user) > 0)
+            {
+                user = Database.GetUserByEmail(user.Email);
+                if (Database.AddSettingsByUserID(user.ID, settings) > 0)
+                {
+                    if (Database.AddPasswordOptionsBySettingsID(Database.GetSettingsByUserID(user.ID).ID, passwordOptions) > 0)
+                    {
+                        return 3;
+                    }
+                    else return 2;
+                }
+                else return 1;
+            }
+            else return 0;
         }
 
         public User SelectUser(User user)

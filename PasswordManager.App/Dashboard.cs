@@ -48,7 +48,7 @@ namespace PasswordManager.App
             ShowPasswords(user.Passwords);
         }
 
-        private void btnSearchPassword_Click(object sender, EventArgs e)
+        private async void btnSearchPassword_Click(object sender, EventArgs e)
         {
             Search searchForm = new Search();
 
@@ -75,17 +75,17 @@ namespace PasswordManager.App
                 }
                 else Options = "Equals";
 
-                ShowPasswords(PasswordsService.Instance().SearchUserPasswordsAsync(user, SearchTerm, LooksFor, Options));
+                ShowPasswords(await PasswordsService.Instance().SearchUserPasswordsAsync(user, SearchTerm, LooksFor, Options));
             }
         }
 
-        private void btnNewPassword_Click(object sender, EventArgs e)
+        private async void btnNewPassword_Click(object sender, EventArgs e)
         {
             NewPassword newPasswordForm = new NewPassword(user);
 
             if (newPasswordForm.ShowDialog() == DialogResult.OK)
             {
-                Password password = PasswordsService.Instance().SaveNewUserPasswordAsync(user, newPasswordForm.newPassword);
+                Password password = await PasswordsService.Instance().SaveNewUserPasswordAsync(user, newPasswordForm.newPassword);
                 //PasswordsGridView.Rows.Add(password.ID, password.DateCreated, password.Name, password.Email, password.Username, password.Text);
                 ShowPasswords(user);
             }
@@ -187,9 +187,9 @@ namespace PasswordManager.App
         {
             ShowPasswords(user);
         }
-        public void ShowPasswords(User user)
+        public async void ShowPasswords(User user)
         {
-            ShowPasswords(PasswordsService.Instance().GetAllUserPasswordsAsync(user));
+            ShowPasswords(await PasswordsService.Instance().GetAllUserPasswordsAsync(user));
         }
         public void ShowPasswords(List<Password> Passwords)
         {
@@ -217,7 +217,7 @@ namespace PasswordManager.App
                 dataGridView.Cursor = Cursors.Default;
         }
 
-        private void PasswordsGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private async void PasswordsGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
@@ -236,7 +236,7 @@ namespace PasswordManager.App
 
                     if (updatePasswordForm.ShowDialog() == DialogResult.OK)
                     {
-                        Password updatedPassword = PasswordsService.Instance().UpdateUserPasswordAsync(user, updatePasswordForm.password);
+                        Password updatedPassword = await PasswordsService.Instance().UpdateUserPasswordAsync(user, updatePasswordForm.password);
                         Messenger("Password Updated.", Globals.Defaults.WarningColor);
                         ShowPasswords(user);
                     }
@@ -248,7 +248,7 @@ namespace PasswordManager.App
                         int ID = Convert.ToInt32(PasswordsGridView.Rows[e.RowIndex].Cells["ColID"].Value.ToString());
                         Password passwordToDelete = user.Passwords.Where(p => p.ID == ID).FirstOrDefault();
 
-                        if (PasswordsService.Instance().RemoveUserPasswordAsync(user, passwordToDelete))
+                        if (await PasswordsService.Instance().RemoveUserPasswordAsync(user, passwordToDelete))
                         {
                             PasswordsGridView.Rows.RemoveAt(e.RowIndex);
                             Messenger("Password Deleted.", Globals.Defaults.WarningColor);

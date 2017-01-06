@@ -30,33 +30,7 @@ namespace PasswordManager.Database
 
             return _instance;
         }
-
-        /// <summary>
-        /// Add New User to Database.
-        /// </summary>
-        /// <param name="user">User Entity.</param>
-        /// <returns>Number of Rows Affected.</returns>
-        public int AddNewUser(User user)
-        {
-            int AffectedRows = -1;
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
-            {
-                using (SqlCommand command = new SqlCommand(
-                "Insert into Users (Name, Username, Email, Master) values (@Name, @Username, @Email, @Master)", connection))
-                {
-                    command.Parameters.Add(new SqlParameter("Name", user.Name));
-                    command.Parameters.Add(new SqlParameter("Username", user.Username));
-                    command.Parameters.Add(new SqlParameter("Email", user.Email));
-                    command.Parameters.Add(new SqlParameter("Master", user.Master));
-
-                    connection.Open();
-
-                    AffectedRows = command.ExecuteNonQuery();
-                }
-            }
-            return AffectedRows;
-        }
-
+        
         /// <summary>
         /// Add New User with Settings and PasswordOptions
         /// </summary>
@@ -64,27 +38,45 @@ namespace PasswordManager.Database
         /// <param name="settings">Settings Entity.</param>
         /// <param name="passwordOptions">PasswordOptions Entity.</param>
         /// <returns>Number of Rows Affected.</returns>
-        public int AddNewUser(User user, Settings settings, PasswordOptions passwordOptions)
+        public int AddNewUser(User user)
         {
             int AffectedRows = -1;
+
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
-                using (SqlCommand command = new SqlCommand(
-                "Insert into Users (Name, Username, Email, Master) values (@Name, @Username, @Email, @Master)", connection))
+                connection.Open();
+
+                SqlCommand command = connection.CreateCommand();
+                SqlTransaction userTransaction = connection.BeginTransaction("CreatingUserTransaction");
+
+                command.Connection = connection;
+                command.Transaction = userTransaction;
+
+                try
                 {
+                    //Adding New User Values
+                    command.CommandText = "Insert into Users (Name, Username, Email, Master) values (@Name, @Username, @Email, @Master)";
                     command.Parameters.Add(new SqlParameter("Name", user.Name));
                     command.Parameters.Add(new SqlParameter("Username", user.Username));
                     command.Parameters.Add(new SqlParameter("Email", user.Email));
                     command.Parameters.Add(new SqlParameter("Master", user.Master));
 
-                    connection.Open();
-
+                    //Add User to Database
                     AffectedRows = command.ExecuteNonQuery();
+                    // Attempt to commit the transaction.
+                    userTransaction.Commit();
+                }
+                catch
+                {
+                    userTransaction.Rollback();
+
+                    return 0;
                 }
             }
+
             return AffectedRows;
         }
-
+        
         /// <summary>
         /// Get User from Database
         /// </summary>
@@ -138,11 +130,10 @@ namespace PasswordManager.Database
                     connection.Open();
 
                     SqlDataReader reader = command.ExecuteReader();
-
-                    user = new User();
-
+                    
                     while (reader.Read())
                     {
+                        user = new User();
                         user.ID = Convert.ToInt32(reader["ID"]);
                         user.Name = reader["Name"].ToString();
                         user.Username = reader["Username"].ToString();
@@ -470,6 +461,41 @@ namespace PasswordManager.Database
                     AffectedRows = command.ExecuteNonQuery();
                 }
             }
+            return AffectedRows;
+        }
+
+
+        public int AddPasswordOptionsBySettingsID(int settingsID, PasswordOptions passwordOptions)
+        {
+            int AffectedRows = 0;
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(@"Insert into PasswordOptions (SettingsID, AllowLowercaseCharacters, AllowUppercaseCharacters, AllowNumberCharacters, AllowSpecialCharacters, AllowUnderscoreCharacters, AllowSpaceCharacters, AllowOtherCharacters, RequireLowercaseCharacters, RequireUppercaseCharacters, RequireNumberCharacters, RequireSpecialCharacters, RequireUnderscoreCharacters, RequireSpaceCharacters, RequireOtherCharacters, MinimumCharacters, MaximumCharacters ) values (@SettingsID, @AllowLowercaseCharacters, @AllowUppercaseCharacters, @AllowNumberCharacters, @AllowSpecialCharacters, @AllowUnderscoreCharacters, @AllowSpaceCharacters, @AllowOtherCharacters, @RequireLowercaseCharacters, @RequireUppercaseCharacters, @RequireNumberCharacters, @RequireSpecialCharacters, @RequireUnderscoreCharacters, @RequireSpaceCharacters, @RequireOtherCharacters, @MinimumCharacters, @MaximumCharacters)", connection))
+                {
+                    command.Parameters.Add(new SqlParameter("SettingsID", settingsID));
+                    command.Parameters.Add(new SqlParameter("AllowLowercaseCharacters", passwordOptions.AllowLowercaseCharacters));
+                    command.Parameters.Add(new SqlParameter("AllowUppercaseCharacters", passwordOptions.AllowUppercaseCharacters));
+                    command.Parameters.Add(new SqlParameter("AllowNumberCharacters", passwordOptions.AllowNumberCharacters));
+                    command.Parameters.Add(new SqlParameter("AllowSpecialCharacters", passwordOptions.AllowSpecialCharacters));
+                    command.Parameters.Add(new SqlParameter("AllowUnderscoreCharacters", passwordOptions.AllowUnderscoreCharacters));
+                    command.Parameters.Add(new SqlParameter("AllowSpaceCharacters", passwordOptions.AllowSpaceCharacters));
+                    command.Parameters.Add(new SqlParameter("AllowOtherCharacters", passwordOptions.AllowOtherCharacters));
+                    command.Parameters.Add(new SqlParameter("RequireLowercaseCharacters", passwordOptions.RequireLowercaseCharacters));
+                    command.Parameters.Add(new SqlParameter("RequireUppercaseCharacters", passwordOptions.RequireUppercaseCharacters));
+                    command.Parameters.Add(new SqlParameter("RequireNumberCharacters", passwordOptions.RequireNumberCharacters));
+                    command.Parameters.Add(new SqlParameter("RequireSpecialCharacters", passwordOptions.RequireSpecialCharacters));
+                    command.Parameters.Add(new SqlParameter("RequireUnderscoreCharacters", passwordOptions.RequireUnderscoreCharacters));
+                    command.Parameters.Add(new SqlParameter("RequireSpaceCharacters", passwordOptions.RequireSpaceCharacters));
+                    command.Parameters.Add(new SqlParameter("RequireOtherCharacters", passwordOptions.RequireOtherCharacters));
+                    command.Parameters.Add(new SqlParameter("MinimumCharacters", passwordOptions.MinimumCharacters));
+                    command.Parameters.Add(new SqlParameter("MaximumCharacters", passwordOptions.MaximumCharacters));
+
+                    connection.Open();
+
+                    AffectedRows = command.ExecuteNonQuery();
+                }
+            }
+
             return AffectedRows;
         }
 

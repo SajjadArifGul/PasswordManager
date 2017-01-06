@@ -22,6 +22,7 @@ namespace PasswordManager.App
 
         private async void btnRegister_Click(object sender, EventArgs e)
         {
+            picboxLoading.Show();
             lblMassege.BackColor = Color.Transparent;
             lblMassege.ForeColor = Color.FromArgb(67, 140, 235);
             lblMassege.Text = string.Empty;
@@ -51,27 +52,40 @@ namespace PasswordManager.App
             {
                 User user = new User()
                 {
+                    ID = 1, //this shit took 1 hour for me to find out. - temporary 
                     Name = txtName.Text,
                     Username = txtUsername.Text,
                     Email = txtEmail.Text,
                     Master = txtLoginPass.Text,
                 };
 
-                user = await UsersService.Instance().RegisterUserAsync(user);
-
-                if (user != null)
+                if (!await UsersService.Instance().UserExistAsync(user))
                 {
-                    lblMassege.Text = "User Registered.";
+                    user = await UsersService.Instance().RegisterUserAsync(user);
 
-                    this.Hide();
-                    Dashboard dashboard = new Dashboard(user);
-                    dashboard.Show();
+                    if (user != null)
+                    {
+                        lblMassege.Text = "User Registered.";
+
+                        this.Hide();
+                        Dashboard dashboard = new Dashboard(user);
+                        dashboard.Show();
+                    }
+                    else
+                    {
+                        lblMassege.Text = "An unknown error occured. Please try again.";
+
+                        this.Hide();
+                        Dashboard dashboard = new Dashboard(user);
+                        dashboard.Show();
+                    }
                 }
                 else
                 {
                     lblMassege.Text = "A user with these credentials is already registered. Please Login or use different Email and Username.";
                     lblMassege.ForeColor = Color.Red;
                 }
+                picboxLoading.Hide();
             }
         }
 
@@ -83,6 +97,13 @@ namespace PasswordManager.App
         private void Register_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Login login = new Login();
+            login.Show();
         }
     }
 }

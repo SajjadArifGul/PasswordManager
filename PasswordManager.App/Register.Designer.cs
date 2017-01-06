@@ -45,10 +45,12 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblMassege = new System.Windows.Forms.Label();
+            this.picboxLoading = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picboxLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -66,6 +68,7 @@
             // 
             this.panel3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel3.BackColor = System.Drawing.Color.White;
+            this.panel3.Controls.Add(this.picboxLoading);
             this.panel3.Controls.Add(this.btnCancel);
             this.panel3.Controls.Add(this.btnRegister);
             this.panel3.Controls.Add(this.txtLoginPass);
@@ -102,6 +105,7 @@
             this.btnCancel.Text = "Cancel";
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnRegister
             // 
@@ -242,6 +246,17 @@
             this.lblMassege.Text = " ";
             this.lblMassege.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // picboxLoading
+            // 
+            this.picboxLoading.Image = global::PasswordManager.App.Properties.Resources.loading_gear_anim;
+            this.picboxLoading.Location = new System.Drawing.Point(65, 258);
+            this.picboxLoading.Name = "picboxLoading";
+            this.picboxLoading.Size = new System.Drawing.Size(45, 43);
+            this.picboxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picboxLoading.TabIndex = 45;
+            this.picboxLoading.TabStop = false;
+            this.picboxLoading.Visible = false;
+            // 
             // Register
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -263,6 +278,7 @@
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picboxLoading)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -285,5 +301,6 @@
         private System.Windows.Forms.Label lblMassege;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnRegister;
+        private System.Windows.Forms.PictureBox picboxLoading;
     }
 }

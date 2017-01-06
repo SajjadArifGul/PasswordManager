@@ -28,20 +28,20 @@ namespace PasswordManager.App
             txtName.Focus();
         }
 
-        private void btnOptions_Click(object sender, EventArgs e)
+        private async void btnOptions_Click(object sender, EventArgs e)
         {
             PasswordGenerateOptions passwordGenerateOptionsForm = new PasswordGenerateOptions(user);
 
             if (passwordGenerateOptionsForm.ShowDialog() == DialogResult.OK)
             {
                 user.Settings.PasswordOptions = passwordGenerateOptionsForm.passwordOptions;
-                txtPassword.Text = PasswordsService.Instance().GeneratePasswordAsync(user);
+                txtPassword.Text = await PasswordsService.Instance().GeneratePasswordAsync(user);
             }
         }
 
-        private void btnGenerate_Click(object sender, EventArgs e)
+        private async void btnGenerate_Click(object sender, EventArgs e)
         {
-            txtPassword.Text = PasswordsService.Instance().GeneratePasswordAsync(user);
+            txtPassword.Text = await PasswordsService.Instance().GeneratePasswordAsync(user);
         }
         
         private void btnSave_Click(object sender, EventArgs e)

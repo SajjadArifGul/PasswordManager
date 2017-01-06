@@ -41,7 +41,7 @@ namespace PasswordManager.Services
             {
                 if (ValidationService.Instance().User(user))
                 {
-                    if (UsersData.Instance().SelectUser(user) != null)
+                    if (UsersData.Instance().LoginUser(user) != null)
                         return true;
                     else return false;
                 }
@@ -62,12 +62,7 @@ namespace PasswordManager.Services
                 {
                     if (UsersData.Instance().AddNewUser(user, Globals.Defaults.Settings, Globals.Defaults.PasswordOptions) > 0)
                     {
-                        //initilze a default empty list of passwords for this user.
-                        user.Passwords = new List<Password>();
-                        user.Settings = Globals.Defaults.Settings;
-                        user.Settings.PasswordOptions = Globals.Defaults.PasswordOptions;
-
-                        return user;
+                        return LoginUser(user);
                     }
                     else return null;
                 }
@@ -95,6 +90,25 @@ namespace PasswordManager.Services
                 }
                 else return null;
             });
+        }
+
+        /// <summary>
+        /// Login the User.
+        /// </summary>
+        /// <param name="user">User to be Login.</param>
+        /// <returns>User: The logged in User.</returns>
+        public User LoginUser(User user)
+        {
+            if (ValidationService.Instance().User(user))
+            {
+                User UserFromDB = UsersData.Instance().LoginUser(user);
+                if (ValidationService.Instance().User(UserFromDB) && PasswordsService.Instance().IsSame(UserFromDB.Master, user.Master))
+                {
+                    return PopulateUserData(UserFromDB);
+                }
+                else return null;
+            }
+            else return null;
         }
 
         /// <summary>
@@ -150,6 +164,7 @@ namespace PasswordManager.Services
             if (ValidationService.Instance().User(user))
             {
                 user.Passwords = CryptoService.Instance().DecryptUserPasswords(user, PasswordsData.Instance().GetUserPasswords(user));
+                //user.Settings = (SettingsData.Instance().GetUserSettings(user) == null) ? Globals.Defaults.Settings : SettingsData.Instance().GetUserSettings(user);
                 user.Settings = SettingsData.Instance().GetUserSettings(user);
                 user.Settings.PasswordOptions = PasswordOptionsData.Instance().GetPasswordOptionsBySettings(user.Settings);
 
