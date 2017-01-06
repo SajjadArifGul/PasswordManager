@@ -1,6 +1,6 @@
-﻿using PasswordManager.BLL;
-using PasswordManager.Entities;
+﻿using PasswordManager.Entities;
 using PasswordManager.Globals;
+using PasswordManager.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,13 +15,9 @@ namespace PasswordManager.App
 {
     public partial class Register : Form
     {
-        Users users;
-
         public Register()
         {
             InitializeComponent();
-
-            users = new Users();
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
@@ -61,7 +57,7 @@ namespace PasswordManager.App
                     Master = txtLoginPass.Text,
                 };
 
-                user = users.Register(user);
+                user = UsersService.Instance().RegisterUser(user);
 
                 if (user != null)
                 {

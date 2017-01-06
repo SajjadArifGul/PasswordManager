@@ -1,5 +1,6 @@
 ﻿using PasswordManager.Entities;
 using PasswordManager.Globals;
+using PasswordManager.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -167,11 +168,9 @@ namespace PasswordManager.App
         private void btnConfirm_Click(object sender, EventArgs e)
         {
             passwordOptions = user.Settings.PasswordOptions;
-
-            BLL.PasswordOptions PasswordOptions = new BLL.PasswordOptions();
-
+            
             //update password options
-            PasswordOptions.Update(user.Settings);
+            SettingsService.Instance().UpdateUserSettings(user, user.Settings);
         }
     }
 }

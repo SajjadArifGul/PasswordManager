@@ -41,7 +41,7 @@ namespace PasswordManager.Services
                 //List<Password> passwords = CryptoService.Instance().Decrypt(user, PasswordsData.Instance().GetUserPasswords(user));
                 List<Password> passwords = PasswordsData.Instance().GetUserPasswords(user);
 
-                if (passwords != null)//i am not using the validation service here because passwords are bot yet decrypted and may return false when validation called -gul:0401171228
+                if (passwords != null)//i am not using the validation service here because passwords are not yet decrypted and may return false when validation called -gul:0401171228
                 {
                     passwords = CryptoService.Instance().DecryptUserPasswords(user, passwords);
 

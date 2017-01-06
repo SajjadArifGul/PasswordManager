@@ -1,6 +1,6 @@
-﻿using PasswordManager.BLL;
-using PasswordManager.Entities;
+﻿using PasswordManager.Entities;
 using PasswordManager.Globals;
+using PasswordManager.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,13 +15,9 @@ namespace PasswordManager.App
 {
     public partial class Login : Form
     {
-        Users users;
-
         public Login()
         {
             InitializeComponent();
-
-            users = new Users();
         }
         
         private void Login_Load(object sender, EventArgs e)
@@ -53,6 +49,7 @@ namespace PasswordManager.App
             {
                 User user = new User()
                 {
+                    ID = 1, //temporaryID for Validation
                     Email = txtEmail.Text,
                     Master = txtLoginPass.Text
                 };
@@ -82,7 +79,7 @@ namespace PasswordManager.App
         {
             picboxLoading.Show();
 
-            User loginUser = users.Login(user);
+            User loginUser = UsersService.Instance().LoginUser(user);
             if (loginUser != null)
             {
                 lblMassege.Text = "Login Successful.";

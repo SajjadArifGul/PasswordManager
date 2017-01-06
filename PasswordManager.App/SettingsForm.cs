@@ -1,6 +1,6 @@
-﻿using PasswordManager.BLL;
-using PasswordManager.Entities;
+﻿using PasswordManager.Entities;
 using PasswordManager.Globals;
+using PasswordManager.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -114,11 +114,9 @@ namespace PasswordManager.App
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Users users = new Users();
-            users.Update(user);
-
-            BLL.Settings SetSettings = new BLL.Settings();
-            SetSettings.Update(user, user.Settings);
+            UsersService.Instance().UpdateUser(user);
+            
+            SettingsService.Instance().UpdateUserSettings(user, user.Settings);
         }
     }
 }

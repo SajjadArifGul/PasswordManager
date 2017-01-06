@@ -121,6 +121,41 @@ namespace PasswordManager.Database
         }
 
         /// <summary>
+        /// Get User from Database via Email
+        /// </summary>
+        /// <param name="Email">User Email to select User.</param>
+        /// <returns>User Entity.</returns>
+        public User GetUserByEmail(string Email)
+        {
+            User user = null;
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(
+                "Select * from Users where Email = @Email", connection))
+                {
+                    command.Parameters.Add(new SqlParameter("@Email", Email));
+
+                    connection.Open();
+
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    user = new User();
+
+                    while (reader.Read())
+                    {
+                        user.ID = Convert.ToInt32(reader["ID"]);
+                        user.Name = reader["Name"].ToString();
+                        user.Username = reader["Username"].ToString();
+                        user.Email = Email;
+                        user.Master = reader["Master"].ToString();
+                    }
+                }
+            }
+
+            return user;
+        }
+
+        /// <summary>
         /// Update User
         /// </summary>
         /// <param name="user">User Entity to Update.</param>
@@ -239,10 +274,11 @@ namespace PasswordManager.Database
 
                     SqlDataReader reader = command.ExecuteReader();
 
-                    Password password = new Password();
+                    Password password;
 
                     while (reader.Read())
                     {
+                        password = new Password();
                         password.ID = Convert.ToInt32(reader["ID"]);
                         password.UserID = userID;
                         password.Name = reader["Name"].ToString();
@@ -399,6 +435,7 @@ namespace PasswordManager.Database
                         settings.ShowEmailColumn = Convert.ToBoolean(reader["ShowEmailColumn"]);
                         settings.ShowUsernameColumn = Convert.ToBoolean(reader["ShowUsernameColumn"]);
                         settings.ShowPasswordColumn = Convert.ToBoolean(reader["ShowPasswordColumn"]);
+                        settings.DateTimeFormat = reader["DateTimeFormat"].ToString();
                     }
                 }
             }

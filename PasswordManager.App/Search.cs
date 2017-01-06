@@ -1,5 +1,4 @@
-﻿using PasswordManager.BLL;
-using PasswordManager.Entities;
+﻿using PasswordManager.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

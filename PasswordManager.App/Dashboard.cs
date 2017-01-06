@@ -1,6 +1,6 @@
-﻿using PasswordManager.BLL;
-using PasswordManager.Entities;
+﻿using PasswordManager.Entities;
 using PasswordManager.Filer;
+using PasswordManager.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,19 +17,16 @@ namespace PasswordManager.App
     {
         User user;
 
-        Passwords passwords;
-
         public Dashboard(User user)
         {
             InitializeComponent();
-            passwords = new Passwords();
             
             this.user = user;
 
             LoadSettings(user.Settings);
         }
 
-        public void LoadSettings(Entities.Settings settings)
+        public void LoadSettings(Settings settings)
         {
             if (settings != null)
             {
@@ -42,7 +39,7 @@ namespace PasswordManager.App
         private void Dashboard_Load(object sender, EventArgs e)
         {
             this.Text = user.Name + " - " + Globals.Information.AppName + " Dashboard";
-            BLL.Settings setting = new BLL.Settings();
+
             ShowPasswords(user.Passwords);
         }
 
@@ -78,7 +75,7 @@ namespace PasswordManager.App
                 }
                 else Options = "Equals";
 
-                ShowPasswords(passwords.Search(user, SearchTerm, LooksFor, Options));
+                ShowPasswords(PasswordsService.Instance().SearchUserPasswords(user, SearchTerm, LooksFor, Options));
             }
         }
 
@@ -88,7 +85,7 @@ namespace PasswordManager.App
 
             if (newPasswordForm.ShowDialog() == DialogResult.OK)
             {
-                Password password = passwords.Save(user, newPasswordForm.newPassword);
+                Password password = PasswordsService.Instance().SaveNewUserPassword(user, newPasswordForm.newPassword);
                 //PasswordsGridView.Rows.Add(password.ID, password.DateCreated, password.Name, password.Email, password.Username, password.Text);
                 ShowPasswords(user);
             }
@@ -122,7 +119,9 @@ namespace PasswordManager.App
                         user.Passwords.AddRange(importedPasswords);
                         ShowPasswords(user.Passwords);
 
-                        passwords.Import(importedPasswords, user);
+
+                        //BearPassService.Instance().ImportPasswords(user, importedPasswords);
+                        //passwords.Import(importedPasswords, user);
                     }
                 }
             }
@@ -190,7 +189,7 @@ namespace PasswordManager.App
         }
         public void ShowPasswords(User user)
         {
-            ShowPasswords(passwords.Get(user));
+            ShowPasswords(PasswordsService.Instance().GetAllUserPasswords(user));
         }
         public void ShowPasswords(List<Password> Passwords)
         {
@@ -237,7 +236,7 @@ namespace PasswordManager.App
 
                     if (updatePasswordForm.ShowDialog() == DialogResult.OK)
                     {
-                        Password updatedPassword = passwords.Update(user, updatePasswordForm.password);
+                        Password updatedPassword = PasswordsService.Instance().UpdateUserPassword(user, updatePasswordForm.password);
                         Messenger("Password Updated.", Globals.Defaults.WarningColor);
                         ShowPasswords(user);
                     }
@@ -249,7 +248,7 @@ namespace PasswordManager.App
                         int ID = Convert.ToInt32(PasswordsGridView.Rows[e.RowIndex].Cells["ColID"].Value.ToString());
                         Password passwordToDelete = user.Passwords.Where(p => p.ID == ID).FirstOrDefault();
 
-                        if (passwords.Remove(user, passwordToDelete))
+                        if (PasswordsService.Instance().RemoveUserPassword(user, passwordToDelete))
                         {
                             PasswordsGridView.Rows.RemoveAt(e.RowIndex);
                             Messenger("Password Deleted.", Globals.Defaults.WarningColor);

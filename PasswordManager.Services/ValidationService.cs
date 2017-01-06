@@ -41,7 +41,7 @@ namespace PasswordManager.Services
             //i think that would be heavy operation because i am calling this method in so many places. -gul:0401171150
             if (user != null)
             {
-                if (Verifier.ID(user.ID) && Verifier.Text(user.Username) && Verifier.Email(user.Email) && Verifier.Text(user.Master))
+                if (Verifier.ID(user.ID) && Verifier.Email(user.Email) && Verifier.Text(user.Master))
                 {
                     return true;
                 }

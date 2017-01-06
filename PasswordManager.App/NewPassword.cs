@@ -1,6 +1,6 @@
-﻿using PasswordManager.BLL;
-using PasswordManager.Entities;
+﻿using PasswordManager.Entities;
 using PasswordManager.Globals;
+using PasswordManager.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,7 +15,6 @@ namespace PasswordManager.App
 {
     public partial class NewPassword : Form
     {
-        Passwords passwords;
         User user;
 
         public Password newPassword;
@@ -24,7 +23,6 @@ namespace PasswordManager.App
         {
             InitializeComponent();
 
-            passwords = new Passwords();
             this.user = user;
             
             txtName.Focus();
@@ -37,13 +35,13 @@ namespace PasswordManager.App
             if (passwordGenerateOptionsForm.ShowDialog() == DialogResult.OK)
             {
                 user.Settings.PasswordOptions = passwordGenerateOptionsForm.passwordOptions;
-                txtPassword.Text = passwords.New(passwordGenerateOptionsForm.passwordOptions);
+                txtPassword.Text = PasswordsService.Instance().GeneratePassword(user);
             }
         }
 
         private void btnGenerate_Click(object sender, EventArgs e)
         {
-            txtPassword.Text = passwords.New(user.Settings.PasswordOptions);
+            txtPassword.Text = PasswordsService.Instance().GeneratePassword(user);
         }
         
         private void btnSave_Click(object sender, EventArgs e)

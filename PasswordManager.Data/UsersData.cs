@@ -38,6 +38,11 @@ namespace PasswordManager.Data
             return Database.GetUserByID(user.ID);
         }
 
+        public User LoginUser(User user)
+        {
+            return Database.GetUserByEmail(user.Email);
+        }
+
         public int UpdateUser(User user)
         {
             return Database.UpdateUser(user);

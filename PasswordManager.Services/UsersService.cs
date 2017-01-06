@@ -77,7 +77,12 @@ namespace PasswordManager.Services
         {
             if (ValidationService.Instance().User(user))
             {
-                return UsersData.Instance().SelectUser(user);
+                User UserFromDB = UsersData.Instance().LoginUser(user);
+                if (ValidationService.Instance().User(UserFromDB) && PasswordsService.Instance().IsSame(UserFromDB.Master, user.Master))
+                {
+                    return UsersService.Instance().PopulateUserData(UserFromDB);
+                }
+                else return null;
             }
             else return null;
         }
@@ -109,7 +114,7 @@ namespace PasswordManager.Services
         {
             if (ValidationService.Instance().User(user))
             {
-                user.Passwords = PasswordsData.Instance().GetUserPasswords(user);
+                user.Passwords = CryptoService.Instance().DecryptUserPasswords(user, PasswordsData.Instance().GetUserPasswords(user));
                 user.Settings = SettingsData.Instance().GetUserSettings(user);
                 user.Settings.PasswordOptions = PasswordOptionsData.Instance().GetPasswordOptionsBySettings(user.Settings);
 
