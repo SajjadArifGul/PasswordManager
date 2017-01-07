@@ -302,7 +302,7 @@ namespace PasswordManager.Database
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand(
-                "Update Passwords set Name= @Name, @Email=@Email, Username= @Username, Website= @Website, Text= @Text, Notes= @Notes, DateCreated= @DateCreated, DateModified= @DateModified where ID = @ID AND UserID=@UserID", connection))
+                "Update Passwords set Name= @Name, @Email=@Email, Username= @Username, Website= @Website, Text= @Text, Notes= @Notes, DateCreated= @DateCreated, DateModified= @DateModified where ID = @ID AND UserID= @UserID", connection))
                 {
                     command.Parameters.Add(new SqlParameter("@ID", password.ID));
                     command.Parameters.Add(new SqlParameter("@UserID", userID));

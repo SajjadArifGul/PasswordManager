@@ -54,12 +54,27 @@ namespace PasswordManager.Services
         /// <returns>Password: The Password in encrypted format.</returns>
         public Password EncryptUserPassword(User user, Password password)
         {
-                if (Verifier.Text(password.Name)) password.Name = Gulipso.Gulipso.Encrypt(password.Name, user.Master, Globals.Defaults.InitVector, Globals.Defaults.KeySize);
-                if (Verifier.Text(password.Email)) password.Email = Gulipso.Gulipso.Encrypt(password.Email, user.Master, Globals.Defaults.InitVector, Globals.Defaults.KeySize);
-                if (Verifier.Text(password.Username)) password.Username = Gulipso.Gulipso.Encrypt(password.Username, user.Master, Globals.Defaults.InitVector, Globals.Defaults.KeySize);
-                if (Verifier.Text(password.Website)) password.Website = Gulipso.Gulipso.Encrypt(password.Website, user.Master, Globals.Defaults.InitVector, Globals.Defaults.KeySize);
-                if (Verifier.Text(password.Text)) password.Text = Gulipso.Gulipso.Encrypt(password.Text, user.Master, Globals.Defaults.InitVector, Globals.Defaults.KeySize);
-                return password;
+            if (Verifier.Text(password.Name))
+            {
+                password.Name = Gulipso.Gulipso.Encrypt(password.Name, user.Master, Globals.Defaults.InitVector, Globals.Defaults.KeySize);
+            }
+            if (Verifier.Text(password.Email))
+            {
+                password.Email = Gulipso.Gulipso.Encrypt(password.Email, user.Master, Globals.Defaults.InitVector, Globals.Defaults.KeySize);
+            }
+            if (Verifier.Text(password.Username))
+            {
+                password.Username = Gulipso.Gulipso.Encrypt(password.Username, user.Master, Globals.Defaults.InitVector, Globals.Defaults.KeySize);
+            }
+            if (Verifier.Text(password.Website))
+            {
+                password.Website = Gulipso.Gulipso.Encrypt(password.Website, user.Master, Globals.Defaults.InitVector, Globals.Defaults.KeySize);
+            }
+            if (Verifier.Text(password.Text))
+            {
+                password.Text = Gulipso.Gulipso.Encrypt(password.Text, user.Master, Globals.Defaults.InitVector, Globals.Defaults.KeySize);
+            }
+            return password;
         }
 
         /// <summary>

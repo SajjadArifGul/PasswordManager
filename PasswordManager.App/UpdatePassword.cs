@@ -15,15 +15,15 @@ namespace PasswordManager.App
 {
     public partial class UpdatePassword : Form
     {
-        public Password password;
         User user;
+        Password password;
 
         public UpdatePassword(User user, Password password)
         {
             InitializeComponent();
 
-            this.password = password;
             this.user = user;
+            this.password = password;
         }
 
         private void UpdatePassword_Load(object sender, EventArgs e)
@@ -38,7 +38,7 @@ namespace PasswordManager.App
             btnSave.Enabled = IsEnable();
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private async void btnSave_Click(object sender, EventArgs e)
         {
             password.Name = txtName.Text;
             password.Email = txtEmail.Text;
@@ -47,6 +47,8 @@ namespace PasswordManager.App
             password.Text =  txtPassword.Text;
             password.Notes = rtxtNotes.Text;
             password.DateModified = DateTime.Now;
+
+            await PasswordsService.Instance().UpdateUserPasswordAsync(user, password);
         }
 
         private void ForSaveBtnEnable(object sender, EventArgs e)

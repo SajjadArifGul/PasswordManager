@@ -45,7 +45,7 @@ namespace PasswordManager.App
 
         private void btnTitle_Click(object sender, EventArgs e)
         {
-            ShowPasswords(user.Passwords);
+            ShowPasswords(user);
         }
 
         private async void btnSearchPassword_Click(object sender, EventArgs e)
@@ -85,9 +85,8 @@ namespace PasswordManager.App
 
             if (newPasswordForm.ShowDialog() == DialogResult.OK)
             {
-                Password password = await PasswordsService.Instance().SaveNewUserPasswordAsync(user, newPasswordForm.newPassword);
-                //PasswordsGridView.Rows.Add(password.ID, password.DateCreated, password.Name, password.Email, password.Username, password.Text);
-                ShowPasswords(user);
+                user.Passwords = await PasswordsService.Instance().GetAllUserPasswordsAsync(user);
+                ShowPasswords(user.Passwords);
             }
         }
 
@@ -203,18 +202,20 @@ namespace PasswordManager.App
 
         private void PasswordsGridView_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
+            var dataGridView = (sender as DataGridView);
+
             //Skip the Column and Row headers
             if (e.ColumnIndex < 0 || e.RowIndex < 0)
             {
-                return;
-            }
-
-            var dataGridView = (sender as DataGridView);
-
-            if (e.ColumnIndex == 6 || e.ColumnIndex == 7 || e.ColumnIndex == 8)
-                dataGridView.Cursor = Cursors.Hand;
-            else
                 dataGridView.Cursor = Cursors.Default;
+            }
+            else
+            {
+                if (e.ColumnIndex == 6 || e.ColumnIndex == 7 || e.ColumnIndex == 8)
+                    dataGridView.Cursor = Cursors.Hand;
+                else
+                    dataGridView.Cursor = Cursors.Default;
+            }
         }
 
         private async void PasswordsGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -236,9 +237,9 @@ namespace PasswordManager.App
 
                     if (updatePasswordForm.ShowDialog() == DialogResult.OK)
                     {
-                        Password updatedPassword = await PasswordsService.Instance().UpdateUserPasswordAsync(user, updatePasswordForm.password);
+                        user.Passwords = await PasswordsService.Instance().GetAllUserPasswordsAsync(user);
                         Messenger("Password Updated.", Globals.Defaults.WarningColor);
-                        ShowPasswords(user);
+                        ShowPasswords(user.Passwords);
                     }
                 }
                 else if (PasswordsGridView.Columns[e.ColumnIndex].Name == "ColDelete")
