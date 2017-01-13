@@ -56,11 +56,7 @@ namespace PasswordManager.Services
         {
             return Task.Factory.StartNew(() =>
             {
-                if (ValidationService.Instance().File(FileName))
-                {
-                    return Filer.Filer.ExportToFile(Passwords, FileName);
-                }
-                else return false;
+                return Filer.Filer.ExportToFile(Passwords, FileName);
             });
         }
     }

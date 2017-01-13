@@ -97,7 +97,7 @@ namespace PasswordManager.App
             masterPasswordForm.ShowDialog();
         }
 
-        private void btnImportPasswords_Click(object sender, EventArgs e)
+        private async void btnImportPasswords_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Title = "Import Passwords";
@@ -109,15 +109,17 @@ namespace PasswordManager.App
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                List<Password> importedPasswords = Filer.Filer.ImportFromFile(ofd.FileName);
+                List<Password> importedPasswords = await BearPassService.Instance().ImportPasswordsAsync(ofd.FileName);
+
                 if (importedPasswords != null)
                 {
                     if(MessageBox.Show("The file contains "+ importedPasswords.Count + " passwords. Are you sure you want to import these passwords to your account?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                     {
                         //import the passwords to current user.
-                        user.Passwords.AddRange(importedPasswords);
+                        //user.Passwords.AddRange(importedPasswords);
+                        
+                        await PasswordsService.Instance().SaveNewUserPasswordsAsync(user, CryptoService.Instance().DecryptUserPasswords(user, importedPasswords));
                         ShowPasswords(user.Passwords);
-
 
                         //BearPassService.Instance().ImportPasswords(user, importedPasswords);
                         //passwords.Import(importedPasswords, user);
@@ -126,7 +128,7 @@ namespace PasswordManager.App
             }
         }
 
-        private void btnExportPasswords_Click(object sender, EventArgs e)
+        private async void btnExportPasswords_Click(object sender, EventArgs e)
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Title = "Export Passwords";
@@ -138,7 +140,7 @@ namespace PasswordManager.App
 
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                if (Filer.Filer.ExportToFile(user.Passwords, sfd.FileName))
+                if (await BearPassService.Instance().ExportPasswordsAsync(CryptoService.Instance().EncryptUserPasswords(user, user.Passwords), sfd.FileName))
                 {
                     MessageBox.Show("Passwords exported to "+sfd.FileName+" file.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
