@@ -38,7 +38,7 @@ namespace PasswordManager.App
 
         private bool IsEnable()
         {
-            if (Verifier.Text(txtName.Text) && Verifier.Text(txtPassword.Text))
+            if (Verifier.Text(txtName.Text) && Verifier.Text(txtPassword.Text) && Verifier.Email(txtEmail.Text))
                 return true;
             return false;
         }
