@@ -304,16 +304,16 @@ namespace PasswordManager.Database
                 using (SqlCommand command = new SqlCommand(
                 "Update Passwords set Name= @Name, @Email=@Email, Username= @Username, Website= @Website, Text= @Text, Notes= @Notes, DateCreated= @DateCreated, DateModified= @DateModified where ID = @ID AND UserID= @UserID", connection))
                 {
-                    command.Parameters.Add(new SqlParameter("@ID", password.ID));
-                    command.Parameters.Add(new SqlParameter("@UserID", userID));
-                    command.Parameters.Add(new SqlParameter("@Name", password.Name));
-                    command.Parameters.Add(new SqlParameter("@Email", password.Email));
-                    command.Parameters.Add(new SqlParameter("@Username", password.Username));
-                    command.Parameters.Add(new SqlParameter("@Website", password.Website));
-                    command.Parameters.Add(new SqlParameter("@Text", password.Text));
-                    command.Parameters.Add(new SqlParameter("@Notes", password.Notes));
-                    command.Parameters.Add(new SqlParameter("@DateCreated", password.DateCreated));
-                    command.Parameters.Add(new SqlParameter("@DateModified", password.DateModified));
+                    command.Parameters.Add(new SqlParameter("ID", password.ID));
+                    command.Parameters.Add(new SqlParameter("UserID", userID));
+                    command.Parameters.Add(new SqlParameter("Name", password.Name));
+                    command.Parameters.Add(new SqlParameter("Email", password.Email));
+                    command.Parameters.Add(new SqlParameter("Username", password.Username));
+                    command.Parameters.Add(new SqlParameter("Website", password.Website));
+                    command.Parameters.Add(new SqlParameter("Text", password.Text));
+                    command.Parameters.Add(new SqlParameter("Notes", password.Notes));
+                    command.Parameters.Add(new SqlParameter("DateCreated", password.DateCreated));
+                    command.Parameters.Add(new SqlParameter("DateModified", password.DateModified));
 
                     connection.Open();
 
