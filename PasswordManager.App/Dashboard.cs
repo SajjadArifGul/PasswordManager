@@ -242,7 +242,7 @@ namespace PasswordManager.App
                 }
                 else if (PasswordsGridView.Columns[e.ColumnIndex].Name == "ColDelete")
                 {
-                    if (MessageBox.Show("Are you sure you want to delete this Password?\nTHIS TASK WILL NOT BE REVERTED.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                    if (MessageBox.Show("Are you sure you want to delete this Password?\n\nTHIS TASK WILL NOT BE REVERTED.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                     {
                         int ID = Convert.ToInt32(PasswordsGridView.Rows[e.RowIndex].Cells["ColID"].Value.ToString());
                         Password passwordToDelete = user.Passwords.Where(p => p.ID == ID).FirstOrDefault();
@@ -251,7 +251,7 @@ namespace PasswordManager.App
                         {
                             PasswordsGridView.Rows.RemoveAt(e.RowIndex);
                             Messenger("Password Deleted.", Globals.Defaults.WarningColor);
-                            System.Media.SystemSounds.Question.Play();
+                            System.Media.SystemSounds.Hand.Play();
                         }
                         else
                         {
