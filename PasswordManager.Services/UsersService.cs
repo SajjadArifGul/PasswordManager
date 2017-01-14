@@ -130,7 +130,25 @@ namespace PasswordManager.Services
                 }
                 else return null;
             });
+        }
 
+
+        /// <summary>
+        /// Updates the given User.
+        /// </summary>
+        /// <param name="user">User to be updated.</param>
+        /// <returns>User: updated User.</returns>
+        public User UpdateUser(User user)
+        {
+            if (ValidationService.Instance().User(user))
+                {
+                    if (UsersData.Instance().UpdateUser(user) > 0)
+                    {
+                        return user;
+                    }
+                    else return user;
+                }
+                else return null;
         }
 
         /// <summary>

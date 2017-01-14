@@ -36,6 +36,7 @@
             this.TitlePictureBox = new System.Windows.Forms.PictureBox();
             this.lblAppMotto = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.picboxLoading = new System.Windows.Forms.PictureBox();
             this.chkHideConfirmMaster = new System.Windows.Forms.CheckBox();
             this.chkHideNewMaster = new System.Windows.Forms.CheckBox();
             this.chkHideMaster = new System.Windows.Forms.CheckBox();
@@ -45,13 +46,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtMaster = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.lblMassege = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.TitlePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TitlePictureBox)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picboxLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -130,6 +131,7 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(239)))), ((int)(((byte)(241)))));
+            this.panel2.Controls.Add(this.picboxLoading);
             this.panel2.Controls.Add(this.chkHideConfirmMaster);
             this.panel2.Controls.Add(this.chkHideNewMaster);
             this.panel2.Controls.Add(this.chkHideMaster);
@@ -139,13 +141,23 @@
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.txtMaster);
             this.panel2.Controls.Add(this.label7);
-            this.panel2.Controls.Add(this.btnCancel);
             this.panel2.Controls.Add(this.btnSave);
             this.panel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(140)))), ((int)(((byte)(235)))));
             this.panel2.Location = new System.Drawing.Point(0, 248);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(484, 212);
             this.panel2.TabIndex = 60;
+            // 
+            // picboxLoading
+            // 
+            this.picboxLoading.Image = global::PasswordManager.App.Properties.Resources.loading_gear_anim;
+            this.picboxLoading.Location = new System.Drawing.Point(164, 113);
+            this.picboxLoading.Name = "picboxLoading";
+            this.picboxLoading.Size = new System.Drawing.Size(45, 43);
+            this.picboxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picboxLoading.TabIndex = 86;
+            this.picboxLoading.TabStop = false;
+            this.picboxLoading.Visible = false;
             // 
             // chkHideConfirmMaster
             // 
@@ -252,32 +264,11 @@
             this.label7.TabIndex = 29;
             this.label7.Text = "Existing Master :";
             // 
-            // btnCancel
-            // 
-            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(67)))), ((int)(((byte)(54)))));
-            this.btnCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.FlatAppearance.BorderSize = 0;
-            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.Image = global::PasswordManager.App.Properties.Resources.password_cancel_40;
-            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(164, 113);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(110, 42);
-            this.btnCancel.TabIndex = 8;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCancel.UseVisualStyleBackColor = false;
-            // 
             // btnSave
             // 
             this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnSave.Enabled = false;
             this.btnSave.FlatAppearance.BorderSize = 0;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -285,7 +276,7 @@
             this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.Image = global::PasswordManager.App.Properties.Resources.password_master_save_40;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(280, 113);
+            this.btnSave.Location = new System.Drawing.Point(216, 113);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(110, 42);
             this.btnSave.TabIndex = 7;
@@ -330,6 +321,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.TitlePictureBox)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picboxLoading)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -344,7 +336,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox txtMaster;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.TextBox txtConfirmMaster;
         private System.Windows.Forms.Label label4;
@@ -355,5 +346,6 @@
         private System.Windows.Forms.CheckBox chkHideNewMaster;
         private System.Windows.Forms.CheckBox chkHideMaster;
         private System.Windows.Forms.Label lblMassege;
+        private System.Windows.Forms.PictureBox picboxLoading;
     }
 }

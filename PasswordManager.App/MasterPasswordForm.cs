@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -25,6 +26,8 @@ namespace PasswordManager.App
 
             lblMasterNote.Text = Globals.Information.MasterPasswordNote;
             lblMasterNote.ForeColor = Color.FromArgb(255, 214, 0);
+
+            picboxLoading.Hide();
         }
 
         private void MasterPasswordForm_Load(object sender, EventArgs e)
@@ -47,24 +50,33 @@ namespace PasswordManager.App
             txtConfirmMaster.UseSystemPasswordChar = chkHideConfirmMaster.Checked;
         }
         
-        private void btnSave_Click(object sender, EventArgs e)
+        private async void btnSave_Click(object sender, EventArgs e)
         {
             //check if the newly supplied passwords are same or not
             if (! PasswordsService.Instance().IsSame(txtNewMaster.Text, txtConfirmMaster.Text) && !Verifier.Text(txtNewMaster.Text) && !Verifier.Text(txtConfirmMaster.Text))
             {
                 lblMassege.Text = "Your New Master Password and Confirm Master Password doesn't match.";
                 lblMassege.ForeColor = Color.FromArgb(244, 67, 54);
+                
             }
             else //both new passwords are same. Dont match them again
             {
                 //match the current Master Password with the entered Master Password
                 if (Verifier.Text(txtMaster.Text) && PasswordsService.Instance().IsSame(user.Master, txtMaster.Text))
                 {
-                    ////Proceed with re-encrypting all passwords with new master
-                    //NewPasswords = PasswordsService.Instance().ReEncrypter(user, txtNewMaster.Text);
+                    if (MessageBox.Show("Are you sure you want to change your Master Password?\n\nPlease write down your Master Password for safe keeping, if you forgot your Master Password, you will not be able to recover your Passwords.\n\nFor more guidelines goto Dashboard > Guidelines.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                    {
+                        picboxLoading.Show();
+                        btnSave.Enabled = false;
 
-                    //change the Master Password
-                    user.Master = txtNewMaster.Text;
+                        //do some refactoring here like null etc exc -gul:1401171353
+                        user = await PasswordsService.Instance().ChangeMasterEncryption(user, txtNewMaster.Text);
+                        
+                        picboxLoading.Hide();
+                        btnSave.Enabled = true;
+                        lblMassege.Text = "Master Password Changed.";
+                        lblMassege.ForeColor = Color.FromArgb(67, 140, 235);
+                    }
                 }
                 else //user entered a wrong master password
                 {

@@ -175,6 +175,33 @@ namespace PasswordManager.Services
         }
 
         /// <summary>
+        /// Updates the supplied List of Passwords.
+        /// </summary>
+        /// <param name="user">User for whom the Password is to be updated.</param>
+        /// <param name="passwords">List of Passwords to be updated.</param>
+        /// <returns>List of Password: The updated passwords.</returns>
+        public Task<User> ChangeMasterEncryption(User user, string NewMaster)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                if (ValidationService.Instance().User(user))
+                {
+                    List<Password> allPasswords = GetAllUserPasswords(user);
+                    
+                    user.Master = NewMaster;
+                    user = UsersService.Instance().UpdateUser(user);
+                    
+                    if (PasswordsData.Instance().UpdateUserPasswords(user, CryptoService.Instance().EncryptUserPasswords(user, allPasswords)) > 0)
+                    {
+                        return user;
+                    }
+                    else return null;
+                }
+                else return null;
+            });
+        }
+
+        /// <summary>
         /// Removes Password from the Supplied User.
         /// </summary>
         /// <param name="user">User for whom Password is to be removed.</param>

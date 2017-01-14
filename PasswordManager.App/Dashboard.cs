@@ -90,11 +90,13 @@ namespace PasswordManager.App
             }
         }
 
-        private void btnMasterPassword_Click(object sender, EventArgs e)
+        private async void btnMasterPassword_Click(object sender, EventArgs e)
         {
             MasterPasswordForm masterPasswordForm = new MasterPasswordForm(user);
-
             masterPasswordForm.ShowDialog();
+
+            //weird but working :p
+            ShowPasswords(await PasswordsService.Instance().GetAllUserPasswordsAsync(user));
         }
 
         private async void btnImportPasswords_Click(object sender, EventArgs e)
