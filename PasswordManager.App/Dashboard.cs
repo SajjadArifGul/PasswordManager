@@ -101,8 +101,8 @@ namespace PasswordManager.App
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Title = "Import Passwords";
-            ofd.DefaultExt = "bp";
-            ofd.Filter = Globals.Information.AppName + " files (*.bp)|*.bp|All files (*.*)|*.*";
+            ofd.DefaultExt = "bpf";
+            ofd.Filter = Globals.Information.AppName + " files (*.bpf)|*.bpf|All files (*.*)|*.*";
             ofd.FilterIndex = 1;
             ofd.CheckPathExists = true;
             ofd.RestoreDirectory = true;
@@ -115,14 +115,8 @@ namespace PasswordManager.App
                 {
                     if(MessageBox.Show("The file contains "+ importedPasswords.Count + " passwords. Are you sure you want to import these passwords to your account?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                     {
-                        //import the passwords to current user.
-                        //user.Passwords.AddRange(importedPasswords);
-                        
                         await PasswordsService.Instance().SaveNewUserPasswordsAsync(user, CryptoService.Instance().DecryptUserPasswords(user, importedPasswords));
-                        ShowPasswords(user.Passwords);
-
-                        //BearPassService.Instance().ImportPasswords(user, importedPasswords);
-                        //passwords.Import(importedPasswords, user);
+                        ShowPasswords(await PasswordsService.Instance().GetAllUserPasswordsAsync(user));
                     }
                 }
             }
@@ -132,8 +126,8 @@ namespace PasswordManager.App
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Title = "Export Passwords";
-            sfd.DefaultExt = "bp";
-            sfd.Filter = Globals.Information.AppName + " files (*.bp)|*.bp|All files (*.*)|*.*";
+            sfd.DefaultExt = "bpf";
+            sfd.Filter = Globals.Information.AppName + " files (*.bpf)|*.bpf|All files (*.*)|*.*";
             sfd.FilterIndex = 1;
             sfd.CheckPathExists = true;
             sfd.RestoreDirectory = true;
@@ -142,7 +136,7 @@ namespace PasswordManager.App
             {
                 if (await BearPassService.Instance().ExportPasswordsAsync(CryptoService.Instance().EncryptUserPasswords(user, user.Passwords), sfd.FileName))
                 {
-                    MessageBox.Show("Passwords exported to "+sfd.FileName+" file.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Passwords exported to " + sfd.FileName + " file.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
