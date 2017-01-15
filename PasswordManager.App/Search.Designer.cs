@@ -182,6 +182,7 @@
             // 
             // Search
             // 
+            this.AcceptButton = this.btnSearchPassword;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(140)))), ((int)(((byte)(235)))));
             this.ClientSize = new System.Drawing.Size(384, 131);

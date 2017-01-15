@@ -18,7 +18,8 @@ namespace PasswordManager.Database
 
         protected DB()
         {
-            ConnectionString = Properties.Settings.Default["PasswordManagerDBConnection"].ToString();
+            //ConnectionString = Properties.Settings.Default["PasswordManagerDBConnection"].ToString();
+            ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\PasswordManager\PasswordManager.Database\PasswordManagerDB.mdf;Integrated Security=True";
         }
 
         public static DB Instance()
@@ -568,6 +569,8 @@ namespace PasswordManager.Database
                     while (reader.Read())
                     {
                         passwordOptions = new PasswordOptions();
+                        passwordOptions.ID = Convert.ToInt32(reader["ID"]);
+                        passwordOptions.SettingsID = settingsID;
                         passwordOptions.AllowLowercaseCharacters = Convert.ToBoolean(reader["AllowLowercaseCharacters"]);
                         passwordOptions.AllowUppercaseCharacters = Convert.ToBoolean(reader["AllowUppercaseCharacters"]);
                         passwordOptions.AllowNumberCharacters = Convert.ToBoolean(reader["AllowNumberCharacters"]);
