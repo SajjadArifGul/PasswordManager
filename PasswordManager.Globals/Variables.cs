@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace PasswordManager.Globals
 {
-    public class Variables
+    public static class Variables
     {
-        public static string DatabaseFilePath = @"SampleData.xml";
+        public static string DatabaseConnectionString { get; set; }
 
         public static List<DateFormat> DateFormats = new List<DateFormat>()
         {

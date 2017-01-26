@@ -144,11 +144,12 @@
             this.txtLoginPass.Name = "txtLoginPass";
             this.txtLoginPass.Size = new System.Drawing.Size(225, 29);
             this.txtLoginPass.TabIndex = 5;
-            this.txtLoginPass.Text = "12345";
             this.txtLoginPass.UseSystemPasswordChar = true;
             // 
             // txtEmail
             // 
+            this.txtEmail.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.txtEmail.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
             this.txtEmail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(234)))), ((int)(((byte)(246)))));
             this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtEmail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(140)))), ((int)(((byte)(235)))));
@@ -156,7 +157,6 @@
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(225, 29);
             this.txtEmail.TabIndex = 4;
-            this.txtEmail.Text = "sajjadarifgul@gmail.com";
             // 
             // label3
             // 
