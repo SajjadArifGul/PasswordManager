@@ -1,6 +1,7 @@
 ﻿using PasswordManager.Entities;
 using PasswordManager.Filer;
 using PasswordManager.Services;
+using PasswordManager.Theme;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,6 +34,7 @@ namespace PasswordManager.App
                 PasswordsGridView.Columns["ColEmail"].Visible = settings.ShowEmailColumn;
                 PasswordsGridView.Columns["ColUsername"].Visible = settings.ShowUsernameColumn;
                 PasswordsGridView.Columns["ColPassword"].Visible = settings.ShowPasswordColumn;
+                ShowPasswords(user.Passwords);
             }
         }
 
@@ -75,7 +77,14 @@ namespace PasswordManager.App
                 }
                 else Options = "Equals";
 
-                ShowPasswords(await PasswordsService.Instance().SearchUserPasswordsAsync(user, SearchTerm, LooksFor, Options));
+                try
+                {
+                    ShowPasswords(await PasswordsService.Instance().SearchUserPasswordsAsync(user, SearchTerm, LooksFor, Options));
+                }
+                catch (Exception ex)
+                {
+                    Messenger.Show(ex.Message + " " + ex.HResult, "Error");
+                }
             }
         }
 
@@ -85,10 +94,17 @@ namespace PasswordManager.App
 
             if (newPasswordForm.ShowDialog() == DialogResult.OK)
             {
-                user.Passwords = await PasswordsService.Instance().GetAllUserPasswordsAsync(user);
-                ShowPasswords(user.Passwords);
-                PasswordsGridView.Focus();
-                PasswordsGridView.CurrentCell = PasswordsGridView.Rows[PasswordsGridView.Rows.Count-1].Cells[2];
+                try
+                {
+                    user.Passwords = await PasswordsService.Instance().GetAllUserPasswordsAsync(user);
+                    ShowPasswords(user.Passwords);
+                    PasswordsGridView.Focus();
+                    PasswordsGridView.CurrentCell = PasswordsGridView.Rows[PasswordsGridView.Rows.Count - 1].Cells[2];
+                }
+                catch (Exception ex)
+                {
+                    Messenger.Show(ex.Message + " " + ex.HResult, "Error");
+                }
             }
         }
 
@@ -98,7 +114,14 @@ namespace PasswordManager.App
             masterPasswordForm.ShowDialog();
 
             //weird but working :p
-            ShowPasswords(await PasswordsService.Instance().GetAllUserPasswordsAsync(user));
+            try
+            {
+                ShowPasswords(await PasswordsService.Instance().GetAllUserPasswordsAsync(user));
+            }
+            catch (Exception ex)
+            {
+                Messenger.Show(ex.Message + " " + ex.HResult, "Error");
+            }
         }
 
         private async void btnImportPasswords_Click(object sender, EventArgs e)
@@ -114,12 +137,19 @@ namespace PasswordManager.App
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 List<Password> importedPasswords = await BearPassService.Instance().ImportPasswordsAsync(ofd.FileName);
-
+                
                 if (importedPasswords != null)
                 {
-                    if(MessageBox.Show("The file contains "+ importedPasswords.Count + " passwords. Are you sure you want to import these passwords to your account?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                    if (Messenger.Confirm("The file contains " + importedPasswords.Count + " passwords. Are you sure you want to import these passwords to your account?"))
                     {
-                        await PasswordsService.Instance().SaveNewUserPasswordsAsync(user, CryptoService.Instance().DecryptUserPasswords(user, importedPasswords));
+                        try
+                        {
+                            await PasswordsService.Instance().SaveNewUserPasswordsAsync(user, CryptoService.Instance().DecryptUserPasswords(user, importedPasswords));
+                        }
+                        catch
+                        {
+                            Messenger.Show("Unable to import passwords. Either these passwords were encrypted with a different Master Password than yours or you changed your Master Password.", "Error");
+                        }
                         ShowPasswords(await PasswordsService.Instance().GetAllUserPasswordsAsync(user));
                     }
                 }
@@ -140,7 +170,7 @@ namespace PasswordManager.App
             {
                 if (await BearPassService.Instance().ExportPasswordsAsync(CryptoService.Instance().EncryptUserPasswords(user, user.Passwords), sfd.FileName))
                 {
-                    MessageBox.Show("Passwords exported to " + sfd.FileName + " file.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Messenger.Show("Passwords exported to " + sfd.FileName + " file.", "Info");
                 }
             }
         }
@@ -158,7 +188,14 @@ namespace PasswordManager.App
 
             if (settingsForm.ShowDialog() == DialogResult.OK)
             {
-                LoadSettings(user.Settings);
+                try
+                {
+                    LoadSettings(user.Settings);
+                }
+                catch (Exception ex)
+                {
+                    Messenger.Show(ex.Message + " " + ex.HResult, "Error");
+                }
             }
         }
 
@@ -194,7 +231,7 @@ namespace PasswordManager.App
 
             foreach (Password password in Passwords)
             {
-                PasswordsGridView.Rows.Add(password.ID, password.DateCreated, password.Name, password.Email, password.Username, password.Text);
+                PasswordsGridView.Rows.Add(password.ID, password.DateCreated.ToString(user.Settings.DateTimeFormat), password.Name, password.Email, password.Username, password.Text);
             }
         }
 
@@ -225,7 +262,7 @@ namespace PasswordManager.App
                     Clipboard.Clear();
                     Clipboard.SetText(PasswordsGridView.Rows[e.RowIndex].Cells["ColPassword"].Value.ToString());
                     System.Media.SystemSounds.Exclamation.Play();
-                    Messenger(PasswordsGridView.Rows[e.RowIndex].Cells["ColName"].Value.ToString() + " Password Copied.");
+                    DisplayMassege(PasswordsGridView.Rows[e.RowIndex].Cells["ColName"].Value.ToString() + " Password Copied.");
                 }
                 else if (PasswordsGridView.Columns[e.ColumnIndex].Name == "ColUpdate")
                 {
@@ -236,26 +273,30 @@ namespace PasswordManager.App
                     if (updatePasswordForm.ShowDialog() == DialogResult.OK)
                     {
                         user.Passwords = await PasswordsService.Instance().GetAllUserPasswordsAsync(user);
-                        Messenger("Password Updated.", Globals.Defaults.WarningColor);
+                        DisplayMassege("Password Updated.", Globals.Defaults.WarningColor);
                         ShowPasswords(user.Passwords);
                     }
                 }
                 else if (PasswordsGridView.Columns[e.ColumnIndex].Name == "ColDelete")
                 {
-                    if (MessageBox.Show("Are you sure you want to delete this Password?\n\nTHIS TASK WILL NOT BE REVERTED.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                    if (Messenger.Confirm("Are you sure you want to delete this Password?\n\nTHIS TASK WILL NOT BE REVERTED."))
                     {
                         int ID = Convert.ToInt32(PasswordsGridView.Rows[e.RowIndex].Cells["ColID"].Value.ToString());
-                        Password passwordToDelete = user.Passwords.Where(p => p.ID == ID).FirstOrDefault();
+
+                        //this is necessary to get all passwords before deleting.
+                        user.Passwords = await PasswordsService.Instance().GetAllUserPasswordsAsync(user);
+
+                        Password passwordToDelete =  user.Passwords.Where(p => p.ID == ID).FirstOrDefault();
 
                         if (await PasswordsService.Instance().RemoveUserPasswordAsync(user, passwordToDelete))
                         {
                             PasswordsGridView.Rows.RemoveAt(e.RowIndex);
-                            Messenger("Password Deleted.", Globals.Defaults.WarningColor);
+                            DisplayMassege("Password Deleted.", Globals.Defaults.WarningColor);
                             System.Media.SystemSounds.Hand.Play();
                         }
                         else
                         {
-                            Messenger("Password NOT Deleted.", Globals.Defaults.ErrorColor);
+                            DisplayMassege("Password NOT Deleted.", Globals.Defaults.ErrorColor);
                             System.Media.SystemSounds.Exclamation.Play();
                         }
                     }
@@ -263,12 +304,12 @@ namespace PasswordManager.App
             }
         }
 
-        public void Messenger(string Message)
+        public void DisplayMassege(string Message)
         {
-            Messenger(Message, Globals.Defaults.DefaultColor);
+            DisplayMassege(Message, Globals.Defaults.DefaultColor);
         }
 
-        public void Messenger(string Message, Color FontColor)
+        public void DisplayMassege(string Message, Color FontColor)
         {
             lblMassege.Text = Message;
             lblMassege.ForeColor = FontColor;

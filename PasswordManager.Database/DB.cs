@@ -18,8 +18,8 @@ namespace PasswordManager.Database
 
         protected DB()
         {
-            //ConnectionString = Properties.Settings.Default["PasswordManagerDBConnection"].ToString();
-            ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\PasswordManager\PasswordManager.Database\PasswordManagerDB.mdf;Integrated Security=True";
+            ConnectionString = Properties.Settings.Default["PasswordManagerDBConnection"].ToString();
+            //ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\PasswordManager\PasswordManager.Database\PasswordManagerDB.mdf;Integrated Security=True";
         }
 
         public static DB Instance()
