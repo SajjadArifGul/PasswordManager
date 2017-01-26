@@ -87,6 +87,8 @@ namespace PasswordManager.App
             {
                 user.Passwords = await PasswordsService.Instance().GetAllUserPasswordsAsync(user);
                 ShowPasswords(user.Passwords);
+                PasswordsGridView.Focus();
+                PasswordsGridView.CurrentCell = PasswordsGridView.Rows[PasswordsGridView.Rows.Count-1].Cells[2];
             }
         }
 
@@ -156,8 +158,6 @@ namespace PasswordManager.App
 
             if (settingsForm.ShowDialog() == DialogResult.OK)
             {
-                user = settingsForm.user;
-
                 LoadSettings(user.Settings);
             }
         }

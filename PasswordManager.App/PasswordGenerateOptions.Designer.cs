@@ -103,7 +103,7 @@
             this.txtMaximumCharacters.Location = new System.Drawing.Point(157, 209);
             this.txtMaximumCharacters.Name = "txtMaximumCharacters";
             this.txtMaximumCharacters.Size = new System.Drawing.Size(79, 25);
-            this.txtMaximumCharacters.TabIndex = 17;
+            this.txtMaximumCharacters.TabIndex = 15;
             this.txtMaximumCharacters.TextChanged += new System.EventHandler(this.txtMaximumCharacters_TextChanged);
             // 
             // label3
@@ -121,7 +121,7 @@
             this.txtMinimumCharacters.Location = new System.Drawing.Point(157, 238);
             this.txtMinimumCharacters.Name = "txtMinimumCharacters";
             this.txtMinimumCharacters.Size = new System.Drawing.Size(79, 25);
-            this.txtMinimumCharacters.TabIndex = 15;
+            this.txtMinimumCharacters.TabIndex = 17;
             this.txtMinimumCharacters.TextChanged += new System.EventHandler(this.txtMinimumCharacters_TextChanged);
             // 
             // label2
