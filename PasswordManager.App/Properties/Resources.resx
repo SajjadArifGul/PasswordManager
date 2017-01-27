@@ -151,6 +151,9 @@
   <data name="settings.cancel.40" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\settings.cancel.40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="loading.gear.anim" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\loading.gear.anim.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="password.search.40" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\password.search.40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -159,6 +162,9 @@
   </data>
   <data name="password.new.40" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\password.new.40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="passwords.about.40" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\passwords.about.40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="password.options" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\password.options.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -253,7 +259,7 @@
   <data name="login.40" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\login.40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="loading.gear.anim" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\loading.gear.anim.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="passwords.about.50" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\passwords.about.50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -31,6 +31,7 @@ namespace PasswordManager.App
             try
             {
                 ResetControls();
+                btnLogin.Enabled = false;
 
                 if (!Verifier.Email(txtEmail.Text))
                 {

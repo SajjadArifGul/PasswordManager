@@ -1,6 +1,7 @@
 ﻿using PasswordManager.Entities;
 using PasswordManager.Globals;
 using PasswordManager.Services;
+using PasswordManager.Theme;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -52,37 +53,46 @@ namespace PasswordManager.App
         
         private async void btnSave_Click(object sender, EventArgs e)
         {
-            //check if the newly supplied passwords are same or not
-            if (! PasswordsService.Instance().IsSame(txtNewMaster.Text, txtConfirmMaster.Text) && !Verifier.Text(txtNewMaster.Text) && !Verifier.Text(txtConfirmMaster.Text))
+            try
             {
-                lblMassege.Text = "Your New Master Password and Confirm Master Password doesn't match.";
-                lblMassege.ForeColor = Color.FromArgb(244, 67, 54);
-                
-            }
-            else //both new passwords are same. Dont match them again
-            {
-                //match the current Master Password with the entered Master Password
-                if (Verifier.Text(txtMaster.Text) && PasswordsService.Instance().IsSame(user.Master, txtMaster.Text))
+                //check if the newly supplied passwords are same or not
+                if (!PasswordsService.Instance().IsSame(txtNewMaster.Text, txtConfirmMaster.Text) && !Verifier.Text(txtNewMaster.Text) && !Verifier.Text(txtConfirmMaster.Text))
                 {
-                    if (MessageBox.Show("Are you sure you want to change your Master Password?\n\nPlease write down your Master Password for safe keeping, if you forgot your Master Password, you will not be able to recover your Passwords.\n\nFor more guidelines goto Dashboard > Guidelines.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
-                    {
-                        picboxLoading.Show();
-                        btnSave.Enabled = false;
+                    lblMassege.Text = "Your New Master Password and Confirm Master Password doesn't match.";
+                    lblMassege.ForeColor = Color.FromArgb(244, 67, 54);
 
-                        //do some refactoring here like null etc exc -gul:1401171353
-                        user = await PasswordsService.Instance().ChangeMasterEncryption(user, txtNewMaster.Text);
-                        
-                        picboxLoading.Hide();
-                        btnSave.Enabled = true;
-                        lblMassege.Text = "Master Password Changed.";
-                        lblMassege.ForeColor = Color.FromArgb(67, 140, 235);
+                }
+                else //both new passwords are same. Dont match them again
+                {
+                    //match the current Master Password with the entered Master Password
+                    if (Verifier.Text(txtMaster.Text) && PasswordsService.Instance().IsSame(user.Master, txtMaster.Text))
+                    {
+                        if (MessageBox.Show("Are you sure you want to change your Master Password?\n\nPlease write down your Master Password for safe keeping, if you forgot your Master Password, you will not be able to recover your Passwords.\n\nFor more guidelines goto Dashboard > Guidelines.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                        {
+                            picboxLoading.Show();
+                            btnSave.Enabled = false;
+
+                            //do some refactoring here like null etc exc -gul:1401171353
+                            user = await PasswordsService.Instance().ChangeMasterEncryption(user, txtNewMaster.Text);
+
+                            picboxLoading.Hide();
+                            btnSave.Enabled = true;
+                            lblMassege.Text = "Master Password Changed.";
+                            lblMassege.ForeColor = Color.FromArgb(67, 140, 235);
+                        }
+                    }
+                    else //user entered a wrong master password
+                    {
+                        lblMassege.Text = "Your Master Password is incorrect.";
+                        lblMassege.ForeColor = Color.FromArgb(244, 67, 54);
                     }
                 }
-                else //user entered a wrong master password
-                {
-                    lblMassege.Text = "Your Master Password is incorrect.";
-                    lblMassege.ForeColor = Color.FromArgb(244, 67, 54);
-                }
+            }
+            catch (Exception ex)
+            {
+                Messenger.Show(ex.Message + " " + ex.HResult, "Error");
+                picboxLoading.Hide();
+                btnSave.Enabled = true;
             }
         }
 

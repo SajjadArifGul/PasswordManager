@@ -1,14 +1,8 @@
 ﻿using PasswordManager.Entities;
 using PasswordManager.Globals;
 using PasswordManager.Services;
+using PasswordManager.Theme;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PasswordManager.App
@@ -44,11 +38,18 @@ namespace PasswordManager.App
             password.Email = txtEmail.Text;
             password.Username = txtUsername.Text;
             password.Website = txtWebsite.Text;
-            password.Text =  txtPassword.Text;
+            password.Text = txtPassword.Text;
             password.Notes = rtxtNotes.Text;
             password.DateModified = DateTime.Now;
 
-            await PasswordsService.Instance().UpdateUserPasswordAsync(user, password);
+            try
+            {
+                await PasswordsService.Instance().UpdateUserPasswordAsync(user, password);
+            }
+            catch (Exception ex)
+            {
+                Messenger.Show(ex.Message + " " + ex.HResult, "Error");
+            }
         }
 
         private void ForSaveBtnEnable(object sender, EventArgs e)
@@ -65,17 +66,31 @@ namespace PasswordManager.App
 
         private async void btnGenerate_Click(object sender, EventArgs e)
         {
-            txtPassword.Text = await PasswordsService.Instance().GeneratePasswordAsync(user);
+            try
+            {
+                txtPassword.Text = await PasswordsService.Instance().GeneratePasswordAsync(user);
+            }
+            catch (Exception ex)
+            {
+                Messenger.Show(ex.Message + " " + ex.HResult, "Error");
+            }
         }
 
         private async void btnOptions_Click(object sender, EventArgs e)
         {
-            PasswordGenerateOptions passwordGenerateOptionsForm = new PasswordGenerateOptions(user);
-
-            if (passwordGenerateOptionsForm.ShowDialog() == DialogResult.OK)
+            try
             {
-                user.Settings.PasswordOptions = passwordGenerateOptionsForm.passwordOptions;
-                txtPassword.Text = await PasswordsService.Instance().GeneratePasswordAsync(user);
+                PasswordGenerateOptions passwordGenerateOptionsForm = new PasswordGenerateOptions(user);
+
+                if (passwordGenerateOptionsForm.ShowDialog() == DialogResult.OK)
+                {
+                    user.Settings.PasswordOptions = passwordGenerateOptionsForm.passwordOptions;
+                    txtPassword.Text = await PasswordsService.Instance().GeneratePasswordAsync(user);
+                }
+            }
+            catch (Exception ex)
+            {
+                Messenger.Show(ex.Message + " " + ex.HResult, "Error");
             }
         }
     }

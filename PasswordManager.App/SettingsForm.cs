@@ -1,6 +1,7 @@
 ﻿using PasswordManager.Entities;
 using PasswordManager.Globals;
 using PasswordManager.Services;
+using PasswordManager.Theme;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -114,9 +115,16 @@ namespace PasswordManager.App
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            UsersService.Instance().UpdateUserAsync(user);
-            
-            SettingsService.Instance().UpdateUserSettingsAsync(user, user.Settings);
+            try
+            {
+                UsersService.Instance().UpdateUserAsync(user);
+
+                SettingsService.Instance().UpdateUserSettingsAsync(user, user.Settings);
+            }
+            catch (Exception ex)
+            {
+                Messenger.Show(ex.Message + " " + ex.HResult, "Error");
+            }
         }
     }
 }

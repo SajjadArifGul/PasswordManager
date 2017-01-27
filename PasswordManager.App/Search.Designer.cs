@@ -179,6 +179,7 @@
             this.btnSearchPassword.Text = "Search";
             this.btnSearchPassword.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSearchPassword.UseVisualStyleBackColor = false;
+            this.btnSearchPassword.Click += new System.EventHandler(this.btnSearchPassword_Click);
             // 
             // Search
             // 

@@ -23,6 +23,11 @@ namespace PasswordManager.App
 
         }
 
+        private void btnSearchPassword_Click(object sender, EventArgs e)
+        {
+
+        }
+
         //private void btnSearchPassword_Click(object sender, EventArgs e)
         //{
         //    passwords = passwords.Where(p => p.Name.ToLower().Contains(txtSearchPassword.Text)).ToList();

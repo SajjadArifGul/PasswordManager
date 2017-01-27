@@ -1,6 +1,7 @@
 ﻿using PasswordManager.Entities;
 using PasswordManager.Globals;
 using PasswordManager.Services;
+using PasswordManager.Theme;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -75,7 +76,14 @@ namespace PasswordManager.App
                 DateModified = DateTime.Now
             };
 
-            await PasswordsService.Instance().SaveNewUserPasswordAsync(user, newPassword);
+            try
+            {
+                await PasswordsService.Instance().SaveNewUserPasswordAsync(user, newPassword);
+            }
+            catch (Exception ex)
+            {
+                Messenger.Show(ex.Message + " " + ex.HResult, "Error");
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
