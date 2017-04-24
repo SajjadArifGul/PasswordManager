@@ -25,12 +25,20 @@ namespace PasswordManager.Database.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=E:\\Development\\DesktopApps\\Pa" +
-            "sswordManager\\PasswordManager.Database\\PasswordManagerDB.mdf;Integrated Security" +
-            "=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=PasswordManagerDB.mdf;Integra" +
+            "ted Security=True")]
         public string PasswordManagerDBConnection {
             get {
                 return ((string)(this["PasswordManagerDBConnection"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=|DataDirectory|bearpass.data")]
+        public string PasswordManagerSQLiteDBConnection {
+            get {
+                return ((string)(this["PasswordManagerSQLiteDBConnection"]));
             }
         }
     }

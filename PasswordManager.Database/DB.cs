@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using PasswordManager.Entities;
 using System.Data.SqlClient;
 
+using System.Data.SQLite;
+
 namespace PasswordManager.Database
 {
     /// <summary>
@@ -19,7 +21,8 @@ namespace PasswordManager.Database
         protected DB()
         {
             //ConnectionString = Properties.Settings.Default["PasswordManagerDBConnection"].ToString();
-            ConnectionString = Globals.DatabaseConnection.Instance().GetValue();
+            ConnectionString = Properties.Settings.Default["PasswordManagerSQLiteDBConnection"].ToString();
+            //ConnectionString = Globals.DatabaseConnection.Instance().GetValue();
         }
 
         public static DB Instance()
@@ -43,12 +46,12 @@ namespace PasswordManager.Database
         {
             int AffectedRows = -1;
 
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
             {
                 connection.Open();
 
-                SqlCommand command = connection.CreateCommand();
-                SqlTransaction userTransaction = connection.BeginTransaction("CreatingUserTransaction");
+                SQLiteCommand command = connection.CreateCommand();
+                SQLiteTransaction userTransaction = connection.BeginTransaction();
 
                 command.Connection = connection;
                 command.Transaction = userTransaction;
@@ -57,10 +60,10 @@ namespace PasswordManager.Database
                 {
                     //Adding New User Values
                     command.CommandText = "Insert into Users (Name, Username, Email, Master) values (@Name, @Username, @Email, @Master)";
-                    command.Parameters.Add(new SqlParameter("Name", user.Name));
-                    command.Parameters.Add(new SqlParameter("Username", user.Username));
-                    command.Parameters.Add(new SqlParameter("Email", user.Email));
-                    command.Parameters.Add(new SqlParameter("Master", user.Master));
+                    command.Parameters.Add(new SQLiteParameter("Name", user.Name));
+                    command.Parameters.Add(new SQLiteParameter("Username", user.Username));
+                    command.Parameters.Add(new SQLiteParameter("Email", user.Email));
+                    command.Parameters.Add(new SQLiteParameter("Master", user.Master));
 
                     //Add User to Database
                     AffectedRows = command.ExecuteNonQuery();
@@ -86,16 +89,16 @@ namespace PasswordManager.Database
         public User GetUserByID(int userID)
         {
             User user = null;
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
             {
-                using (SqlCommand command = new SqlCommand(
+                using (SQLiteCommand command = new SQLiteCommand(
                 "Select * from Users where ID = @ID", connection))
                 {
-                    command.Parameters.Add(new SqlParameter("@ID", userID));
+                    command.Parameters.Add(new SQLiteParameter("@ID", userID));
 
                     connection.Open();
 
-                    SqlDataReader reader = command.ExecuteReader();
+                    SQLiteDataReader reader = command.ExecuteReader();
 
                     user = new User();
 
@@ -121,16 +124,16 @@ namespace PasswordManager.Database
         public User GetUserByEmail(string Email)
         {
             User user = null;
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
             {
-                using (SqlCommand command = new SqlCommand(
+                using (SQLiteCommand command = new SQLiteCommand(
                 "Select * from Users where Email = @Email", connection))
                 {
-                    command.Parameters.Add(new SqlParameter("@Email", Email));
+                    command.Parameters.Add(new SQLiteParameter("@Email", Email));
 
                     connection.Open();
 
-                    SqlDataReader reader = command.ExecuteReader();
+                    SQLiteDataReader reader = command.ExecuteReader();
                     
                     while (reader.Read())
                     {
@@ -156,16 +159,16 @@ namespace PasswordManager.Database
         {
             int AffectedRows = -1;
 
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
             {
-                using (SqlCommand command = new SqlCommand(
+                using (SQLiteCommand command = new SQLiteCommand(
                 "Update Users set Name= @Name, Username= @Username, @Email=@Email, Master= @Master where ID = @ID", connection))
                 {
-                    command.Parameters.Add(new SqlParameter("@ID", user.ID));
-                    command.Parameters.Add(new SqlParameter("@Name", user.Name));
-                    command.Parameters.Add(new SqlParameter("@Username", user.Username));
-                    command.Parameters.Add(new SqlParameter("@Email", user.Email));
-                    command.Parameters.Add(new SqlParameter("@Master", user.Master));
+                    command.Parameters.Add(new SQLiteParameter("@ID", user.ID));
+                    command.Parameters.Add(new SQLiteParameter("@Name", user.Name));
+                    command.Parameters.Add(new SQLiteParameter("@Username", user.Username));
+                    command.Parameters.Add(new SQLiteParameter("@Email", user.Email));
+                    command.Parameters.Add(new SQLiteParameter("@Master", user.Master));
 
                     connection.Open();
 
@@ -184,20 +187,20 @@ namespace PasswordManager.Database
         public int AddNewPassword(int userID, Password password)
         {
             int AffectedRows = -1;
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
             {
-                using (SqlCommand command = new SqlCommand(
+                using (SQLiteCommand command = new SQLiteCommand(
                 "Insert into Passwords (UserID, Name, Email, Username, Website, Text, Notes, DateCreated, DateModified) values (@UserID, @Name, @Email, @Username, @Website, @Text, @Notes, @DateCreated, @DateModified)", connection))
                 {
-                    command.Parameters.Add(new SqlParameter("UserID", userID));
-                    command.Parameters.Add(new SqlParameter("Name", password.Name));
-                    command.Parameters.Add(new SqlParameter("Email", password.Email));
-                    command.Parameters.Add(new SqlParameter("Username", password.Username));
-                    command.Parameters.Add(new SqlParameter("Website", password.Website));
-                    command.Parameters.Add(new SqlParameter("Text", password.Text));
-                    command.Parameters.Add(new SqlParameter("Notes", password.Notes));
-                    command.Parameters.Add(new SqlParameter("DateCreated", password.DateCreated));
-                    command.Parameters.Add(new SqlParameter("DateModified", password.DateModified));
+                    command.Parameters.Add(new SQLiteParameter("UserID", userID));
+                    command.Parameters.Add(new SQLiteParameter("Name", password.Name));
+                    command.Parameters.Add(new SQLiteParameter("Email", password.Email));
+                    command.Parameters.Add(new SQLiteParameter("Username", password.Username));
+                    command.Parameters.Add(new SQLiteParameter("Website", password.Website));
+                    command.Parameters.Add(new SQLiteParameter("Text", password.Text));
+                    command.Parameters.Add(new SQLiteParameter("Notes", password.Notes));
+                    command.Parameters.Add(new SQLiteParameter("DateCreated", password.DateCreated));
+                    command.Parameters.Add(new SQLiteParameter("DateModified", password.DateModified));
 
                     connection.Open();
 
@@ -221,20 +224,20 @@ namespace PasswordManager.Database
             int AffectedRows = 0;
             foreach (Password password in passwords)
             {
-                using (SqlConnection connection = new SqlConnection(ConnectionString))
+                using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
                 {
-                    using (SqlCommand command = new SqlCommand(
+                    using (SQLiteCommand command = new SQLiteCommand(
                     "Insert into Passwords (UserID, Name, Email, Username, Website, Text, Notes, DateCreated, DateModified) values (@UserID, @Name, @Email, @Username, @Website, @Text, @Notes, @DateCreated, @DateModified)", connection))
                     {
-                        command.Parameters.Add(new SqlParameter("UserID", userID));
-                        command.Parameters.Add(new SqlParameter("Name", password.Name));
-                        command.Parameters.Add(new SqlParameter("Email", password.Email));
-                        command.Parameters.Add(new SqlParameter("Username", password.Username));
-                        command.Parameters.Add(new SqlParameter("Website", password.Website));
-                        command.Parameters.Add(new SqlParameter("Text", password.Text));
-                        command.Parameters.Add(new SqlParameter("Notes", password.Notes));
-                        command.Parameters.Add(new SqlParameter("DateCreated", password.DateCreated));
-                        command.Parameters.Add(new SqlParameter("DateModified", password.DateModified));
+                        command.Parameters.Add(new SQLiteParameter("UserID", userID));
+                        command.Parameters.Add(new SQLiteParameter("Name", password.Name));
+                        command.Parameters.Add(new SQLiteParameter("Email", password.Email));
+                        command.Parameters.Add(new SQLiteParameter("Username", password.Username));
+                        command.Parameters.Add(new SQLiteParameter("Website", password.Website));
+                        command.Parameters.Add(new SQLiteParameter("Text", password.Text));
+                        command.Parameters.Add(new SQLiteParameter("Notes", password.Notes));
+                        command.Parameters.Add(new SQLiteParameter("DateCreated", password.DateCreated));
+                        command.Parameters.Add(new SQLiteParameter("DateModified", password.DateModified));
 
                         connection.Open();
 
@@ -255,16 +258,16 @@ namespace PasswordManager.Database
         {
             List<Password> passwords = new List<Password>();
 
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
             {
-                using (SqlCommand command = new SqlCommand(
+                using (SQLiteCommand command = new SQLiteCommand(
                 "Select * from Passwords where UserID = @UserID", connection))
                 {
-                    command.Parameters.Add(new SqlParameter("@UserID", userID));
+                    command.Parameters.Add(new SQLiteParameter("@UserID", userID));
 
                     connection.Open();
 
-                    SqlDataReader reader = command.ExecuteReader();
+                    SQLiteDataReader reader = command.ExecuteReader();
 
                     Password password;
 
@@ -300,21 +303,21 @@ namespace PasswordManager.Database
         {
             int AffectedRows = 0;
 
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
             {
-                using (SqlCommand command = new SqlCommand(
+                using (SQLiteCommand command = new SQLiteCommand(
                 "Update Passwords set Name= @Name, Email=@Email, Username= @Username, Website= @Website, Text= @Text, Notes= @Notes, DateCreated= @DateCreated, DateModified= @DateModified where ID = @ID AND UserID= @UserID", connection))
                 {
-                    command.Parameters.Add(new SqlParameter("ID", password.ID));
-                    command.Parameters.Add(new SqlParameter("UserID", userID));
-                    command.Parameters.Add(new SqlParameter("Name", password.Name));
-                    command.Parameters.Add(new SqlParameter("Email", password.Email));
-                    command.Parameters.Add(new SqlParameter("Username", password.Username));
-                    command.Parameters.Add(new SqlParameter("Website", password.Website));
-                    command.Parameters.Add(new SqlParameter("Text", password.Text));
-                    command.Parameters.Add(new SqlParameter("Notes", password.Notes));
-                    command.Parameters.Add(new SqlParameter("DateCreated", password.DateCreated));
-                    command.Parameters.Add(new SqlParameter("DateModified", password.DateModified));
+                    command.Parameters.Add(new SQLiteParameter("ID", password.ID));
+                    command.Parameters.Add(new SQLiteParameter("UserID", userID));
+                    command.Parameters.Add(new SQLiteParameter("Name", password.Name));
+                    command.Parameters.Add(new SQLiteParameter("Email", password.Email));
+                    command.Parameters.Add(new SQLiteParameter("Username", password.Username));
+                    command.Parameters.Add(new SQLiteParameter("Website", password.Website));
+                    command.Parameters.Add(new SQLiteParameter("Text", password.Text));
+                    command.Parameters.Add(new SQLiteParameter("Notes", password.Notes));
+                    command.Parameters.Add(new SQLiteParameter("DateCreated", password.DateCreated));
+                    command.Parameters.Add(new SQLiteParameter("DateModified", password.DateModified));
 
                     connection.Open();
 
@@ -353,13 +356,13 @@ namespace PasswordManager.Database
         {
             int AffectedRows = 0;
 
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
             {
-                using (SqlCommand command = new SqlCommand(
+                using (SQLiteCommand command = new SQLiteCommand(
                 "Delete from Passwords where ID = @ID AND UserID = @UserID", connection))
                 {
-                    command.Parameters.Add(new SqlParameter("ID", passwordID));
-                    command.Parameters.Add(new SqlParameter("UserID", userID));
+                    command.Parameters.Add(new SQLiteParameter("ID", passwordID));
+                    command.Parameters.Add(new SQLiteParameter("UserID", userID));
 
                     connection.Open();
 
@@ -379,16 +382,16 @@ namespace PasswordManager.Database
         public int AddSettingsByUserID(int userID, Settings settings)
         {
             int AffectedRows = 0;
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
             {
-                using (SqlCommand command = new SqlCommand(
+                using (SQLiteCommand command = new SQLiteCommand(
                 "Insert into Settings (UserID, DateTimeFormat, ShowEmailColumn, ShowUsernameColumn, ShowPasswordColumn) values (@UserID, @DateTimeFormat, @ShowEmailColumn, @ShowUsernameColumn, @ShowPasswordColumn)", connection))
                 {
-                    command.Parameters.Add(new SqlParameter("UserID", userID));
-                    command.Parameters.Add(new SqlParameter("DateTimeFormat", settings.DateTimeFormat));
-                    command.Parameters.Add(new SqlParameter("ShowEmailColumn", settings.ShowEmailColumn));
-                    command.Parameters.Add(new SqlParameter("ShowUsernameColumn", settings.ShowUsernameColumn));
-                    command.Parameters.Add(new SqlParameter("ShowPasswordColumn", settings.ShowPasswordColumn));
+                    command.Parameters.Add(new SQLiteParameter("UserID", userID));
+                    command.Parameters.Add(new SQLiteParameter("DateTimeFormat", settings.DateTimeFormat));
+                    command.Parameters.Add(new SQLiteParameter("ShowEmailColumn", settings.ShowEmailColumn));
+                    command.Parameters.Add(new SQLiteParameter("ShowUsernameColumn", settings.ShowUsernameColumn));
+                    command.Parameters.Add(new SQLiteParameter("ShowPasswordColumn", settings.ShowPasswordColumn));
 
                     connection.Open();
 
@@ -407,16 +410,16 @@ namespace PasswordManager.Database
         public Settings GetSettingsByUserID(int userID)
         {
             Settings settings = null;
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
             {
-                using (SqlCommand command = new SqlCommand(
+                using (SQLiteCommand command = new SQLiteCommand(
                 "Select * from Settings where UserID = @UserID", connection))
                 {
-                    command.Parameters.Add(new SqlParameter("@UserID", userID));
+                    command.Parameters.Add(new SQLiteParameter("@UserID", userID));
 
                     connection.Open();
 
-                    SqlDataReader reader = command.ExecuteReader();
+                    SQLiteDataReader reader = command.ExecuteReader();
 
                     while (reader.Read())
                     {
@@ -445,17 +448,17 @@ namespace PasswordManager.Database
         {
             int AffectedRows = 0;
 
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
             {
-                using (SqlCommand command = new SqlCommand(
+                using (SQLiteCommand command = new SQLiteCommand(
                 "Update Settings set DateTimeFormat= @DateTimeFormat, ShowEmailColumn=@ShowEmailColumn, ShowUsernameColumn= @ShowUsernameColumn, ShowPasswordColumn = @ShowPasswordColumn where ID = @ID AND UserID = @UserID", connection))
                 {
-                    command.Parameters.Add(new SqlParameter("ID", settings.ID));
-                    command.Parameters.Add(new SqlParameter("UserID", userID));
-                    command.Parameters.Add(new SqlParameter("DateTimeFormat", settings.DateTimeFormat));
-                    command.Parameters.Add(new SqlParameter("ShowEmailColumn", settings.ShowEmailColumn));
-                    command.Parameters.Add(new SqlParameter("ShowUsernameColumn", settings.ShowUsernameColumn));
-                    command.Parameters.Add(new SqlParameter("ShowPasswordColumn", settings.ShowPasswordColumn));
+                    command.Parameters.Add(new SQLiteParameter("ID", settings.ID));
+                    command.Parameters.Add(new SQLiteParameter("UserID", userID));
+                    command.Parameters.Add(new SQLiteParameter("DateTimeFormat", settings.DateTimeFormat));
+                    command.Parameters.Add(new SQLiteParameter("ShowEmailColumn", settings.ShowEmailColumn));
+                    command.Parameters.Add(new SQLiteParameter("ShowUsernameColumn", settings.ShowUsernameColumn));
+                    command.Parameters.Add(new SQLiteParameter("ShowPasswordColumn", settings.ShowPasswordColumn));
 
                     connection.Open();
 
@@ -469,27 +472,27 @@ namespace PasswordManager.Database
         public int AddPasswordOptionsBySettingsID(int settingsID, PasswordOptions passwordOptions)
         {
             int AffectedRows = 0;
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
             {
-                using (SqlCommand command = new SqlCommand(@"Insert into PasswordOptions (SettingsID, AllowLowercaseCharacters, AllowUppercaseCharacters, AllowNumberCharacters, AllowSpecialCharacters, AllowUnderscoreCharacters, AllowSpaceCharacters, AllowOtherCharacters, RequireLowercaseCharacters, RequireUppercaseCharacters, RequireNumberCharacters, RequireSpecialCharacters, RequireUnderscoreCharacters, RequireSpaceCharacters, RequireOtherCharacters, MinimumCharacters, MaximumCharacters ) values (@SettingsID, @AllowLowercaseCharacters, @AllowUppercaseCharacters, @AllowNumberCharacters, @AllowSpecialCharacters, @AllowUnderscoreCharacters, @AllowSpaceCharacters, @AllowOtherCharacters, @RequireLowercaseCharacters, @RequireUppercaseCharacters, @RequireNumberCharacters, @RequireSpecialCharacters, @RequireUnderscoreCharacters, @RequireSpaceCharacters, @RequireOtherCharacters, @MinimumCharacters, @MaximumCharacters)", connection))
+                using (SQLiteCommand command = new SQLiteCommand(@"Insert into PasswordOptions (SettingsID, AllowLowercaseCharacters, AllowUppercaseCharacters, AllowNumberCharacters, AllowSpecialCharacters, AllowUnderscoreCharacters, AllowSpaceCharacters, AllowOtherCharacters, RequireLowercaseCharacters, RequireUppercaseCharacters, RequireNumberCharacters, RequireSpecialCharacters, RequireUnderscoreCharacters, RequireSpaceCharacters, RequireOtherCharacters, MinimumCharacters, MaximumCharacters ) values (@SettingsID, @AllowLowercaseCharacters, @AllowUppercaseCharacters, @AllowNumberCharacters, @AllowSpecialCharacters, @AllowUnderscoreCharacters, @AllowSpaceCharacters, @AllowOtherCharacters, @RequireLowercaseCharacters, @RequireUppercaseCharacters, @RequireNumberCharacters, @RequireSpecialCharacters, @RequireUnderscoreCharacters, @RequireSpaceCharacters, @RequireOtherCharacters, @MinimumCharacters, @MaximumCharacters)", connection))
                 {
-                    command.Parameters.Add(new SqlParameter("SettingsID", settingsID));
-                    command.Parameters.Add(new SqlParameter("AllowLowercaseCharacters", passwordOptions.AllowLowercaseCharacters));
-                    command.Parameters.Add(new SqlParameter("AllowUppercaseCharacters", passwordOptions.AllowUppercaseCharacters));
-                    command.Parameters.Add(new SqlParameter("AllowNumberCharacters", passwordOptions.AllowNumberCharacters));
-                    command.Parameters.Add(new SqlParameter("AllowSpecialCharacters", passwordOptions.AllowSpecialCharacters));
-                    command.Parameters.Add(new SqlParameter("AllowUnderscoreCharacters", passwordOptions.AllowUnderscoreCharacters));
-                    command.Parameters.Add(new SqlParameter("AllowSpaceCharacters", passwordOptions.AllowSpaceCharacters));
-                    command.Parameters.Add(new SqlParameter("AllowOtherCharacters", passwordOptions.AllowOtherCharacters));
-                    command.Parameters.Add(new SqlParameter("RequireLowercaseCharacters", passwordOptions.RequireLowercaseCharacters));
-                    command.Parameters.Add(new SqlParameter("RequireUppercaseCharacters", passwordOptions.RequireUppercaseCharacters));
-                    command.Parameters.Add(new SqlParameter("RequireNumberCharacters", passwordOptions.RequireNumberCharacters));
-                    command.Parameters.Add(new SqlParameter("RequireSpecialCharacters", passwordOptions.RequireSpecialCharacters));
-                    command.Parameters.Add(new SqlParameter("RequireUnderscoreCharacters", passwordOptions.RequireUnderscoreCharacters));
-                    command.Parameters.Add(new SqlParameter("RequireSpaceCharacters", passwordOptions.RequireSpaceCharacters));
-                    command.Parameters.Add(new SqlParameter("RequireOtherCharacters", passwordOptions.RequireOtherCharacters));
-                    command.Parameters.Add(new SqlParameter("MinimumCharacters", passwordOptions.MinimumCharacters));
-                    command.Parameters.Add(new SqlParameter("MaximumCharacters", passwordOptions.MaximumCharacters));
+                    command.Parameters.Add(new SQLiteParameter("SettingsID", settingsID));
+                    command.Parameters.Add(new SQLiteParameter("AllowLowercaseCharacters", passwordOptions.AllowLowercaseCharacters));
+                    command.Parameters.Add(new SQLiteParameter("AllowUppercaseCharacters", passwordOptions.AllowUppercaseCharacters));
+                    command.Parameters.Add(new SQLiteParameter("AllowNumberCharacters", passwordOptions.AllowNumberCharacters));
+                    command.Parameters.Add(new SQLiteParameter("AllowSpecialCharacters", passwordOptions.AllowSpecialCharacters));
+                    command.Parameters.Add(new SQLiteParameter("AllowUnderscoreCharacters", passwordOptions.AllowUnderscoreCharacters));
+                    command.Parameters.Add(new SQLiteParameter("AllowSpaceCharacters", passwordOptions.AllowSpaceCharacters));
+                    command.Parameters.Add(new SQLiteParameter("AllowOtherCharacters", passwordOptions.AllowOtherCharacters));
+                    command.Parameters.Add(new SQLiteParameter("RequireLowercaseCharacters", passwordOptions.RequireLowercaseCharacters));
+                    command.Parameters.Add(new SQLiteParameter("RequireUppercaseCharacters", passwordOptions.RequireUppercaseCharacters));
+                    command.Parameters.Add(new SQLiteParameter("RequireNumberCharacters", passwordOptions.RequireNumberCharacters));
+                    command.Parameters.Add(new SQLiteParameter("RequireSpecialCharacters", passwordOptions.RequireSpecialCharacters));
+                    command.Parameters.Add(new SQLiteParameter("RequireUnderscoreCharacters", passwordOptions.RequireUnderscoreCharacters));
+                    command.Parameters.Add(new SQLiteParameter("RequireSpaceCharacters", passwordOptions.RequireSpaceCharacters));
+                    command.Parameters.Add(new SQLiteParameter("RequireOtherCharacters", passwordOptions.RequireOtherCharacters));
+                    command.Parameters.Add(new SQLiteParameter("MinimumCharacters", passwordOptions.MinimumCharacters));
+                    command.Parameters.Add(new SQLiteParameter("MaximumCharacters", passwordOptions.MaximumCharacters));
 
                     connection.Open();
 
@@ -508,17 +511,17 @@ namespace PasswordManager.Database
         public PasswordOptions GetPasswordOptionsByID(int userID)
         {
             PasswordOptions passwordOptions = null;
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
             {
-                using (SqlCommand command = new SqlCommand(
+                using (SQLiteCommand command = new SQLiteCommand(
                 "Select * from PasswordOptions where SettingsID = @SettingsID", connection))
                 {
                     //this method is rough right now. It will be removed later.
-                    command.Parameters.Add(new SqlParameter("@SettingsID", userID));
+                    command.Parameters.Add(new SQLiteParameter("@SettingsID", userID));
 
                     connection.Open();
 
-                    SqlDataReader reader = command.ExecuteReader();
+                    SQLiteDataReader reader = command.ExecuteReader();
 
                     while (reader.Read())
                     {
@@ -555,16 +558,16 @@ namespace PasswordManager.Database
         public PasswordOptions GetPasswordOptionsBySettingsID(int settingsID)
         {
             PasswordOptions passwordOptions = null;
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
             {
-                using (SqlCommand command = new SqlCommand(
+                using (SQLiteCommand command = new SQLiteCommand(
                 "Select * from PasswordOptions where SettingsID = @SettingsID", connection))
                 {
-                    command.Parameters.Add(new SqlParameter("@SettingsID", settingsID));
+                    command.Parameters.Add(new SQLiteParameter("@SettingsID", settingsID));
 
                     connection.Open();
 
-                    SqlDataReader reader = command.ExecuteReader();
+                    SQLiteDataReader reader = command.ExecuteReader();
 
                     while (reader.Read())
                     {
@@ -605,9 +608,9 @@ namespace PasswordManager.Database
         {
             int AffectedRows = 0;
 
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
             {
-                using (SqlCommand command = new SqlCommand(
+                using (SQLiteCommand command = new SQLiteCommand(
                 @"Update PasswordOptions set
                   AllowLowercaseCharacters     = @AllowLowercaseCharacters,
                   AllowUppercaseCharacters     = @AllowUppercaseCharacters,
@@ -629,24 +632,24 @@ namespace PasswordManager.Database
                   where SettingsID = @SettingsID
                 ", connection))
                 {
-                    command.Parameters.Add(new SqlParameter("SettingsID", settingsID));
-                    command.Parameters.Add(new SqlParameter("AllowLowercaseCharacters", passwordOptions.AllowLowercaseCharacters));
-                    command.Parameters.Add(new SqlParameter("AllowUppercaseCharacters", passwordOptions.AllowUppercaseCharacters));
-                    command.Parameters.Add(new SqlParameter("AllowNumberCharacters", passwordOptions.AllowNumberCharacters));
-                    command.Parameters.Add(new SqlParameter("AllowSpecialCharacters", passwordOptions.AllowSpecialCharacters));
-                    command.Parameters.Add(new SqlParameter("AllowUnderscoreCharacters", passwordOptions.AllowUnderscoreCharacters));
-                    command.Parameters.Add(new SqlParameter("AllowSpaceCharacters", passwordOptions.AllowSpaceCharacters));
-                    command.Parameters.Add(new SqlParameter("AllowOtherCharacters", passwordOptions.AllowOtherCharacters));
-                    command.Parameters.Add(new SqlParameter("RequireLowercaseCharacters", passwordOptions.RequireLowercaseCharacters));
-                    command.Parameters.Add(new SqlParameter("RequireUppercaseCharacters", passwordOptions.RequireUppercaseCharacters));
-                    command.Parameters.Add(new SqlParameter("RequireNumberCharacters", passwordOptions.RequireNumberCharacters));
-                    command.Parameters.Add(new SqlParameter("RequireSpecialCharacters", passwordOptions.RequireSpecialCharacters));
-                    command.Parameters.Add(new SqlParameter("RequireUnderscoreCharacters", passwordOptions.RequireUnderscoreCharacters));
-                    command.Parameters.Add(new SqlParameter("RequireSpaceCharacters", passwordOptions.RequireSpaceCharacters));
-                    command.Parameters.Add(new SqlParameter("RequireOtherCharacters", passwordOptions.RequireOtherCharacters));
-                    command.Parameters.Add(new SqlParameter("MinimumCharacters", passwordOptions.MinimumCharacters));
-                    command.Parameters.Add(new SqlParameter("MaximumCharacters", passwordOptions.MaximumCharacters));
-                    command.Parameters.Add(new SqlParameter("OtherCharacters", passwordOptions.OtherCharacters));
+                    command.Parameters.Add(new SQLiteParameter("SettingsID", settingsID));
+                    command.Parameters.Add(new SQLiteParameter("AllowLowercaseCharacters", passwordOptions.AllowLowercaseCharacters));
+                    command.Parameters.Add(new SQLiteParameter("AllowUppercaseCharacters", passwordOptions.AllowUppercaseCharacters));
+                    command.Parameters.Add(new SQLiteParameter("AllowNumberCharacters", passwordOptions.AllowNumberCharacters));
+                    command.Parameters.Add(new SQLiteParameter("AllowSpecialCharacters", passwordOptions.AllowSpecialCharacters));
+                    command.Parameters.Add(new SQLiteParameter("AllowUnderscoreCharacters", passwordOptions.AllowUnderscoreCharacters));
+                    command.Parameters.Add(new SQLiteParameter("AllowSpaceCharacters", passwordOptions.AllowSpaceCharacters));
+                    command.Parameters.Add(new SQLiteParameter("AllowOtherCharacters", passwordOptions.AllowOtherCharacters));
+                    command.Parameters.Add(new SQLiteParameter("RequireLowercaseCharacters", passwordOptions.RequireLowercaseCharacters));
+                    command.Parameters.Add(new SQLiteParameter("RequireUppercaseCharacters", passwordOptions.RequireUppercaseCharacters));
+                    command.Parameters.Add(new SQLiteParameter("RequireNumberCharacters", passwordOptions.RequireNumberCharacters));
+                    command.Parameters.Add(new SQLiteParameter("RequireSpecialCharacters", passwordOptions.RequireSpecialCharacters));
+                    command.Parameters.Add(new SQLiteParameter("RequireUnderscoreCharacters", passwordOptions.RequireUnderscoreCharacters));
+                    command.Parameters.Add(new SQLiteParameter("RequireSpaceCharacters", passwordOptions.RequireSpaceCharacters));
+                    command.Parameters.Add(new SQLiteParameter("RequireOtherCharacters", passwordOptions.RequireOtherCharacters));
+                    command.Parameters.Add(new SQLiteParameter("MinimumCharacters", passwordOptions.MinimumCharacters));
+                    command.Parameters.Add(new SQLiteParameter("MaximumCharacters", passwordOptions.MaximumCharacters));
+                    command.Parameters.Add(new SQLiteParameter("OtherCharacters", passwordOptions.OtherCharacters));
 
                     connection.Open();
 
